@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { API_BASE} from "../services/http";
-import {ADMIN_KEY} from import.meta.env.VITE_ADMIN_KEY
+import { ADMIN_KEY } from "../services/http";
 
 export default function AdminHeatmap() {
   const [data, setData] = useState([]);
