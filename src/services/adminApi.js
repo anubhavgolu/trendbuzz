@@ -1,20 +1,15 @@
 const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 /* ---------------- ADMIN STATS ---------------- */
 export async function fetchAdminStats() {
   if (!ADMIN_KEY) throw new Error("Admin key missing");
 
   const res = await fetch(`${API_BASE}/api/analytics/stats`, {
-    headers: {
-      "x-admin-key": ADMIN_KEY,
-    },
+    headers: { "x-admin-key": ADMIN_KEY },
   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch admin stats");
-  }
-
+  if (!res.ok) throw new Error("Failed to fetch admin stats");
   return res.json();
 }
 
@@ -23,18 +18,14 @@ export async function fetchDailyAnalytics() {
   if (!ADMIN_KEY) throw new Error("Admin key missing");
 
   const res = await fetch(`${API_BASE}/api/analytics/daily`, {
-    headers: {
-      "x-admin-key": ADMIN_KEY,
-    },
+    headers: { "x-admin-key": ADMIN_KEY },
   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch daily analytics");
-  }
-
+  if (!res.ok) throw new Error("Failed to fetch daily analytics");
   return res.json();
 }
 
+/* ---------------- MANUAL NEWS ---------------- */
 export async function getActiveManualNews() {
   const res = await fetch(`${API_BASE}/api/manual-news/active`);
   return res.json();
@@ -43,9 +34,7 @@ export async function getActiveManualNews() {
 export async function updateManualNews(payload) {
   const res = await fetch(`${API_BASE}/api/manual-news/update`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   return res.json();

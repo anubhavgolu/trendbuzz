@@ -1,5 +1,8 @@
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:5000", {
+const SOCKET_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const socket = io(SOCKET_URL, {
+  transports: ["websocket"],
   autoConnect: true,
 });

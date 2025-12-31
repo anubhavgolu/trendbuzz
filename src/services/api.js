@@ -1,12 +1,14 @@
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
+/* ================= TRENDS ================= */
 export async function fetchTrends(filter) {
   const url = filter
-    ? `/api/trends?filter=${filter}`
-    : `/api/trends`;
+    ? `${API_BASE}/api/trends?filter=${filter}`
+    : `${API_BASE}/api/trends`;
 
   const res = await fetch(url);
   const data = await res.json();
 
-  // 🛡 SAFETY
   if (!data || !Array.isArray(data.trends)) {
     console.warn("Trends not ready yet", data);
     return [];
@@ -15,18 +17,12 @@ export async function fetchTrends(filter) {
   return data.trends;
 }
 
+/* ================= COMMENTS ================= */
 export async function fetchComments(slug) {
   const res = await fetch(
-    `http://localhost:5000/api/comments/${slug}`
+    `${API_BASE}/api/comments/${slug}`
   );
-  return res.json();
-}
-export async function deleteManualNews() {
-  const res = await fetch(`${API_BASE}/api/manual-news/delete`, {
-    method: "DELETE",
-    headers: {
-      "x-admin-key": ADMIN_KEY,
-    },
-  });
+
+  if (!res.ok) return [];
   return res.json();
 }

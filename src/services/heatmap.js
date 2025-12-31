@@ -1,6 +1,8 @@
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 export async function trackClick(page, x, y) {
   try {
-    await fetch("http://localhost:5000/api/heatmap/track", {
+    await fetch(`${API_BASE}/api/heatmap/track`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -12,5 +14,7 @@ export async function trackClick(page, x, y) {
           : "desktop",
       }),
     });
-  } catch {}
+  } catch {
+    // silent
+  }
 }
