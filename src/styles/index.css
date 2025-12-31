@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+
+body {
+  @apply bg-gray-50 text-gray-800;
+  /* padding-bottom: 56px; */
+  position: relative;
+  min-height: 100svh; /* NEW mobile-safe unit */
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

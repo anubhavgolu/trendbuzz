@@ -1,0 +1,69 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import MobileBottomNav from "./components/MobileBottomNav";
+import ScrollToTop from "./components/ScrollToTop";
+import InstallBanner from "./components/InstallBanner";
+
+// 🔵 CORE PAGES
+import Categories from "./pages/Categories";
+import TrendDetail from "./pages/TrendDetail";
+import Search from "./pages/Search";
+import About from "./pages/About";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Disclaimer from "./pages/Disclaimer";
+import CategoryPage from "./pages/CategoryPage";
+import Trending from "./pages/Trending";
+import Saved from "./pages/Saved";
+
+// 🔴 ANALYTICS (LIGHTWEIGHT)
+import PageTracker from "./components/PageTracker";
+import ClickTracker from "./components/ClickTracker";
+import AdminManualNews from "./pages/admin/AdminManualNews";
+
+// 🟣 ADMIN (LAZY LOADED)
+const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
+const AdminHeatmap = lazy(() => import("./pages/AdminHeatmap"));
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      {/* 🔥 Analytics after initial paint */}
+      <Suspense fallback={null}>
+        <PageTracker />
+        <ClickTracker />
+      </Suspense>
+
+      <ScrollToTop />
+      <Header />
+
+      {/* MAIN CONTENT */}
+      <main className="min-h-screen pb-[72px]">
+        <Suspense fallback={<div className="p-10">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<Categories />} />
+            <Route path="/trend/:slug" element={<TrendDetail />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/saved" element={<Saved />} />
+
+            {/* 🔐 ADMIN */}
+            <Route path="/admin/analytics" element={<AdminAnalytics />} />
+            <Route path="/admin/heatmap" element={<AdminHeatmap />} />
+            <Route path="/admin/manual-news" element={<AdminManualNews />} />
+          </Routes>
+        </Suspense>
+      </main>
+
+      <InstallBanner />
+      <MobileBottomNav />
+      <Footer />
+    </BrowserRouter>
+  );
+}

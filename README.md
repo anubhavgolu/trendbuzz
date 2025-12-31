@@ -1,0 +1,1 @@
+# TrendBuzz React Full Structure (JS only)
