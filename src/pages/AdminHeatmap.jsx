@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { API_BASE} from "../services/http";
+import {ADMIN_KEY} from import.meta.env.VITE_ADMIN_KEY
 
 export default function AdminHeatmap() {
   const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ export default function AdminHeatmap() {
       `${API_BASE}/api/heatmap?page=${encodeURIComponent(page)}`,
       {
         headers: {
-          "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+          "x-admin-key": ADMIN_KEY,
         },
       }
     )
