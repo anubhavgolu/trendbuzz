@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+import { API_BASE } from "./http";
 
 export async function trackPage(page, slug = null) {
   try {
