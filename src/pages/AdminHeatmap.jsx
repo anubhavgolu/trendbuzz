@@ -7,7 +7,7 @@ export default function AdminHeatmap() {
 
   useEffect(() => {
     fetch(
-      `${API_BASE}/api/heatmap?page=${page}`,
+      `${API_BASE}/api/heatmap?page=${encodeURIComponent(page)}`,
       {
         headers: {
           "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
