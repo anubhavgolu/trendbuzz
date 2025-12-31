@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE} from "../services/http";
 
 export default function AdminHeatmap() {
   const [data, setData] = useState([]);
@@ -6,7 +7,7 @@ export default function AdminHeatmap() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/api/heatmap?page=${page}`,
+      `${API_BASE}/api/heatmap?page=${page}`,
       {
         headers: {
           "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
