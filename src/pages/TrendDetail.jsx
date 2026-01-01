@@ -5,6 +5,7 @@ import { formatRelativeTime } from "../utils/formatRelativeTime";
 import CommentsSidebar from "../sections/CommentsSidebar.jsx";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/formatDate.js";
+import NewsSchema from "../components/NewsSchema";
 
 export default function TrendDetail() {
   const { slug } = useParams();
@@ -23,11 +24,27 @@ export default function TrendDetail() {
     return <p className="p-10">Loading...</p>;
   }
 
+  const imageUrl=trend.image?.startWith("http")?trend.image:`https://trendbuzzs.com${trend.image}`;
+
   const hideComments = trend.platform !== "Reddit";
 
 
   return (
     <>
+    <SEO
+        title={`${trend.title} | TrendBuzz`}
+        description={trend.summary}
+        keywords={trend.keywords?.combined?.join(", ")}
+      />
+
+      <NewsSchema
+        title={trend.title}
+        description={trend.summary}
+        image={imageUrl}
+        slug={trend.slug}
+        publishedAt={trend.createdAt}
+        category={trend.category}
+      />
     <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8">
       {/* LEFT CONTENT */}
       <div className={hideComments ? "lg:col-span-4" : "lg:col-span-3"}>
