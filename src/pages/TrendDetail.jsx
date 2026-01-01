@@ -6,6 +6,7 @@ import CommentsSidebar from "../sections/CommentsSidebar.jsx";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/formatDate.js";
 import NewsSchema from "../components/NewsSchema";
+import SEO from "../components/SEO.jsx";
 
 export default function TrendDetail() {
   const { slug } = useParams();
