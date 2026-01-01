@@ -10,6 +10,7 @@ export default function SEO({
       <title>{title}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
+      <meta name="robots" content="index,follow" />
     </Helmet>
   );
 }
