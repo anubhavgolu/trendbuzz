@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR_DOMAIN.com/sitemap.xml
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://trendbuzzbackend-production.up.railway.app/sitemap.xml
