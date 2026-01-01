@@ -1,23 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- BASIC -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?..."
+
+    <!-- INDEXING (VERY IMPORTANT FIX) -->
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- TITLE & DESCRIPTION (fallback) -->
+    <title>TrendBuzz – Real-Time Trending News, Tech & Science</title>
+    <meta
+      name="description"
+      content="TrendBuzz brings you real-time trending news from Reddit, NASA, tech, memes, entertainment and more."
     />
 
-    <title>TrendBuzz</title>
+    <!-- KEYWORDS (optional but ok) -->
+    <meta
+      name="keywords"
+      content="trending news, reddit trends, nasa news, tech trends, viral news"
+    />
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://trendbuzzs.com/" />
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- OPEN GRAPH (SOCIAL SHARE) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TrendBuzz – What’s Trending Now" />
+    <meta
+      property="og:description"
+      content="Discover what’s trending across Reddit, NASA, tech, memes and entertainment."
+    />
+    <meta property="og:url" content="https://trendbuzzs.com/" />
+    <meta property="og:image" content="https://trendbuzzs.com/og-image.png" />
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TrendBuzz – Real-Time Trends" />
+    <meta
+      name="twitter:description"
+      content="Live trending topics from Reddit, NASA & more."
+    />
+    <meta
+      name="twitter:image"
+      content="https://trendbuzzs.com/og-image.png"
+    />
   </head>
+
   <body>
     <div id="root"></div>
 
-    <!-- Vite entry -->
+    <!-- VITE ENTRY -->
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- ADSENSE -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
