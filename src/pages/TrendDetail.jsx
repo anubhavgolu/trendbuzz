@@ -24,7 +24,10 @@ export default function TrendDetail() {
     return <p className="p-10">Loading...</p>;
   }
 
-  const imageUrl=trend.image?.startWith("http")?trend.image:`https://trendbuzzs.com${trend.image}`;
+  const imageUrl = trend.image?.startsWith("http")
+  ? trend.image
+  : `https://trendbuzzs.com${trend.image}`;
+
 
   const hideComments = trend.platform !== "Reddit";
 
