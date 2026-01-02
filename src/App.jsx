@@ -19,15 +19,16 @@ import Saved from "./pages/Saved";
 
 import PageTracker from "./components/PageTracker";
 import ClickTracker from "./components/ClickTracker";
-import AdminManualNews from "./pages/admin/AdminManualNews";
 
 import DefaultSEO from "./seo/DefaultSEO";
 import RequireAdmin from "./pages/admin/RequireAdmin";
 
+import AdminManualNews from "./pages/admin/AdminManualNews";
+import AdminContentEditor from "./pages/admin/AdminContentEditor";
+
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 const AdminHeatmap = lazy(() => import("./pages/AdminHeatmap"));
-import AdminContentEditor from "./pages/admin/AdminContentEditor";
 
 export default function App() {
   return (
@@ -100,8 +101,16 @@ export default function App() {
             </RequireAdmin>
           }
         />
+
+        <Route
+          path="/admin/content"
+          element={
+            <RequireAdmin>
+              <AdminContentEditor />
+            </RequireAdmin>
+          }
+        />
       </Routes>
-      <Route path="/admin/content" element={<AdminContentEditor />} />
     </BrowserRouter>
   );
 }
