@@ -5,6 +5,11 @@ import { toggleSave, isSaved } from "../utils/savedTrends";
 import { hapticTap } from "../utils/haptics";
 import PopularityRing from "./PopularityRing";
 
+function cleanTitle(title) {
+  if (!title) return "";
+  return title.length > 95 ? title.slice(0, 92) + "…" : title;
+}
+
 export default function TrendCard({
   title,
   summary,
@@ -14,6 +19,7 @@ export default function TrendCard({
   popularityScore,
   createdAt,
   platform,
+  featured = false,
 }) {
   const [saved, setSaved] = useState(isSaved(slug));
 
@@ -36,8 +42,11 @@ export default function TrendCard({
   return (
     <Link
       to={`/trend/${slug}`}
-      className="relative block bg-white rounded-xl border hover:shadow-lg transition overflow-hidden"
+      className={`relative block bg-white rounded-xl border hover:shadow-lg transition overflow-hidden ${
+        featured ? "md:flex md:min-h-[260px]" : ""
+      }`}
     >
+      {/* SAVE BUTTON */}
       <button
         onClick={handleSave}
         aria-label="Save trend"
@@ -46,9 +55,15 @@ export default function TrendCard({
         {saved ? "⭐" : "☆"}
       </button>
 
-      {/* IMAGE PREVIEW */}
+      {/* IMAGE */}
       {image && (
-        <div className="h-40 w-full overflow-hidden bg-gray-100">
+        <div
+          className={
+            featured
+              ? "w-full md:w-1/2 h-64 md:h-auto overflow-hidden bg-gray-100"
+              : "h-40 w-full overflow-hidden bg-gray-100"
+          }
+        >
           <img
             src={image}
             alt={title}
@@ -60,7 +75,7 @@ export default function TrendCard({
       )}
 
       {/* CONTENT */}
-      <div className="p-5">
+      <div className={featured ? "p-6 md:w-1/2 flex flex-col" : "p-5"}>
         {/* CATEGORY + DATE */}
         <div className="text-xs text-gray-500 flex gap-2 items-center">
           <span className="uppercase tracking-wide text-orange-600 font-semibold">
@@ -69,18 +84,32 @@ export default function TrendCard({
           {createdAt && <span>· {formatDate(createdAt)}</span>}
         </div>
 
-        <h3 className="mt-2 font-bold text-gray-900 line-clamp-2">{title}</h3>
+        {/* TITLE */}
+        <h3
+          className={`mt-2 font-extrabold text-gray-900 ${
+            featured ? "text-2xl" : "text-base"
+          } line-clamp-2`}
+        >
+          {cleanTitle(title)}
+        </h3>
 
-        <p className="mt-2 text-sm text-gray-600 line-clamp-3">{summary}</p>
+        {/* SUMMARY */}
+        <p
+          className={`mt-3 text-gray-600 ${
+            featured ? "text-base line-clamp-4" : "text-sm line-clamp-3"
+          }`}
+        >
+          {summary}
+        </p>
 
-        <div className="mt-4 pt-3 border-t flex items-center">
-          {/* Left side (Popularity or empty space) */}
-          {platform !== "NASA" && (
+        {/* FOOTER */}
+        <div className="mt-auto pt-4 flex items-center">
+          {/* Popularity (hide for NASA + featured optional) */}
+          {platform !== "NASA" && !featured && (
             <PopularityRing score={popularityScore} size={44} />
           )}
 
-          {/* Push View to right always */}
-          <span className="ml-auto text-orange-600 text-sm font-semibold cursor-pointer">
+          <span className="ml-auto text-orange-600 text-sm font-semibold">
             View →
           </span>
         </div>

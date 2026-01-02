@@ -22,6 +22,7 @@ import ClickTracker from "./components/ClickTracker";
 import AdminManualNews from "./pages/admin/AdminManualNews";
 
 import DefaultSEO from "./seo/DefaultSEO";
+import RequireAdmin from "./admin/RequireAdmin";
 
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
@@ -53,7 +54,10 @@ export default function App() {
                     <Route path="/trend/:slug" element={<TrendDetail />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/trending" element={<Trending />} />
-                    <Route path="/category/:category" element={<CategoryPage />} />
+                    <Route
+                      path="/category/:category"
+                      element={<CategoryPage />}
+                    />
                     <Route path="/about" element={<About />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/disclaimer" element={<Disclaimer />} />
@@ -69,9 +73,32 @@ export default function App() {
         />
 
         {/* 🔐 ADMIN (NO HEADER / FOOTER) */}
-        <Route path="/admin/analytics" element={<AdminAnalytics />} />
-        <Route path="/admin/heatmap" element={<AdminHeatmap />} />
-        <Route path="/admin/manual-news" element={<AdminManualNews />} />
+        <Route
+          path="/admin/analytics"
+          element={
+            <RequireAdmin>
+              <AdminAnalytics />
+            </RequireAdmin>
+          }
+        />
+
+        <Route
+          path="/admin/heatmap"
+          element={
+            <RequireAdmin>
+              <AdminHeatmap />
+            </RequireAdmin>
+          }
+        />
+
+        <Route
+          path="/admin/manual-news"
+          element={
+            <RequireAdmin>
+              <AdminManualNews />
+            </RequireAdmin>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

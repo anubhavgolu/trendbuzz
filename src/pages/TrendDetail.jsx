@@ -6,6 +6,7 @@ import { formatDate } from "../utils/formatDate";
 import CommentsSidebar from "../sections/CommentsSidebar.jsx";
 import NewsSchema from "../components/NewsSchema";
 import SEO from "../components/SEO.jsx";
+import author from "../data/author";
 
 export default function TrendDetail() {
   const { slug } = useParams();
@@ -68,12 +69,11 @@ export default function TrendDetail() {
             {hideComments
               ? formatDate(trend.publishedAt || trend.createdAt)
               : formatRelativeTime(trend.createdAt)}
-            {!hideComments && <> · 🔥 {trend.popularityScore}</>}
+            {!hideComments && <> · 🔥 {trend.popularityScore}</>} ·{" "}
+            <span className="font-medium text-gray-700">By {author.name}</span>
           </p>
 
-          <p className="mt-6 text-gray-700 leading-relaxed">
-            {trend.summary}
-          </p>
+          <p className="mt-6 text-gray-700 leading-relaxed">{trend.summary}</p>
 
           {hideComments && trend.sourceUrl && (
             <a
@@ -89,12 +89,16 @@ export default function TrendDetail() {
 
         {!hideComments && <CommentsSidebar slug={trend.slug} />}
 
-        <div className="mt-10">
+        <div className="mt-10 flex gap-4 flex-wrap">
+          <Link to="/" className="text-orange-600 font-semibold">
+            ← Trending
+          </Link>
+
           <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 hover:underline"
+            to={`/category/${trend.category}`}
+            className="text-orange-600 font-semibold"
           >
-            ← Back to Trending
+            More {trend.category} news →
           </Link>
         </div>
       </article>

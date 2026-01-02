@@ -1,11 +1,14 @@
 import { API_BASE } from "./http";
-const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
+
 /* ---------------- ADMIN STATS ---------------- */
-export async function fetchAdminStats() {
-  if (!ADMIN_KEY) throw new Error("Admin key missing");
+
+export async function fetchAdminStats(adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
 
   const res = await fetch(`${API_BASE}/api/analytics/stats`, {
-    headers: { "x-admin-key": ADMIN_KEY },
+    headers: {
+      "x-admin-key": adminKey,
+    },
   });
 
   if (!res.ok) throw new Error("Failed to fetch admin stats");
@@ -13,11 +16,14 @@ export async function fetchAdminStats() {
 }
 
 /* ---------------- DAILY ANALYTICS ---------------- */
-export async function fetchDailyAnalytics() {
-  if (!ADMIN_KEY) throw new Error("Admin key missing");
+
+export async function fetchDailyAnalytics(adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
 
   const res = await fetch(`${API_BASE}/api/analytics/daily`, {
-    headers: { "x-admin-key": ADMIN_KEY },
+    headers: {
+      "x-admin-key": adminKey,
+    },
   });
 
   if (!res.ok) throw new Error("Failed to fetch daily analytics");
@@ -25,23 +31,46 @@ export async function fetchDailyAnalytics() {
 }
 
 /* ---------------- MANUAL NEWS ---------------- */
-export async function getActiveManualNews() {
-  const res = await fetch(`${API_BASE}/api/manual-news/active`);
+
+export async function getActiveManualNews(adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
+
+  const res = await fetch(`${API_BASE}/api/manual-news/active`, {
+    headers: {
+      "x-admin-key": adminKey,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch manual news");
   return res.json();
 }
 
-export async function updateManualNews(payload) {
+export async function updateManualNews(payload, adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
+
   const res = await fetch(`${API_BASE}/api/manual-news/update`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-key": adminKey,
+    },
     body: JSON.stringify(payload),
   });
+
+  if (!res.ok) throw new Error("Failed to update manual news");
   return res.json();
 }
 
-export async function toggleManualNews() {
+export async function toggleManualNews(adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
+
   const res = await fetch(`${API_BASE}/api/manual-news/toggle`, {
     method: "POST",
+    headers: {
+      "x-admin-key": adminKey,
+    },
   });
+
+  if (!res.ok) throw new Error("Failed to toggle manual news");
   return res.json();
 }
