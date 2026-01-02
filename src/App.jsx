@@ -22,7 +22,7 @@ import ClickTracker from "./components/ClickTracker";
 import AdminManualNews from "./pages/admin/AdminManualNews";
 
 import DefaultSEO from "./seo/DefaultSEO";
-import RequireAdmin from "./admin/RequireAdmin";
+import RequireAdmin from "./pages/admin/RequireAdmin";
 
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));

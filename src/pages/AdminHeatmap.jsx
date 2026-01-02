@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_BASE } from "../services/http";
 import { Helmet } from "react-helmet-async";
-import { useAdminAuth } from "../admin/AdminAuthContext";
+import { useAdminAuth } from "./admin/AdminAuthContext";
 
 export default function AdminHeatmap() {
   const { adminKey } = useAdminAuth();

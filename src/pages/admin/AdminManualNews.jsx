@@ -6,7 +6,7 @@ import {
   toggleManualNews,
 } from "../../services/adminApi";
 import { Helmet } from "react-helmet-async";
-import { useAdminAuth } from "../../admin/AdminAuthContext";
+import { useAdminAuth } from "./AdminAuthContext";
 
 export default function AdminManualNews() {
   const { adminKey } = useAdminAuth();
