@@ -4,17 +4,17 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About TrendBuzz | Why Topics Are Trending"
-        description="Learn about TrendBuzz and how we explain why topics trend on social media."
+        title="About TrendBuzzs | Why Topics Are Trending"
+        description="Learn about TrendBuzzs and how we explain why topics trend on social media."
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
         <h1 className="text-3xl font-extrabold text-gray-900">
-          About TrendBuzz
+          About TrendBuzzs
         </h1>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
-          TrendBuzz is a platform that explains why topics are trending on
+          TrendBuzzs is a platform that explains why topics are trending on
           social media platforms like Twitter and Reddit in simple words.
         </p>
 

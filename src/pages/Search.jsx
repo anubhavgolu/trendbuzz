@@ -33,7 +33,7 @@ export default function Search() {
   return (
     <>
       <SEO
-        title="Search Trending Topics | TrendBuzz"
+        title="Search Trending Topics | TrendBuzzs"
         description="Search trending topics across Reddit and the internet."
         keywords="search trends, trending topics search"
       />

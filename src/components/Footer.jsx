@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col items-start gap-2">
           <img
             src={logo}
-            alt="TrendBuzz Logo"
+            alt="TrendBuzzs Logo"
             className="h-28 max-w-[220px] w-full object-contain"
           />
 
@@ -45,7 +45,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center text-xs text-gray-400 pb-4">
-        © {new Date().getFullYear()} TrendBuzz. All rights reserved.
+        © {new Date().getFullYear()} TrendBuzzs. All rights reserved.
       </div>
     </footer>
   );

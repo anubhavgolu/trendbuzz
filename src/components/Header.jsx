@@ -45,7 +45,7 @@ export default function Header() {
           <Link to="/" className="flex items-center focus:outline-none">
             <img
               src={logo}
-              alt="TrendBuzz home"
+              alt="TrendBuzzs home"
               className="h-10 md:h-12 w-auto hover:scale-105 transition"
               decoding="async"
               loading="eager"

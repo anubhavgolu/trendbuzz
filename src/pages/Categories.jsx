@@ -11,27 +11,36 @@ export default function Categories() {
   return (
     <>
       <SEO
-        title="TrendBuzz – Why Topics Are Trending Today"
-        description="TrendBuzz explains why topics are trending on Twitter, Reddit, and across the internet in simple words."
-        keywords="trending topics, twitter trends, reddit trends, viral news"
+        title="TrendBuzzs – Why Topics Are Trending Today"
+        description="TrendBuzzs explains why topics are trending today on Reddit, Twitter, tech, science, and global news in simple language."
+        keywords="why trending today, trending topics today, reddit trends, twitter trends, viral news explanation"
+        canonical="https://www.trendbuzzs.com/"
+        image="https://www.trendbuzzs.com/og-home.png"
       />
-      <div className="max-w-7xl mx-auto px-4 py-6">
+
+      <main className="max-w-7xl mx-auto px-4 py-6">
+        {/* H1 FOR SEO */}
+        <h1 className="sr-only">
+          Why Topics Are Trending Today – TrendBuzzs
+        </h1>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-8">
           {/* Left Content */}
-          <div className="lg:col-span-3 space-y-12">
-            {/* Trending Cards (from Home logic) */}
+          <section className="lg:col-span-3 space-y-12">
+            {/* Trending Cards */}
             <TrendingCards filter={filter} />
 
             {/* Category Sections */}
             <TrendingSections />
-          </div>
+          </section>
 
           {/* Right Sidebar */}
-          <TopDiscussions />
+          <aside>
+            <TopDiscussions />
+          </aside>
         </div>
-      </div>
+      </main>
     </>
   );
 }

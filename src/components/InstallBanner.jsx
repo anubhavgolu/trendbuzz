@@ -27,7 +27,7 @@ export default function InstallBanner() {
   return (
     <div className="fixed bottom-20 inset-x-4 z-40 bg-white border rounded-xl shadow-lg p-4 flex items-center justify-between">
       <div>
-        <p className="font-semibold text-gray-900">Install TrendBuzz</p>
+        <p className="font-semibold text-gray-900">Install TrendBuzzs</p>
         <p className="text-xs text-gray-500">
           Get faster access & offline reading
         </p>

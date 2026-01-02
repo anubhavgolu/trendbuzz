@@ -1,7 +1,7 @@
 {
-  "name": "trendbuzz",
+  "name": "trendbuzzs",
   "version": "1.0.0",
-  "description": "TrendBuzz explains why topics are trending on Twitter, Reddit, and across the internet in simple words",
+  "description": "TrendBuzzs explains why topics are trending on Twitter, Reddit, and across the internet in simple words",
   "private": true,
   "scripts": {
     "dev": "vite",

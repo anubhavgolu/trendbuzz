@@ -4,8 +4,8 @@ export default function PrivacyPolicy() {
   return (
     <>
       <SEO
-        title="Privacy Policy | TrendBuzz"
-        description="Privacy policy explaining how TrendBuzz handles user data."
+        title="Privacy Policy | TrendBuzzs"
+        description="Privacy policy explaining how TrendBuzzs handles user data."
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
         </h1>
 
         <p className="mt-4 text-gray-700">
-          At TrendBuzz, we respect your privacy. This Privacy Policy explains
+          At TrendBuzzs, we respect your privacy. This Privacy Policy explains
           how we collect, use, and protect information.
         </p>
 
@@ -30,7 +30,7 @@ export default function PrivacyPolicy() {
           Cookies
         </h2>
         <p className="mt-2 text-gray-700">
-          TrendBuzz may use cookies provided by third-party services such as
+          TrendBuzzs may use cookies provided by third-party services such as
           Google AdSense to display relevant advertisements.
         </p>
 

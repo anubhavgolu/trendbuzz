@@ -4,7 +4,7 @@ export default function Disclaimer() {
   return (
     <>
       <SEO
-        title="Disclaimer | TrendBuzz"
+        title="Disclaimer | TrendBuzzs"
         description="Disclaimer regarding content accuracy and external links."
       />
 
@@ -14,13 +14,13 @@ export default function Disclaimer() {
         </h1>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
-          The information provided on TrendBuzz is for informational purposes
+          The information provided on TrendBuzzs is for informational purposes
           only. While we strive for accuracy, we do not guarantee completeness
           or reliability of the information.
         </p>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
-          TrendBuzz does not provide financial, legal, or professional advice.
+          TrendBuzzs does not provide financial, legal, or professional advice.
           Any action you take based on the information found on this website is
           strictly at your own risk.
         </p>

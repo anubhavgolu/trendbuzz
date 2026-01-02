@@ -5,6 +5,7 @@ import {
   updateManualNews,
   toggleManualNews,
 } from "../../services/adminApi";
+import { Helmet } from "react-helmet-async";
 
 export default function AdminManualNews() {
   const [news, setNews] = useState(null);
@@ -53,7 +54,13 @@ export default function AdminManualNews() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-8">
+    <>
+       <Helmet>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Admin – Manual News</title>
+      </Helmet>
+
+         <div className="max-w-3xl mx-auto p-8">
       <h1 className="text-3xl font-extrabold mb-6">📰 Manual News Control</h1>
 
       <div className="flex items-center gap-4 mb-6">
@@ -137,5 +144,7 @@ export default function AdminManualNews() {
         </button>
       </div>
     </div>
+    </>
+ 
   );
 }

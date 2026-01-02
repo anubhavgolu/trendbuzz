@@ -7,6 +7,7 @@ import {
   fetchDailyAnalytics,
 } from "../services/adminApi";
 import { socket } from "../services/socket";
+import { Helmet } from "react-helmet-async";
 
 export default function AdminAnalytics() {
   const [stats, setStats] = useState(null);
@@ -35,7 +36,12 @@ export default function AdminAnalytics() {
   if (!stats) return <p className="p-10">Loading analytics…</p>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 pb-24">
+    <>
+       <Helmet>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Admin – Analytics</title>
+      </Helmet>
+       <div className="max-w-7xl mx-auto px-4 py-10 pb-24">
       <h1 className="text-3xl font-extrabold mb-8">
         📊 Admin Analytics
       </h1>
@@ -90,5 +96,7 @@ export default function AdminAnalytics() {
         <DevicePie data={stats.deviceStats} />
       </div>
     </div>
+    </>
+   
   );
 }

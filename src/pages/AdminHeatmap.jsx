@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_BASE} from "../services/http";
 import { ADMIN_KEY } from "../services/http";
+import { Helmet } from "react-helmet-async";
 
 export default function AdminHeatmap() {
   const [data, setData] = useState([]);
@@ -20,7 +21,11 @@ export default function AdminHeatmap() {
   }, []);
 
   return (
-    <div className="relative w-full h-[80vh] border">
+    <> <Helmet>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Admin – Heatmap</title>
+      </Helmet>
+      <div className="relative w-full h-[80vh] border">
       {data.map((p, i) => (
         <div
           key={i}
@@ -31,6 +36,7 @@ export default function AdminHeatmap() {
           }}
         />
       ))}
-    </div>
+    </div></>
+    
   );
 }

@@ -22,12 +22,12 @@ export default function NewsSchema({
     "dateModified": new Date(publishedAt).toISOString(),
     "author": {
       "@type": "Organization",
-      "name": "TrendBuzz",
+      "name": "TrendBuzzs",
       "url": "https://trendbuzzs.com",
     },
     "publisher": {
       "@type": "Organization",
-      "name": "TrendBuzz",
+      "name": "TrendBuzzs",
       "logo": {
         "@type": "ImageObject",
         "url": "https://trendbuzzs.com/logo.png",

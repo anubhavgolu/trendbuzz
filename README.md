@@ -1,9 +1,9 @@
 <<<<<<< HEAD
-# TrendBuzz React Full Structure (JS only)
+# TrendBuzzs React Full Structure (JS only)
 =======
-# TrendBuzz
+# TrendBuzzs
 
-TrendBuzz is a non-commercial, educational analytics project that analyzes
+TrendBuzzs is a non-commercial, educational analytics project that analyzes
 publicly available Reddit posts to identify trending discussion topics across
 selected subreddits.
 
@@ -30,7 +30,7 @@ topic popularity changes over time using aggregated public Reddit data.
 - Does not commercialize, resell, or redistribute Reddit data
 
 ## Data Usage & Compliance
-TrendBuzz strictly follows:
+TrendBuzzs strictly follows:
 - Reddit Data API Terms
 - Reddit Responsible Builder Policy
 - Reddit Privacy Policy
