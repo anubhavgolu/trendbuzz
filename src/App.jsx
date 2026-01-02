@@ -8,7 +8,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import InstallBanner from "./components/InstallBanner";
 
 import Categories from "./pages/Categories";
-import TrendDetail from "./pages/TrendDetail";
+import ContentDetail from "./pages/ContentDetail";
 import Search from "./pages/Search";
 import About from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -27,6 +27,7 @@ import RequireAdmin from "./pages/admin/RequireAdmin";
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 const AdminHeatmap = lazy(() => import("./pages/AdminHeatmap"));
+import AdminContentEditor from "./pages/admin/AdminContentEditor";
 
 export default function App() {
   return (
@@ -51,7 +52,7 @@ export default function App() {
                 <Suspense fallback={<div className="p-10">Loading…</div>}>
                   <Routes>
                     <Route path="/" element={<Categories />} />
-                    <Route path="/trend/:slug" element={<TrendDetail />} />
+                    <Route path="/:slug" element={<ContentDetail />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/trending" element={<Trending />} />
                     <Route
@@ -100,6 +101,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Route path="/admin/content" element={<AdminContentEditor />} />
     </BrowserRouter>
   );
 }
