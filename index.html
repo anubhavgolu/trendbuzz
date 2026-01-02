@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- BASIC CRAWL CONTROL -->
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
+
+    <!-- GA4 -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-JTRWSYBCR0"
@@ -16,56 +19,30 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-      gtag("config", 'G-JTRWSYBCR0', {
+      gtag("config", "G-JTRWSYBCR0", {
         page_path: window.location.pathname,
       });
     </script>
 
-    <title>TrendBuzzs – Real-Time Trending News, Tech & Science</title>
-    <meta
-      name="description"
-      content="TrendBuzzs brings you real-time trending news from Reddit, NASA, tech, memes, entertainment and more."
-    />
-
-    <meta
-      name="keywords"
-      content="trending news, reddit trends, nasa news, tech trends, viral news"
-    />
-
-    <link rel="canonical" href="https://trendbuzzs.com/" />
-
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
 
+    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="TrendBuzz – What’s Trending Now" />
-    <meta
-      property="og:description"
-      content="Discover what’s trending across Reddit, NASA, tech, memes and entertainment."
-    />
-    <meta property="og:url" content="https://trendbuzzs.com/" />
-    <meta property="og:image" content="https://trendbuzzs.com/og-image.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TrendBuzz – Real-Time Trends" />
-    <meta
-      name="twitter:description"
-      content="Live trending topics from Reddit, NASA & more."
-    />
-    <meta name="twitter:image" content="https://trendbuzzs.com/og-image.png" />
   </head>
 
   <body>
     <div id="root"></div>
 
+    <!-- VITE ENTRY -->
     <script type="module" src="/src/main.jsx"></script>
 
+    <!-- ADSENSE -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
