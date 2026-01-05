@@ -14,41 +14,30 @@ export default function SEO({
     <Helmet>
       {/* BASIC */}
       <title>{title}</title>
-      <meta name="description" content={description} />
+      {description && <meta name="description" content={description} />}
       {keywords && <meta name="keywords" content={keywords} />}
-
       {/* ROBOTS */}
       <meta
         name="robots"
         content={noIndex ? "noindex,nofollow" : "index,follow"}
       />
-
       {/* CANONICAL */}
-      <link
-        rel="canonical"
-        href={canonical || siteUrl}
-      />
-
+      <link rel="canonical" href={canonical || siteUrl} />
       {/* OPEN GRAPH */}
-      <meta property="og:type" content="article" />
+      - <meta property="og:type" content="article" />
+      <meta
+        property="og:type"
+        content={canonical?.includes("/trend/") ? "article" : "website"}
+      />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta
-        property="og:url"
-        content={canonical || siteUrl}
-      />
+      <meta property="og:url" content={canonical || siteUrl} />
       {image && <meta property="og:image" content={image} />}
-
       {/* TWITTER */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
-      <meta
-        name="twitter:description"
-        content={description}
-      />
-      {image && (
-        <meta name="twitter:image" content={image} />
-      )}
+      <meta name="twitter:description" content={description} />
+      {image && <meta name="twitter:image" content={image} />}
     </Helmet>
   );
 }

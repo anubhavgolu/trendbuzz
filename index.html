@@ -7,6 +7,8 @@
     <!-- BASIC CRAWL CONTROL -->
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
+    <meta name="googlebot-news" content="index,follow" />
+    <meta name="googlebot" content="max-image-preview:large" />
 
     <!-- GA4 -->
     <script
@@ -31,8 +33,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+
+    <link
+      rel="preload"
+      href="/trendbuzz_logo.png"
+      as="image"
+      type="image/png"
     />
   </head>
 

@@ -7,5 +7,10 @@ export async function fetchSection(section) {
 
 export async function fetchBySlug(slug) {
   const res = await fetch(`${API_BASE}/api/content/${slug}`);
+
+  if (!res.ok) {
+    return null;
+  }
+
   return res.json();
 }

@@ -60,9 +60,6 @@ export default function Header() {
             <NavLink to="/" className={navClass}>
               Home
             </NavLink>
-            <NavLink to="/search" className={navClass}>
-              Search
-            </NavLink>
             <NavLink to="/about" className={navClass}>
               About
             </NavLink>

@@ -1,29 +1,35 @@
 import { Link } from "react-router-dom";
 
-export default function TopStory({ items }) {
-  const main = items.find((i) => i.featured) || items[0];
-
-  const rest = items.slice(1);
+export default function TopStory({ items = [] }) {
+  const first = items?.[0];
+  if (!first || !first.slug) return null;
 
   return (
-    <section>
-      <Link to={`/${main.slug}`}>
-        <img
-          src={main.image}
-          alt={main.title}
-          className="w-full h-[380px] object-cover rounded-2xl"
-        />
-        <h1 className="mt-4 text-4xl font-extrabold">{main.title}</h1>
-        <p className="mt-2 text-gray-600">{main.summary}</p>
-      </Link>
+    <section className="space-y-6">
+      <Link to={`/trend/${first.slug}`} className="group block">
+        <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-black">
+          {first.image && (
+            <img
+              src={first.image}
+              alt={first.title}
+              fetchpriority="high"
+              loading="eager"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
+          )}
 
-      <div className="grid md:grid-cols-3 gap-6 mt-8">
-        {rest.map((item) => (
-          <Link key={item._id} to={`/${item.slug}`}>
-            <h3 className="font-semibold">{item.title}</h3>
-          </Link>
-        ))}
-      </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        </div>
+
+        <h1 className="mt-4 text-2xl md:text-3xl font-extrabold group-hover:text-orange-500 transition">
+          {first.title}
+        </h1>
+
+        {first.summary && (
+          <p className="text-gray-600 mt-2 line-clamp-2">{first.summary}</p>
+        )}
+      </Link>
     </section>
   );
 }

@@ -12,27 +12,23 @@ export default function MobileBottomNav() {
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="h-14 flex items-center justify-around">
-        <NavLink to="/" className={linkClass} onClick={() => hapticTap()}>
+        <NavLink to="/" className={linkClass} onClick={hapticTap}>
           <span className="text-lg">🏠</span>
           Home
-        </NavLink>
-
-        <NavLink to="/search" className={linkClass} onClick={() => hapticTap()}>
-          <span className="text-lg">🔍</span>
-          Search
         </NavLink>
 
         <NavLink
           to="/trending"
           className={linkClass}
-          onClick={() => hapticTap()}
+          onClick={hapticTap}
         >
           <span className="text-lg">🔥</span>
           Trending
         </NavLink>
-        <NavLink to="/saved" className={linkClass} onClick={() => hapticTap()}>
-          <span className="text-lg">⭐</span>
-          Saved
+
+        <NavLink to="/about" className={linkClass} onClick={hapticTap}>
+          <span className="text-lg">ℹ️</span>
+          About
         </NavLink>
       </div>
     </nav>

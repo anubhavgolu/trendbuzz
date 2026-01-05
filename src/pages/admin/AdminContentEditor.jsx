@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useAdminAuth } from "./AdminAuthContext";
-import { upsertContent } from "../../services/contentAdminApi";
+import { API_BASE } from "../../services/http";
+import AdminCardList from "./AdminCardList";
+import AdminSectionList from "./AdminSectionList";
 
 const SECTIONS = [
   "top",
@@ -14,64 +15,135 @@ const SECTIONS = [
 ];
 
 export default function AdminContentEditor() {
-  const { adminKey } = useAdminAuth();
-
   const [form, setForm] = useState({
     title: "",
     summary: "",
-    content: "",
     image: "",
-    sourceName: "",
-    sourceUrl: "",
-    type: "news",
     section: "top",
     order: 1,
+    type: "news",
     seoTitle: "",
     seoDescription: "",
     keywords: "",
-    videoEmbed: "",
-    videoThumbnail: "",
+    sourceName: "",
+    sourceUrl: "",
+    imageSource: "",
   });
 
-  function update(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  const [editingId, setEditingId] = useState(null); // 🔥 EDIT MODE
+  const [loading, setLoading] = useState(false);
+  const [sectionEnabled, setSectionEnabled] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  async function handleSave() {
-    if (!adminKey) return alert("Admin key missing");
-    if ((form.type === "social" || form.type === "video") && !form.sourceName) {
-      return alert("Source name is required for social/video");
+  /* ================= LOAD SECTION STATUS ================= */
+  useEffect(() => {
+    async function loadSectionStatus() {
+      try {
+        const res = await fetch(`${API_BASE}/api/content/admin/sections`, {
+          headers: {
+            "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+          },
+        });
+
+        const sections = await res.json();
+        const current = sections.find((s) => s.name === form.section);
+
+        if (current) setSectionEnabled(current.enabled);
+      } catch (err) {
+        console.error("Section load error", err);
+      }
     }
 
-    const payload = {
-      title: form.title,
-      summary: form.summary,
-      content: form.content,
-      image: form.image,
-      sourceName: form.sourceName,
-      sourceUrl: form.sourceUrl,
-      type: form.type,
-      section: form.section,
-      order: Number(form.order),
-      seoTitle: form.seoTitle,
-      seoDescription: form.seoDescription,
-      keywords: form.keywords
-        .split(",")
-        .map((k) => k.trim())
-        .filter(Boolean),
-      video:
-        form.type === "video"
-          ? {
-              embedUrl: form.videoEmbed,
-              thumbnail: form.videoThumbnail,
-            }
-          : undefined,
-    };
+    loadSectionStatus();
+  }, [form.section]);
 
-    await upsertContent(payload, adminKey);
-    alert("✅ Content saved / updated");
+  /* ================= HANDLERS ================= */
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
   }
 
+  /* ================= EDIT HANDLER ================= */
+  function handleEdit(item) {
+    setEditingId(item._id);
+
+    setForm({
+      title: item.title || "",
+      summary: item.summary || "",
+      image: item.image || "",
+      section: item.section,
+      order: item.order,
+      type: item.type || "news",
+      seoTitle: item.seoTitle || "",
+      seoDescription: item.seoDescription || "",
+      keywords: Array.isArray(item.keywords?.manual)
+        ? item.keywords.manual.join(", ")
+        : "",
+      publishedAt: item.publishedAt ? item.publishedAt.slice(0, 10) : "",
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ================= SUBMIT ================= */
+  async function handleSubmit() {
+    setLoading(true);
+
+    const res = await fetch(`${API_BASE}/api/content/admin/upsert`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+      },
+      body: JSON.stringify({
+        ...form,
+        _id: editingId || undefined,
+        keywords: form.keywords, // ✅ STRING ONLY
+      }),
+    });
+
+    setLoading(false);
+
+    if (res.ok) {
+      alert(editingId ? "✏️ Content updated" : "✅ Content added");
+
+      setForm({
+        title: "",
+        summary: "",
+        image: "",
+        section: form.section,
+        order: 1,
+        type: "news",
+        seoTitle: "",
+        seoDescription: "",
+        keywords: "",
+        publishedAt: "",
+      });
+
+      setEditingId(null);
+      setRefreshKey((k) => k + 1);
+    } else {
+      alert("❌ Error saving content");
+    }
+  }
+
+  /* ================= TOGGLE SECTION ================= */
+  async function toggleSection() {
+    const res = await fetch(`${API_BASE}/api/content/admin/toggle-section`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+      },
+      body: JSON.stringify({ section: form.section }),
+    });
+
+    const data = await res.json();
+    setSectionEnabled(data.enabled);
+    setRefreshKey((k) => k + 1);
+  }
+
+  /* ================= UI ================= */
   return (
     <>
       <Helmet>
@@ -79,151 +151,190 @@ export default function AdminContentEditor() {
         <title>Admin – Content Editor</title>
       </Helmet>
 
-      <div className="max-w-4xl mx-auto p-8 space-y-6">
-        <h1 className="text-3xl font-extrabold">📝 Content Editor</h1>
+      <div className="max-w-3xl mx-auto p-8">
+        <h1 className="text-3xl font-extrabold mb-6">
+          🧠 Admin Content Editor
+        </h1>
 
-        {/* BASIC */}
-        <input
-          name="title"
-          placeholder="Title"
-          className="w-full border p-3 rounded"
-          value={form.title}
-          onChange={update}
-        />
+        <div className="space-y-4">
+          <input
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            placeholder="Title"
+            className="w-full border p-3 rounded"
+          />
 
-        <textarea
-          name="summary"
-          placeholder="Summary"
-          rows={3}
-          className="w-full border p-3 rounded"
-          value={form.summary}
-          onChange={update}
-        />
-
-        <textarea
-          name="content"
-          placeholder="Full content (optional)"
-          rows={5}
-          className="w-full border p-3 rounded"
-          value={form.content}
-          onChange={update}
-        />
-
-        <input
-          name="image"
-          placeholder="Image URL"
-          className="w-full border p-3 rounded"
-          value={form.image}
-          onChange={update}
-        />
-
-        {/* TYPE + SECTION */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <select
-            name="type"
-            value={form.type}
-            onChange={update}
-            className="border p-3 rounded"
-          >
-            <option value="news">News</option>
-            <option value="social">Social</option>
-            <option value="video">Video</option>
-          </select>
-
-          <select
-            name="section"
-            value={form.section}
-            onChange={update}
-            className="border p-3 rounded"
-          >
-            {SECTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
+          <textarea
+            name="summary"
+            value={form.summary}
+            onChange={handleChange}
+            placeholder="Summary"
+            rows={4}
+            className="w-full border p-3 rounded"
+          />
 
           <input
-            name="order"
-            type="number"
-            min="1"
-            max="6"
-            placeholder="Order (1–6)"
-            className="border p-3 rounded"
-            value={form.order}
-            onChange={update}
+            name="image"
+            value={form.image}
+            type="url"
+            onChange={handleChange}
+            placeholder="Image URL"
+            className="w-full border p-3 rounded"
           />
+
+          <div className="grid grid-cols-2 gap-4">
+            <select
+              name="section"
+              value={form.section}
+              onChange={handleChange}
+              className="border p-3 rounded"
+            >
+              {SECTIONS.map((s) => (
+                <option key={s} value={s}>
+                  {s.toUpperCase()}
+                </option>
+              ))}
+            </select>
+
+            <select
+              name="order"
+              value={form.order}
+              onChange={handleChange}
+              className="border p-3 rounded"
+            >
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <option key={n} value={n}>
+                  Order {n}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <input
+            name="seoTitle"
+            value={form.seoTitle}
+            onChange={handleChange}
+            placeholder="SEO Title (optional)"
+            className="w-full border p-3 rounded"
+          />
+
+          <textarea
+            name="seoDescription"
+            value={form.seoDescription}
+            onChange={handleChange}
+            placeholder="SEO Description (optional)"
+            rows={2}
+            className="w-full border p-3 rounded"
+          />
+          <input
+            type="date"
+            name="publishedAt"
+            value={form.publishedAt}
+            onChange={handleChange}
+            className="w-full border p-3 rounded"
+            max={new Date().toISOString().split("T")[0]}
+          />
+
+          <input
+            name="sourceName"
+            value={form.sourceName}
+            onChange={handleChange}
+            placeholder="Source Name (e.g. Reuters, BBC, TrendBuzzs Desk)"
+            className="w-full border p-3 rounded"
+          />
+
+          <input
+            name="sourceUrl"
+            value={form.sourceUrl}
+            onChange={handleChange}
+            placeholder="Source URL (original article link)"
+            className="w-full border p-3 rounded"
+          />
+
+          <input
+            name="imageSource"
+            value={form.imageSource}
+            onChange={handleChange}
+            placeholder="Image Source (Pixabay / Unsplash / AP)"
+            className="w-full border p-3 rounded"
+          />
+
+          <input
+            name="keywords"
+            value={form.keywords}
+            onChange={handleChange}
+            placeholder="Keywords (comma separated)"
+            className="w-full border p-3 rounded"
+          />
+
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="bg-orange-500 text-white px-6 py-3 rounded font-semibold"
+          >
+            {loading
+              ? "Saving…"
+              : editingId
+              ? "Update Content"
+              : "Save Content"}
+          </button>
+
+          {/* ===== SECTION TOGGLE ===== */}
+          <div className="flex items-center justify-between mt-6 p-4 border rounded">
+            <div>
+              <h3 className="font-bold text-lg">
+                Section: {form.section.toUpperCase()}
+              </h3>
+              <p className="text-sm text-gray-600">
+                Status:{" "}
+                {sectionEnabled ? (
+                  <span className="text-green-600 font-semibold">ENABLED</span>
+                ) : (
+                  <span className="text-red-600 font-semibold">DISABLED</span>
+                )}
+              </p>
+            </div>
+
+            <button
+              onClick={toggleSection}
+              className={`px-4 py-2 rounded text-white ${
+                sectionEnabled ? "bg-red-600" : "bg-green-600"
+              }`}
+            >
+              {sectionEnabled ? "Disable Section" : "Enable Section"}
+            </button>
+            {editingId && (
+              <button
+                onClick={() => {
+                  setEditingId(null);
+                  setForm({
+                    title: "",
+                    summary: "",
+                    image: "",
+                    section: form.section,
+                    order: 1,
+                    type: "news",
+                    seoTitle: "",
+                    seoDescription: "",
+                    keywords: "",
+                  });
+                }}
+                className="bg-gray-200 text-gray-800 px-4 py-2 rounded font-medium"
+              >
+                Cancel Edit
+              </button>
+            )}
+          </div>
+
+          {/* ===== CARD LIST ===== */}
+          <AdminCardList
+            section={form.section}
+            refreshKey={refreshKey}
+            onEdit={handleEdit}
+          />
+          <AdminSectionList />
         </div>
-
-        {/* VIDEO FIELDS */}
-        {form.type === "video" && (
-          <>
-            <input
-              name="videoEmbed"
-              placeholder="Video embed URL"
-              className="w-full border p-3 rounded"
-              value={form.videoEmbed}
-              onChange={update}
-            />
-            <input
-              name="videoThumbnail"
-              placeholder="Video thumbnail URL"
-              className="w-full border p-3 rounded"
-              value={form.videoThumbnail}
-              onChange={update}
-            />
-          </>
-        )}
-
-        {/* SOURCE */}
-        <input
-          name="sourceName"
-          placeholder="Source name (e.g. YouTube, X)"
-          className="w-full border p-3 rounded"
-          value={form.sourceName}
-          onChange={update}
-        />
-
-        <input
-          name="sourceUrl"
-          placeholder="Source URL"
-          className="w-full border p-3 rounded"
-          value={form.sourceUrl}
-          onChange={update}
-        />
-
-        {/* SEO */}
-        <input
-          name="seoTitle"
-          placeholder="SEO Title (optional)"
-          className="w-full border p-3 rounded"
-          value={form.seoTitle}
-          onChange={update}
-        />
-
-        <textarea
-          name="seoDescription"
-          placeholder="SEO Description (optional)"
-          rows={2}
-          className="w-full border p-3 rounded"
-          value={form.seoDescription}
-          onChange={update}
-        />
-
-        <input
-          name="keywords"
-          placeholder="Keywords (comma separated)"
-          className="w-full border p-3 rounded"
-          value={form.keywords}
-          onChange={update}
-        />
-
-        <button
-          onClick={handleSave}
-          className="bg-orange-600 text-white px-6 py-3 rounded font-semibold"
-        >
-          Save / Update Card
-        </button>
       </div>
     </>
   );

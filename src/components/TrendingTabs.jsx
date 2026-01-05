@@ -1,14 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { hapticTap } from "../utils/haptics";
 
-const tabs = [
-  { key: "tech", label: "🔥 Tech" },
-  { key: "news", label: "📰 News" },
-  { key: "memes", label: "😂 Memes" },
-  { key: "entertainment", label: "🎬 Entertainment" },
-];
-
-export default function TrendingTabs({ active, onChange }) {
+export default function TrendingTabs({ sections = [], active, onChange }) {
   const startX = useRef(0);
 
   function onTouchStart(e) {
@@ -21,12 +14,12 @@ export default function TrendingTabs({ active, onChange }) {
 
     if (Math.abs(diff) < 50) return;
 
-    const index = tabs.findIndex((t) => t.key === active);
-    if (diff < 0 && index < tabs.length - 1) {
-      onChange(tabs[index + 1].key);
+    const index = sections.findIndex((s) => s === active);
+    if (diff < 0 && index < sections.length - 1) {
+      onChange(sections[index + 1]);
     }
     if (diff > 0 && index > 0) {
-      onChange(tabs[index - 1].key);
+      onChange(sections[index - 1]);
     }
   }
 
@@ -37,21 +30,21 @@ export default function TrendingTabs({ active, onChange }) {
       className="sticky top-14 z-40 bg-white border-b"
     >
       <div className="flex gap-2 px-4 py-3 overflow-x-auto">
-        {tabs.map((tab) => (
+        {sections.map((section) => (
           <button
-            key={tab.key}
+            key={section}
             onClick={() => {
               hapticTap();
-              onChange(tab.key);
+              onChange(section);
             }}
             className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition
               ${
-                active === tab.key
+                active === section
                   ? "bg-orange-500 text-white shadow"
                   : "bg-gray-100 text-gray-700"
               }`}
           >
-            {tab.label}
+            {section.toUpperCase()}
           </button>
         ))}
       </div>

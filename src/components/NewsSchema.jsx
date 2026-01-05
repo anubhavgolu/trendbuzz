@@ -1,39 +1,45 @@
 import { Helmet } from "react-helmet-async";
 
 export default function NewsSchema({
-  title,
-  description,
+  title = "",
+  description = "",
   image,
   slug,
   publishedAt,
-  category,
+  category = "General",
 }) {
+  const date =
+    publishedAt && !isNaN(new Date(publishedAt))
+      ? new Date(publishedAt)
+      : new Date();
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "mainEntityOfPage": {
+    "@id": `https://www.trendbuzzs.com/trend/${slug}`,
+    mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://trendbuzzs.com/trend/${slug}`,
+      "@id": `https://www.trendbuzzs.com/trend/${slug}`,
     },
-    "headline": title,
-    "description": description,
-    "image": [image],
-    "datePublished": new Date(publishedAt).toISOString(),
-    "dateModified": new Date(publishedAt).toISOString(),
-    "author": {
+    headline: title,
+    description,
+    image: image ? [image] : undefined,
+    datePublished: date.toISOString(),
+    dateModified: date.toISOString(),
+    author: {
       "@type": "Organization",
-      "name": "TrendBuzzs",
-      "url": "https://trendbuzzs.com",
+      name: "TrendBuzzs",
+      url: "https://www.trendbuzzs.com",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "TrendBuzzs",
-      "logo": {
+      name: "TrendBuzzs",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://trendbuzzs.com/logo.png",
+        url: "https://www.trendbuzzs.com/logo.png",
       },
     },
-    "articleSection": category,
+    articleSection: category,
   };
 
   return (

@@ -9,7 +9,6 @@ import InstallBanner from "./components/InstallBanner";
 
 import Categories from "./pages/Categories";
 import ContentDetail from "./pages/ContentDetail";
-import Search from "./pages/Search";
 import About from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Disclaimer from "./pages/Disclaimer";
@@ -17,69 +16,66 @@ import CategoryPage from "./pages/CategoryPage";
 import Trending from "./pages/Trending";
 import Saved from "./pages/Saved";
 
-import PageTracker from "./components/PageTracker";
-import ClickTracker from "./components/ClickTracker";
-
 import DefaultSEO from "./seo/DefaultSEO";
 import RequireAdmin from "./pages/admin/RequireAdmin";
 
 import AdminManualNews from "./pages/admin/AdminManualNews";
 import AdminContentEditor from "./pages/admin/AdminContentEditor";
+import SectionManager from "./pages/admin/SectionManager";
 
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 const AdminHeatmap = lazy(() => import("./pages/AdminHeatmap"));
 
+/* ================= PUBLIC LAYOUT ================= */
+function PublicLayout() {
+  return (
+    <>
+      <Header />
+
+      <main className="min-h-screen pb-[72px]">
+        <Suspense fallback={<div className="p-10">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<Categories />} />
+            <Route path="/trend/:slug" element={<ContentDetail />} />
+
+            {/* UI ONLY – should be noindex */}
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/saved" element={<Saved />} />
+
+            <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+          </Routes>
+        </Suspense>
+      </main>
+
+      <InstallBanner />
+      <MobileBottomNav />
+      <Footer />
+    </>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <DefaultSEO />
-
-      <Suspense fallback={null}>
-        <PageTracker />
-        <ClickTracker />
-      </Suspense>
-
       <ScrollToTop />
 
       <Routes>
-        {/* 🌐 PUBLIC SITE */}
-        <Route
-          path="/*"
-          element={
-            <>
-              <Header />
-              <main className="min-h-screen pb-[72px]">
-                <Suspense fallback={<div className="p-10">Loading…</div>}>
-                  <Routes>
-                    <Route path="/" element={<Categories />} />
-                    <Route path="/:slug" element={<ContentDetail />} />
-                    <Route path="/search" element={<Search />} />
-                    <Route path="/trending" element={<Trending />} />
-                    <Route
-                      path="/category/:category"
-                      element={<CategoryPage />}
-                    />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                    <Route path="/disclaimer" element={<Disclaimer />} />
-                    <Route path="/saved" element={<Saved />} />
-                  </Routes>
-                </Suspense>
-              </main>
-              <InstallBanner />
-              <MobileBottomNav />
-              <Footer />
-            </>
-          }
-        />
+        {/* 🌐 PUBLIC */}
+        <Route path="/*" element={<PublicLayout />} />
 
         {/* 🔐 ADMIN (NO HEADER / FOOTER) */}
         <Route
           path="/admin/analytics"
           element={
             <RequireAdmin>
-              <AdminAnalytics />
+              <Suspense fallback={<div className="p-10">Loading…</div>}>
+                <AdminAnalytics />
+              </Suspense>
             </RequireAdmin>
           }
         />
@@ -88,7 +84,9 @@ export default function App() {
           path="/admin/heatmap"
           element={
             <RequireAdmin>
-              <AdminHeatmap />
+              <Suspense fallback={<div className="p-10">Loading…</div>}>
+                <AdminHeatmap />
+              </Suspense>
             </RequireAdmin>
           }
         />
@@ -107,6 +105,15 @@ export default function App() {
           element={
             <RequireAdmin>
               <AdminContentEditor />
+            </RequireAdmin>
+          }
+        />
+
+        <Route
+          path="/admin/sections"
+          element={
+            <RequireAdmin>
+              <SectionManager />
             </RequireAdmin>
           }
         />

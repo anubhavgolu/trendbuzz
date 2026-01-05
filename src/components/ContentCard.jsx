@@ -6,32 +6,52 @@ export default function ContentCard({
   image,
   slug,
   sourceName,
-  keywords,
 }) {
   return (
     <Link
-      to={`/${slug}`}
-      className="bg-white rounded-xl border hover:shadow-lg transition"
+      to={`/trend/${slug}`}
+      className="group bg-white rounded-xl border hover:shadow-lg transition overflow-hidden flex flex-col"
     >
+      {/* IMAGE */}
       {image && (
-        <img
-          src={image}
-          alt={title}
-          className="h-40 w-full object-cover rounded-t-xl"
-        />
+        <div className="aspect-[16/9] bg-gray-100 overflow-hidden rounded-t-xl">
+          <img
+            src={image}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.src = "/fallback.jpg";
+            }}
+            className="w-full h-full object-cover"
+          />
+        </div>
       )}
 
-      <div className="p-4">
-        <h3 className="font-bold line-clamp-2">{title}</h3>
-        <p className="text-sm text-gray-600 mt-2 line-clamp-3">
-          {summary}
-        </p>
+      {/* CONTENT */}
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="font-bold text-base leading-snug line-clamp-2">
+          {title}
+        </h3>
 
-        {sourceName && (
-          <p className="mt-3 text-xs text-gray-400">
-            Via {sourceName}
-          </p>
+        {summary && (
+          <p className="text-sm text-gray-600 mt-2 line-clamp-3">{summary}</p>
         )}
+
+        {/* FOOTER */}
+        <div className="mt-auto pt-4 flex items-center justify-between">
+          {sourceName ? (
+            <span className="text-xs text-gray-400">Via {sourceName}</span>
+          ) : (
+            <span />
+          )}
+
+          {/* READ MORE */}
+          <span className="text-sm font-semibold text-orange-600 group-hover:underline">
+            Read more →
+          </span>
+        </div>
       </div>
     </Link>
   );

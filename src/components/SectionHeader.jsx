@@ -1,22 +1,28 @@
+import { Link } from "react-router-dom";
+
 export default function SectionHeader({ title }) {
   if (!title) return null;
 
-  // Capitalize first letter for display
   const displayTitle =
     title.charAt(0).toUpperCase() + title.slice(1);
 
   return (
-    <div className="flex items-center justify-between">
-      <h2 className="text-2xl font-extrabold text-gray-900">
+    <div className="flex items-center justify-between gap-4">
+      {/* LEFT: TITLE */}
+      <h2 className="text-xl md:text-2xl font-extrabold tracking-tight">
         {displayTitle}
       </h2>
 
-      {/* optional future: View all */}
-      {/* 
-      <span className="text-sm text-orange-600 font-semibold cursor-pointer">
+      {/* CENTER LINE */}
+      <span className="hidden sm:block h-[2px] flex-1 bg-gradient-to-r from-orange-500/40 to-transparent" />
+
+      {/* RIGHT: VIEW ALL */}
+      <Link
+        to={`/category/${title}`}
+        className="text-sm font-medium text-orange-600 hover:underline whitespace-nowrap"
+      >
         View all →
-      </span> 
-      */}
+      </Link>
     </div>
   );
 }
