@@ -22,6 +22,7 @@ import RequireAdmin from "./pages/admin/RequireAdmin";
 import AdminManualNews from "./pages/admin/AdminManualNews";
 import AdminContentEditor from "./pages/admin/AdminContentEditor";
 import SectionManager from "./pages/admin/SectionManager";
+import Contact from "./pages/Contact";
 
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
@@ -45,6 +46,7 @@ function PublicLayout() {
 
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/Contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
           </Routes>

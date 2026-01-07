@@ -5,7 +5,7 @@ export default function Disclaimer() {
     <>
       <SEO
         title="Disclaimer | TrendBuzzs"
-        description="Disclaimer regarding content accuracy and external links."
+        description="Disclaimer regarding content accuracy, external links, and informational use of content on TrendBuzzs."
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
@@ -14,20 +14,29 @@ export default function Disclaimer() {
         </h1>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
-          The information provided on TrendBuzzs is for informational purposes
-          only. While we strive for accuracy, we do not guarantee completeness
-          or reliability of the information.
+          All information published on TrendBuzzs is provided in good faith and
+          for general informational purposes only. While we aim to present
+          accurate and up-to-date information, TrendBuzzs makes no warranties
+          regarding the completeness, reliability, or accuracy of any content.
         </p>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
-          TrendBuzzs does not provide financial, legal, or professional advice.
-          Any action you take based on the information found on this website is
-          strictly at your own risk.
+          The content published on TrendBuzzs should not be considered as
+          professional, legal, financial, or medical advice. Any action you
+          take upon the information on this website is strictly at your own
+          discretion and risk.
         </p>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
-          External links may be provided for reference. We have no control over
-          the content or nature of those sites.
+          TrendBuzzs may include links to external websites for reference or
+          additional information. While we strive to link to reliable sources,
+          we have no control over the content, nature, or availability of those
+          external sites and do not endorse any views expressed on them.
+        </p>
+
+        <p className="mt-4 text-gray-700 leading-relaxed">
+          By using TrendBuzzs, you acknowledge that you understand and agree to
+          this disclaimer.
         </p>
       </div>
     </>

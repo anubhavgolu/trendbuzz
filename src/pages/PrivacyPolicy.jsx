@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
     <>
       <SEO
         title="Privacy Policy | TrendBuzzs"
-        description="Privacy policy explaining how TrendBuzzs handles user data."
+        description="Privacy policy explaining how TrendBuzzs collects, uses, and protects user information."
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
@@ -13,38 +13,63 @@ export default function PrivacyPolicy() {
           Privacy Policy
         </h1>
 
-        <p className="mt-4 text-gray-700">
-          At TrendBuzzs, we respect your privacy. This Privacy Policy explains
-          how we collect, use, and protect information.
+        <p className="mt-4 text-gray-700 leading-relaxed">
+          At TrendBuzzs, we value the privacy of our visitors. This Privacy
+          Policy document explains what types of information are collected and
+          recorded by TrendBuzzs and how we use it.
         </p>
 
         <h2 className="mt-6 text-xl font-bold text-gray-900">
           Information We Collect
         </h2>
-        <p className="mt-2 text-gray-700">
-          We do not collect personal information such as name, email, or phone
-          number. We may collect anonymous usage data for analytics purposes.
+        <p className="mt-2 text-gray-700 leading-relaxed">
+          TrendBuzzs does not collect personal information such as names,
+          addresses, phone numbers, or email addresses directly from users.
+          However, we may collect non-personal information such as browser type,
+          device information, pages visited, and time spent on the site for
+          analytics and performance improvement purposes.
         </p>
 
         <h2 className="mt-6 text-xl font-bold text-gray-900">
-          Cookies
+          Cookies and Web Beacons
         </h2>
-        <p className="mt-2 text-gray-700">
-          TrendBuzzs may use cookies provided by third-party services such as
-          Google AdSense to display relevant advertisements.
+        <p className="mt-2 text-gray-700 leading-relaxed">
+          TrendBuzzs uses cookies to store information about visitors’
+          preferences and to optimize the user experience by customizing our
+          web page content based on visitors’ browser type or other information.
         </p>
 
         <h2 className="mt-6 text-xl font-bold text-gray-900">
-          Third-Party Services
+          Google AdSense
         </h2>
-        <p className="mt-2 text-gray-700">
-          Third-party vendors, including Google, use cookies to serve ads based
-          on a user's prior visits to this website or other websites.
+        <p className="mt-2 text-gray-700 leading-relaxed">
+          Google is a third-party vendor on TrendBuzzs. It uses cookies, such as
+          the DoubleClick cookie, to serve ads to users based on their visit to
+          TrendBuzzs and other websites on the internet.
         </p>
 
-        <p className="mt-4 text-gray-700">
-          Users may opt out of personalized advertising by visiting Google Ad
-          Settings.
+        <p className="mt-2 text-gray-700 leading-relaxed">
+          Users may opt out of the use of the DoubleClick cookie for
+          interest-based advertising by visiting Google Ad Settings.
+        </p>
+
+        <h2 className="mt-6 text-xl font-bold text-gray-900">
+          Third-Party Privacy Policies
+        </h2>
+        <p className="mt-2 text-gray-700 leading-relaxed">
+          TrendBuzzs’s Privacy Policy does not apply to other advertisers or
+          websites. We advise you to consult the respective Privacy Policies of
+          third-party ad servers or websites for more detailed information
+          about their practices and instructions on how to opt out of certain
+          options.
+        </p>
+
+        <h2 className="mt-6 text-xl font-bold text-gray-900">
+          Consent
+        </h2>
+        <p className="mt-2 text-gray-700 leading-relaxed">
+          By using our website, you hereby consent to our Privacy Policy and
+          agree to its terms.
         </p>
       </div>
     </>

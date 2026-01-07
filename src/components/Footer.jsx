@@ -21,7 +21,6 @@ export default function Footer() {
           <h4 className="font-semibold text-gray-900 mb-2">Pages</h4>
           <ul className="space-y-1">
             <li> <a href="/">Home</a></li>
-            <li><a href="/search">Search</a></li>
             <li>
               <a href="/about">About</a>
             </li>
@@ -38,6 +37,9 @@ export default function Footer() {
               </li>
               <li>
                 <a href="/disclaimer">Disclaimer</a>
+              </li>
+              <li>
+                <a href="/Contact">Contact us</a>
               </li>
             </ul>
           </ul>
