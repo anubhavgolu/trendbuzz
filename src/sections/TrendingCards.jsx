@@ -4,7 +4,6 @@ import Spotlight from "../sections/Spotlight";
 import CategorySection from "../components/CategorySection";
 import TopDiscussions from "../sections/TopDiscussions";
 import TrendCardSkeleton from "../components/TrendCardSkeleton";
-import AdSlot from "../components/AdSlot";
 import { fetchTrends } from "../services/api";
 import PageTransition from "../components/PageTransition";
 import NasaCarousel from "../components/NasaCarousel";
@@ -117,8 +116,6 @@ export default function TrendingCards() {
                 category="tech"
                 trends={filteredRedditTrends}
               />
-
-              <AdSlot />
 
               <CategorySection
                 title="📰 News"

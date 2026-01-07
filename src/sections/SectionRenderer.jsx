@@ -56,7 +56,7 @@ export default function SectionRenderer({ section }) {
           <ContentGrid title={section} items={items} />
 
           {/* 🔥 SAFE HOMEPAGE AD */}
-          <AdSlot slot="1234567890" />
+          {/* <AdSlot slot="1234567890" /> */}
         </>
       )}
     </motion.section>

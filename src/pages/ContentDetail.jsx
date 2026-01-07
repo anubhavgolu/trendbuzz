@@ -189,13 +189,13 @@ export default function ContentDetail() {
         )}
 
         {/* FULL CONTENT */}
-        {content && (
+        {/* {content && (
           <>
             <div className="prose prose-lg max-w-none mt-8">{content}</div>
 
             <AdSlot slot="3456789012" />
           </>
-        )}
+        )} */}
 
         {/* SOURCE */}
         {sourceUrl && (
