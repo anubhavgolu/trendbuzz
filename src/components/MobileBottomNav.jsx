@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { hapticTap } from "../utils/haptics";
+import { HiHome } from "react-icons/hi2";
+import { MdTrendingUp } from "react-icons/md";
+import { HiInformationCircle } from "react-icons/hi2";
 
 export default function MobileBottomNav() {
   const linkClass = ({ isActive }) =>
@@ -13,21 +16,17 @@ export default function MobileBottomNav() {
     >
       <div className="h-14 flex items-center justify-around">
         <NavLink to="/" className={linkClass} onClick={hapticTap}>
-          <span className="text-lg">🏠</span>
+          <HiHome className="text-xl" />
           Home
         </NavLink>
 
-        <NavLink
-          to="/trending"
-          className={linkClass}
-          onClick={hapticTap}
-        >
-          <span className="text-lg">🔥</span>
+        <NavLink to="/trending" className={linkClass} onClick={hapticTap}>
+          <MdTrendingUp className="text-xl" />
           Trending
         </NavLink>
 
         <NavLink to="/about" className={linkClass} onClick={hapticTap}>
-          <span className="text-lg">ℹ️</span>
+          <HiInformationCircle className="text-xl" />
           About
         </NavLink>
       </div>

@@ -42,13 +42,11 @@ export default function Header() {
       <header className="bg-white border-b sticky top-0 z-50 h-14">
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
           {/* LOGO */}
-          <Link to="/" className="flex items-center focus:outline-none">
+          <Link to="/" className="flex items-center h-12 overflow-hidden pt-1">
             <img
               src={logo}
-              alt="TrendBuzzs home"
-              className="h-10 md:h-12 w-auto hover:scale-105 transition"
-              decoding="async"
-              loading="eager"
+              alt="TrendBuzz home"
+              className="h-28 w-auto object-contain -mt-2 translate-y-1 "
             />
           </Link>
 
@@ -121,7 +119,6 @@ export default function Header() {
         <nav className="px-4 py-4 space-y-3 text-sm font-medium">
           {[
             { label: "Home", path: "/" },
-            { label: "Search", path: "/search" },
             { label: "About", path: "/about" },
           ].map((item, i) => (
             <NavLink
