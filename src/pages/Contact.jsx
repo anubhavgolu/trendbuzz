@@ -10,7 +10,7 @@ export default function Contact() {
 
       <div className="max-w-4xl mx-auto px-4 py-10">
         <h1 className="text-3xl font-extrabold text-gray-900">
-          Contact Us
+          Contact TrendBuzzs
         </h1>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
@@ -23,7 +23,13 @@ export default function Contact() {
         </p>
 
         <p className="mt-2 text-lg font-semibold text-gray-900">
-          📧 contact@trendbuzzs.com
+          📧{" "}
+          <a
+            href="mailto:contact@trendbuzzs.com"
+            className="text-blue-600 underline"
+          >
+            contact@trendbuzzs.com
+          </a>
         </p>
 
         <p className="mt-6 text-gray-700 leading-relaxed">

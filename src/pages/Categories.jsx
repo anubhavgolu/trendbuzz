@@ -16,13 +16,9 @@ export default function Categories() {
       try {
         const res = await fetch(`${API_BASE}/api/content/sections`);
         const data = await res.json();
-
-        if (mounted && Array.isArray(data)) {
-          setSections(data);
-        }
+        if (mounted && Array.isArray(data)) setSections(data);
       } catch (e) {
         console.error("Section load error", e);
-        if (mounted) setSections([]);
       } finally {
         if (mounted) setLoading(false);
       }
@@ -32,33 +28,55 @@ export default function Categories() {
     return () => (mounted = false);
   }, []);
 
-  {
-    loading && (
-      <div className="text-center text-sm text-gray-400 animate-pulse">
-        Loading trending stories…
-      </div>
-    );
-  }
-
   return (
     <>
       <SEO
-        title="TrendBuzzs – Today’s Top Stories"
-        description="Editor-curated top stories, tech, entertainment and videos."
+        title="Latest Trending News, Viral Stories & Internet Buzz | TrendBuzz"
+        description="TrendBuzz brings you real-time trending news from Reddit, NASA, technology, entertainment, sports, and viral internet stories — explained clearly and updated continuously."
       />
+
       <Helmet>
+  
         <meta name="googlebot-news" content="index,follow" />
         <meta name="googlebot" content="max-image-preview:large" />
+
+       
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "TrendBuzz",
+            url: "https://www.trendbuzzs.com",
+            publisher: {
+              "@type": "Organization",
+              name: "TrendBuzz",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.trendbuzzs.com/logo.png",
+              },
+            },
+          })}
+        </script>
       </Helmet>
 
-      <main className="max-w-7xl mx-auto px-4 py-6 space-y-20">
-        <h1 className="sr-only">TrendBuzzs</h1>
+      <main className="max-w-7xl mx-auto px-4 py-6 space-y-16">
+      
+        <header className="max-w-3xl space-y-3">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Latest Trending News, Viral Stories & Internet Buzz
+          </h1>
+          <p className="text-gray-600">
+            Stay updated with real-time trending stories from news,
+            technology, entertainment, sports, and the internet — curated and
+            explained by TrendBuzz.
+          </p>
+        </header>
 
         {loading && (
           <>
-            <SectionSkeleton title="Top" />
-            <SectionSkeleton title="Tech" />
-            <SectionSkeleton title="News" />
+            <SectionSkeleton title="Top Stories" />
+            <SectionSkeleton title="Technology" />
+            <SectionSkeleton title="Trending News" />
           </>
         )}
 

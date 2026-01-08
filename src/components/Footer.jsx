@@ -64,6 +64,11 @@ export default function Footer() {
               </a>
             </li>
             <li>
+              <a href="/editorial-policy" className="hover:text-gray-900">
+                Editorial Policy
+              </a>
+            </li>
+            <li>
               <a href="/contact" className="hover:text-gray-900">
                 Contact Us
               </a>

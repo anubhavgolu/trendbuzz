@@ -31,7 +31,6 @@ export default function ContentDetail() {
     };
   }, [slug]);
 
-  /* ================= STATES ================= */
 
   if (loading) {
     return (
@@ -74,11 +73,9 @@ export default function ContentDetail() {
     type,
   } = item;
 
-  /* ================= RENDER ================= */
 
   return (
     <>
-      {/* 🔍 SEO */}
       <SEO
         title={seoTitle || title}
         description={seoDescription || summary}
@@ -86,7 +83,6 @@ export default function ContentDetail() {
         canonical={`https://www.trendbuzzs.com/trend/${slug}`}
       />
 
-      {/* 🧭 Breadcrumbs */}
       <BreadcrumbSchema
         items={[
           {
@@ -104,7 +100,6 @@ export default function ContentDetail() {
         ]}
       />
 
-      {/* 🧠 Article Schema */}
       <NewsSchema
         title={title}
         description={summary}
@@ -114,7 +109,6 @@ export default function ContentDetail() {
         category={item.section}
       />
 
-      {/* 🔥 HERO */}
       <ContentHero
         title={title}
         summary={summary}
@@ -123,7 +117,6 @@ export default function ContentDetail() {
         publishedAt={publishedAt}
       />
 
-      {/* ================= BODY ================= */}
       <main className="max-w-4xl mx-auto px-4 py-10">
         <div className="mb-6">
           {item.section && (
@@ -133,7 +126,6 @@ export default function ContentDetail() {
           )}
         </div>
         <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm text-gray-500 items-center">
-          {/* DATE */}
           {item.createdAt && (
             <span>
               🗓️{" "}
@@ -145,10 +137,8 @@ export default function ContentDetail() {
             </span>
           )}
 
-          {/* NEWS SOURCE */}
           {sourceName && <span>• 📰 {sourceName}</span>}
 
-          {/* IMAGE SOURCE */}
           {(item.imageSource || image) && (
             <span className="text-xs text-gray-400">
               • 📸{" "}
@@ -162,7 +152,6 @@ export default function ContentDetail() {
             </span>
           )}
 
-          {/* SOURCE LINK */}
           {item.sourceUrl && (
             <a
               href={item.sourceUrl}
@@ -175,7 +164,6 @@ export default function ContentDetail() {
           )}
         </div>
 
-        {/* VIDEO */}
         {type === "video" && video?.embedUrl && (
           <div className="mb-8 aspect-video">
             <iframe
@@ -209,7 +197,6 @@ export default function ContentDetail() {
           </a>
         )}
 
-        {/* TAGS */}
         {keywords?.combined?.length > 0 && (
           <div className="mt-8 flex flex-wrap gap-2">
             {keywords.combined.map((tag) => (
@@ -220,7 +207,6 @@ export default function ContentDetail() {
           </div>
         )}
 
-        {/* BACK */}
         <div className="mt-12">
           <Link
             to="/"

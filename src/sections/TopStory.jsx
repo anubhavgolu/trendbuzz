@@ -22,12 +22,14 @@ export default function TopStory({ items = [] }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
         </div>
 
-        <h1 className="mt-4 text-2xl md:text-3xl font-extrabold group-hover:text-orange-500 transition">
+        <h2 className="mt-4 text-2xl md:text-3xl font-extrabold group-hover:text-orange-500 transition">
           {first.title}
-        </h1>
+        </h2>
 
         {first.summary && (
-          <p className="text-gray-600 mt-2 line-clamp-2">{first.summary}</p>
+          <p className="text-gray-600 mt-2 line-clamp-2">
+            {first.summary}
+          </p>
         )}
       </Link>
     </section>

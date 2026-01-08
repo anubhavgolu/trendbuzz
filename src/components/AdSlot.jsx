@@ -28,7 +28,7 @@ export default function AdSlot() {
         <ins
           className="adsbygoogle"
           style={{ display: "block", width: "100%", height: "90px" }}
-          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+          data-ad-client="ca-pub-1788108525667414"
           data-ad-slot="1234567890"
           data-ad-format="horizontal"
         />
