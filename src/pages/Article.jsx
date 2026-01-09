@@ -8,9 +8,8 @@ import SEO from "../components/SEO"; // path apne hisaab se
    (API-ready structure)
 ======================= */
 const article = {
-  image: "https://images.unsplash.com/photo-1599058917212-d750089bc07e",
   category: "health",
-  publishedAt: "June 24, 2025",
+  publishedAt: "Jan 9, 2026",
   en: {
     title: "Why do women experience more knee pain than men?",
     excerpt:

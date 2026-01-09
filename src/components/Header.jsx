@@ -58,6 +58,9 @@ export default function Header() {
             <NavLink to="/" className={navClass}>
               Home
             </NavLink>
+            <NavLink to="/article" className={navClass}>
+              Article
+            </NavLink>
             <NavLink to="/about" className={navClass}>
               About
             </NavLink>
@@ -119,6 +122,7 @@ export default function Header() {
         <nav className="px-4 py-4 space-y-3 text-sm font-medium">
           {[
             { label: "Home", path: "/" },
+            { label: "Article", path: "/article" },
             { label: "About", path: "/about" },
           ].map((item, i) => (
             <NavLink
