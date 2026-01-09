@@ -27,6 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.19",
     "@vitejs/plugin-react": "^5.1.2",
     "framer-motion": "^12.23.26",
     "react": "^18.3.1",

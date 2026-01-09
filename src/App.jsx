@@ -24,6 +24,7 @@ import AdminContentEditor from "./pages/admin/AdminContentEditor";
 import SectionManager from "./pages/admin/SectionManager";
 import Contact from "./pages/Contact";
 import EditorialPolicy from "./pages/EditorialPolicy";
+import Article from "./pages/Article";
 
 // 🟣 ADMIN (LAZY)
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
@@ -44,6 +45,11 @@ function PublicLayout() {
             {/* UI ONLY – should be noindex */}
             <Route path="/trending" element={<Trending />} />
             <Route path="/saved" element={<Saved />} />
+            <Route path="/article" element={<Article />} />
+
+            {/* NEW */}
+            <Route path="/trend/:slug" element={<Article />} />
+            <Route path="/hi/trend/:slug" element={<Article />} />
 
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/about" element={<About />} />
