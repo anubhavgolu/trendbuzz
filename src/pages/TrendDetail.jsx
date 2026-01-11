@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import { fetchTrends } from "../services/api";
 import { formatRelativeTime } from "../utils/formatRelativeTime";
 import { formatDate } from "../utils/formatDate";
-import CommentsSidebar from "../sections/CommentsSidebar.jsx";
 import NewsSchema from "../components/NewsSchema";
 import SEO from "../components/SEO.jsx";
 import author from "../data/author";
-
 export default function TrendDetail() {
   const { slug } = useParams();
   const [trend, setTrend] = useState(null);
@@ -86,9 +84,6 @@ export default function TrendDetail() {
             </a>
           )}
         </div>
-
-        {!hideComments && <CommentsSidebar slug={trend.slug} />}
-
         <div className="mt-10 flex gap-4 flex-wrap">
           <Link to="/" className="text-orange-600 font-semibold">
             ← Trending

@@ -34,12 +34,9 @@ export default function CategoryPage() {
         canonical={`https://www.trendbuzzs.com/category/${category}`}
       />
 
-      <Helmet>
-    
+      <Helmet> 
         <meta name="googlebot-news" content="index,follow" />
         <meta name="googlebot" content="max-image-preview:large" />
-
-  
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

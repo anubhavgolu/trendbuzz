@@ -21,8 +21,7 @@ export default function DefaultSEO() {
       />
       <meta property="og:url" content={siteUrl} />
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
+
     </Helmet>
   );
 }

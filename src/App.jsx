@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MobileBottomNav from "./components/MobileBottomNav";
 import ScrollToTop from "./components/ScrollToTop";
-import InstallBanner from "./components/InstallBanner";
-
 import Categories from "./pages/Categories";
 import ContentDetail from "./pages/ContentDetail";
 import About from "./pages/About";
@@ -14,12 +12,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Disclaimer from "./pages/Disclaimer";
 import CategoryPage from "./pages/CategoryPage";
 import Trending from "./pages/Trending";
-import Saved from "./pages/Saved";
-
 import DefaultSEO from "./seo/DefaultSEO";
 import RequireAdmin from "./pages/admin/RequireAdmin";
-
-import AdminManualNews from "./pages/admin/AdminManualNews";
 import AdminContentEditor from "./pages/admin/AdminContentEditor";
 import SectionManager from "./pages/admin/SectionManager";
 import Contact from "./pages/Contact";
@@ -27,8 +21,6 @@ import EditorialPolicy from "./pages/EditorialPolicy";
 import Article from "./pages/Article";
 
 // 🟣 ADMIN (LAZY)
-const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
-const AdminHeatmap = lazy(() => import("./pages/AdminHeatmap"));
 
 /* ================= PUBLIC LAYOUT ================= */
 function PublicLayout() {
@@ -44,7 +36,6 @@ function PublicLayout() {
 
             {/* UI ONLY – should be noindex */}
             <Route path="/trending" element={<Trending />} />
-            <Route path="/saved" element={<Saved />} />
             <Route path="/article" element={<Article />} />
 
             {/* NEW */}
@@ -61,8 +52,6 @@ function PublicLayout() {
           </Routes>
         </Suspense>
       </main>
-
-      <InstallBanner />
       <MobileBottomNav />
       <Footer />
     </>
@@ -80,36 +69,8 @@ export default function App() {
         <Route path="/*" element={<PublicLayout />} />
 
         {/* 🔐 ADMIN (NO HEADER / FOOTER) */}
-        <Route
-          path="/admin/analytics"
-          element={
-            <RequireAdmin>
-              <Suspense fallback={<div className="p-10">Loading…</div>}>
-                <AdminAnalytics />
-              </Suspense>
-            </RequireAdmin>
-          }
-        />
 
-        <Route
-          path="/admin/heatmap"
-          element={
-            <RequireAdmin>
-              <Suspense fallback={<div className="p-10">Loading…</div>}>
-                <AdminHeatmap />
-              </Suspense>
-            </RequireAdmin>
-          }
-        />
 
-        <Route
-          path="/admin/manual-news"
-          element={
-            <RequireAdmin>
-              <AdminManualNews />
-            </RequireAdmin>
-          }
-        />
 
         <Route
           path="/admin/content"

@@ -1,6 +1,3 @@
-import TrendCard from "../components/TrendCard";
-import trends from "../data/trends";
-
 export default function Home() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -12,9 +9,6 @@ export default function Home() {
       </p>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {trends.map((trend) => (
-          <TrendCard key={trend.id} {...trend} />
-        ))}
       </div>
     </div>
   );
