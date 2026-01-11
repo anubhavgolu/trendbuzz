@@ -19,6 +19,10 @@ import SectionManager from "./pages/admin/SectionManager";
 import Contact from "./pages/Contact";
 import EditorialPolicy from "./pages/EditorialPolicy";
 import Article from "./pages/Article";
+import Schedule from "./pages/sports/t20-world-cup-2026/Schedule";
+import PointsTable from "./pages/sports/t20-world-cup-2026/PointsTable";
+import Groups from "./pages/sports/t20-world-cup-2026/Groups";
+import Teams from "./pages/sports/t20-world-cup-2026/Teams";
 
 // 🟣 ADMIN (LAZY)
 
@@ -49,6 +53,25 @@ function PublicLayout() {
             <Route path="/Contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route
+              path="/sports/t20-world-cup-2026/schedule"
+              element={<Schedule />}
+            />
+
+            <Route
+              path="/sports/t20-world-cup-2026/groups"
+              element={<Groups />}
+            />
+
+            <Route
+              path="/sports/t20-world-cup-2026/teams"
+              element={<Teams />}
+            />
+
+            <Route
+              path="/sports/t20-world-cup-2026/points-table"
+              element={<PointsTable />}
+            />
           </Routes>
         </Suspense>
       </main>
@@ -69,8 +92,6 @@ export default function App() {
         <Route path="/*" element={<PublicLayout />} />
 
         {/* 🔐 ADMIN (NO HEADER / FOOTER) */}
-
-
 
         <Route
           path="/admin/content"

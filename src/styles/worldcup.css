@@ -1,0 +1,480 @@
+.wc-page {
+  background: #f8fafc;
+  padding: 12px 0 24px;
+}
+/* TBC BADGE */
+.tbc-badge {
+  width: 36px;
+  height: 24px;
+  border-radius: 4px;
+  background: #fff7ed;
+  border: 1px dashed #fed7aa;
+  color: #9a3412;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+/* VS BADGE */
+.wc-vs-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #9a3412;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 999px;
+  padding: 4px 8px;
+  line-height: 1;
+  width: fit-content; /* 🔥 FIX */
+  justify-self: center; /* 🔥 CENTER IN GRID */
+}
+
+.wc-card {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 0;
+  margin: 0;
+  padding: 14px 18px;
+}
+
+.wc-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.wc-chip {
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.wc-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.wc-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.wc-team.right {
+  justify-content: flex-end;
+}
+
+.wc-team img {
+  width: 26px;
+  height: 18px;
+  border-radius: 3px;
+}
+
+.wc-vs {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.wc-footer {
+  font-size: 13px;
+  color: #374151;
+  margin-top: 6px;
+}
+/* DATE HEADER */
+.wc-date-header {
+  background: linear-gradient(90deg, #ffedd5, #fff7ed);
+  color: #9a3412;
+  font-size: 19px;
+  font-weight: 800;
+  padding: 14px 20px;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid #fde68a;
+}
+
+.ad-placeholder {
+  max-width: 900px;
+  margin: 16px auto;
+  min-height: 90px;
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+.wc-date-group {
+  max-width: 960px; /* 🔥 wider */
+  margin: 0 auto 22px;
+  background: #ffffff;
+  border: 1px solid #fde68a;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.wc-heading {
+  max-width: 960px;
+  margin: 0 auto 18px;
+  padding: 0 4px;
+}
+
+.wc-heading h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.wc-heading p {
+  font-size: 14px;
+  color: #6b7280;
+}
+.wc-search {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.wc-search:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.wc-tabs {
+  max-width: 960px;
+  margin: 10px auto 18px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wc-tab {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #fed7aa; /* light orange border */
+  background: #fff7ed; /* very light orange */
+  font-size: 14px;
+  color: #9a3412; /* orange text */
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.wc-tab:hover {
+  background: #ffedd5;
+}
+
+.wc-tab.active {
+  background: #fb923c; /* solid orange */
+  color: #ffffff;
+  border-color: #fb923c;
+}
+/* GROUP CARD */
+.wc-group-card {
+  width: 100%;
+}
+
+.wc-group-header {
+  background: linear-gradient(90deg, #ffedd5, #fff7ed);
+  color: #9a3412;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 14px 20px;
+  border-bottom: 1px solid #fde68a;
+}
+
+.wc-group-teams {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 16px;
+}
+
+.wc-group-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.wc-group-team img {
+  width: 26px;
+  height: 18px;
+  border-radius: 3px;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .wc-group-teams {
+    grid-template-columns: 1fr;
+  }
+
+  .wc-group-header {
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .wc-heading h1 {
+    font-size: 20px;
+  }
+}
+
+/* TEAMS GRID WRAPPER */
+.wc-teams-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #fed7aa; /* 🔸 orange border */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* TEAM CELL */
+.wc-team-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  background: #ffffff;
+  transition: background 0.2s ease;
+}
+
+/* Hover – subtle orange feel */
+.wc-team-card:hover {
+  background: #fff7ed;
+}
+
+/* Remove right border on last column */
+.wc-team-card:nth-child(3n) {
+  border-right: none;
+}
+
+/* Remove bottom border on last row */
+.wc-team-card:nth-last-child(-n + 3) {
+  border-bottom: none;
+}
+
+/* FLAG */
+.wc-team-card img {
+  width: 36px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .wc-teams-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wc-team-card:nth-child(3n) {
+    border-right: 1px solid #e5e7eb;
+  }
+
+  .wc-team-card:nth-child(2n) {
+    border-right: none;
+  }
+
+  .wc-team-card:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .wc-teams-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wc-team-card {
+    border-right: none;
+  }
+
+  .wc-team-card:last-child {
+    border-bottom: none;
+  }
+}
+
+/* POINTS TABLE WRAPPER */
+.wc-table-wrap {
+  overflow-x: auto;
+  background: #ffffff;
+}
+
+/* TABLE */
+.wc-points-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* HEADER */
+.wc-points-table thead {
+  background: #fff7ed; /* 🔸 light orange */
+}
+
+.wc-points-table th {
+  padding: 12px 10px;
+  text-align: center;
+  font-weight: 700;
+  color: #9a3412;
+  border-bottom: 1px solid #fed7aa;
+}
+
+/* BODY */
+.wc-points-table td {
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  color: #1f2937;
+}
+
+.wc-points-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* TEAM NAME COLUMN */
+.wc-points-table .team-name {
+  text-align: left;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* POSITION */
+/* TEAM FLAG IN POINTS TABLE */
+.wc-points-table .team-flag {
+  width: 26px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+/* POINTS HIGHLIGHT */
+.wc-points-table .pts {
+  font-weight: 800;
+  color: #9a3412;
+}
+
+/* ROW HOVER */
+.wc-points-table tbody tr:hover {
+  background: #fff7ed;
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .wc-points-table {
+    font-size: 13px;
+  }
+
+  .wc-points-table th,
+  .wc-points-table td {
+    padding: 10px 6px;
+  }
+}
+
+/* Card spacing inside group */
+.wc-date-group .wc-card {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0;
+}
+
+.wc-date-group .wc-card:last-child {
+  border-bottom: none;
+}
+.wc-card:last-child {
+  border-bottom: none;
+}
+
+.wc-editorial {
+  max-width: 960px;
+  margin: 8px auto 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #374151;
+}
+
+
+/* Mobile */
+@media (max-width: 640px) {
+  .wc-card {
+    margin: 0 10px 12px;
+  }
+
+  .wc-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;
+    align-items: center;
+    row-gap: 8px;
+  }
+  .wc-row .wc-team:not(.right) {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    justify-content: flex-start;
+  }
+  .wc-row .wc-vs-badge {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+   .wc-row .wc-team.right {
+    grid-column: 3 / 4;
+    grid-row: 2;
+    justify-content: flex-end;
+  }
+
+  .wc-vs {
+    display: none;
+  }
+
+  .wc-team.right {
+    justify-content: flex-start;
+  }
+  .wc-date-header {
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+}
+
+/* MOBILE SIDE SPACING FIX */
+@media (max-width: 640px) {
+  .wc-heading,
+  .wc-tabs,
+  .wc-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .wc-date-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

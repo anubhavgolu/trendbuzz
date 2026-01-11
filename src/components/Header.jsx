@@ -58,6 +58,16 @@ export default function Header() {
             <NavLink to="/" className={navClass}>
               Home
             </NavLink>
+            <NavLink
+              to="/sports/t20-world-cup-2026/schedule"
+              className={navClass}
+            >
+              <span className="inline-flex items-center gap-1">
+                <span className="text-orange-500 text-base">🏏</span>
+                T20 WC 2026
+              </span>
+            </NavLink>
+
             <NavLink to="/article" className={navClass}>
               Article
             </NavLink>
@@ -122,6 +132,11 @@ export default function Header() {
         <nav className="px-4 py-4 space-y-3 text-sm font-medium">
           {[
             { label: "Home", path: "/" },
+            {
+              label: "T20 WC 2026🏏 ",
+              path: "/sports/t20-world-cup-2026/schedule",
+            },
+
             { label: "Article", path: "/article" },
             { label: "About", path: "/about" },
           ].map((item, i) => (
