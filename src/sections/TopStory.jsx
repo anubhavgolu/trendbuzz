@@ -7,10 +7,18 @@ export default function TopStory({ items = [] }) {
   return (
     <section className="space-y-6">
       <Link to={`/trend/${first.slug}`} className="group block">
-        <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-black">
+        <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-gray-900">
           {first.image && (
             <img
-              src={first.image}
+              src={first.image} // fallback
+              srcSet={`
+                ${first.image}?w=640 640w,
+                ${first.image}?w=1024 1024w,
+                ${first.image}?w=1600 1600w
+              `}
+              sizes="(max-width: 768px) 100vw, 1024px"
+              width="1024"
+              height="576"
               alt={first.title}
               fetchpriority="high"
               loading="eager"

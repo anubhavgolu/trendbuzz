@@ -4,7 +4,6 @@ import { fetchSection } from "../services/contentApi";
 import ContentGrid from "./ContentGrid";
 import TopStory from "./TopStory";
 import VideoSection from "./VideoSection";
-import AdSlot from "../components/AdSlot";
 
 export default function SectionRenderer({ section }) {
   const [items, setItems] = useState([]);
@@ -16,8 +15,7 @@ export default function SectionRenderer({ section }) {
     fetchSection(section)
       .then((data) => {
         if (!mounted) return;
-        if (Array.isArray(data)) setItems(data);
-        else setItems([]);
+        setItems(Array.isArray(data) ? data : []);
       })
       .catch(() => {
         if (mounted) setItems([]);
@@ -31,34 +29,33 @@ export default function SectionRenderer({ section }) {
     };
   }, [section]);
 
-  // ⛔ Don’t render anything until API resolved
-  if (!loaded) return null;
-
-  // ⛔ Don’t render empty sections (SEO + UX safe)
-  if (!items || items.length === 0) return null;
-
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-120px" }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="space-y-6"
-    >
-      {/* 🔥 SPECIAL SECTIONS */}
-      {section === "top" && <TopStory items={items} />}
-
-      {section === "video" && <VideoSection items={items} />}
-
-      {/* 🟢 NORMAL CONTENT GRID */}
-      {section !== "top" && section !== "video" && (
-        <>
-          <ContentGrid title={section} items={items} />
-
-          {/* 🔥 SAFE HOMEPAGE AD */}
-          {/* <AdSlot slot="1234567890" /> */}
-        </>
+    <section className="space-y-6 min-h-[400px]">
+      {!loaded && (
+        <div className="animate-pulse space-y-4">
+          <div className="h-6 bg-gray-200 rounded w-1/3" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="h-48 bg-gray-200 rounded" />
+            <div className="h-48 bg-gray-200 rounded" />
+            <div className="h-48 bg-gray-200 rounded" />
+          </div>
+        </div>
       )}
-    </motion.section>
+
+      {loaded && items.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {section === "top" && <TopStory items={items} />}
+          {section === "video" && <VideoSection items={items} />}
+
+          {section !== "top" && section !== "video" && (
+            <ContentGrid title={section} items={items} />
+          )}
+        </motion.div>
+      )}
+    </section>
   );
 }
