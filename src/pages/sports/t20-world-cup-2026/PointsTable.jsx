@@ -3,9 +3,11 @@ import WorldCupTabs from "../../../components/worldcup/WorldCupTabs";
 import WorldCupSEO from "../../../seo/WorldCupSEO";
 import { fetchPointsTable } from "../../../services/worldcup.api";
 import { getFlagUrl } from "../../../utils/flagCode";
+import WorldCupFAQSchema from "../../../seo/WorldCupFAQSchema";
 
 const PointsTable = () => {
   const [groups, setGroups] = useState([]);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     fetchPointsTable().then((res) => {
@@ -16,20 +18,48 @@ const PointsTable = () => {
   return (
     <>
       <WorldCupSEO
-        title="ICC Men’s T20 World Cup 2026 Points Table | TrendBuzzs"
-        description="Latest group-wise points table of ICC Men’s T20 World Cup 2026."
-        url="https://trendbuzzs.com/sports/t20-world-cup-2026/points-table"
-        pageType="Points Table"
-
+        title="T20 World Cup 2026 Points Table | ICC Men’s T20 WC Standings"
+        description="Latest T20 World Cup 2026 points table with group-wise standings, matches played, wins, losses, net run rate and qualification details."
+        url="https://www.trendbuzzs.com/sports/t20-world-cup-2026/points-table"
+        pageType="PointsTable"
       />
 
+      {/* ===== HEADER ===== */}
       <div className="wc-heading">
-        <h1>ICC Men’s T20 World Cup 2026 Points Table</h1>
+        <h1>
+          ICC Men’s T20 World Cup 2026 Points Table
+          <button
+            className="wc-info-btn"
+            onClick={() => setShowInfo(!showInfo)}
+            aria-label="About points table"
+            title="About points table"
+          >
+            i
+          </button>
+        </h1>
         <p>Group-wise standings with matches, points and net run rate</p>
+        <section className={`wc-seo-content ${showInfo ? "open" : ""}`}>
+          <h2>T20 World Cup 2026 Points Table Explained</h2>
+          <p>
+            The ICC Men’s T20 World Cup 2026 points table shows team rankings
+            based on matches played, wins, losses, net run rate (NRR) and total
+            points.
+          </p>
+
+          <h2>How Qualification Works</h2>
+          <p>
+            In case teams finish with equal points, net run rate (NRR) is used
+            to decide rankings. The top teams from each group advance to the
+            semi-finals.
+          </p>
+        </section>
       </div>
 
       <WorldCupTabs />
 
+      {/* ===== INFO (COLLAPSIBLE) ===== */}
+
+      {/* ===== TABLE ===== */}
       <div className="wc-page">
         {groups.map((group) => (
           <div key={group._id} className="wc-date-group">
@@ -50,17 +80,17 @@ const PointsTable = () => {
                 </thead>
 
                 <tbody>
-                  {group.table.map((team, idx) => (
+                  {group.table.map((team) => (
                     <tr key={team.short}>
                       <td className="team-name">
                         <img
                           src={getFlagUrl(team.short)}
                           alt={team.team}
                           className="team-flag"
+                          loading="lazy"
                         />
                         {team.team}
                       </td>
-
                       <td>{team.matches}</td>
                       <td>{team.wins}</td>
                       <td>{team.losses}</td>
@@ -75,6 +105,9 @@ const PointsTable = () => {
           </div>
         ))}
       </div>
+
+      {/* ===== FAQ SCHEMA (LAST) ===== */}
+      <WorldCupFAQSchema />
     </>
   );
 };
