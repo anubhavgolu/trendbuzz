@@ -13,6 +13,7 @@ import Disclaimer from "./pages/Disclaimer";
 import CategoryPage from "./pages/CategoryPage";
 import Trending from "./pages/Trending";
 import DefaultSEO from "./seo/DefaultSEO";
+import PublisherSEO from "./seo/PublisherSEO ";
 import RequireAdmin from "./pages/admin/RequireAdmin";
 import AdminContentEditor from "./pages/admin/AdminContentEditor";
 import SectionManager from "./pages/admin/SectionManager";
@@ -84,6 +85,7 @@ function PublicLayout() {
 export default function App() {
   return (
     <BrowserRouter>
+     <PublisherSEO />
       <DefaultSEO />
       <ScrollToTop />
 

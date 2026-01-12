@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/trendbuzz_logo.png";
+import logo from "/assets/trendbuzz_logo.png";
 import { hapticTap } from "../utils/haptics";
 
 export default function Header() {

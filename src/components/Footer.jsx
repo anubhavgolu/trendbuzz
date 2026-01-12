@@ -1,4 +1,4 @@
-import logo from "../assets/trendbuzz_logo.png";
+import logo from "/assets/trendbuzz_logo.png";
 
 export default function Footer() {
   return (

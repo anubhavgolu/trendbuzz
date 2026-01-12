@@ -12,7 +12,7 @@ const MatchSchema = ({ match }) => {
     "endDate": match.date,
     "eventStatus": "https://schema.org/EventScheduled",
     "sport": "Cricket",
-    "image": "https://www.trendbuzzs.com/assets/worldcup-2026-cover.jpg",
+    "image": "https://www.trendbuzzs.com/assets/worldcup-2026-cover.jpeg",
     "location": {
       "@type": "Place",
       "name": match.venue,
