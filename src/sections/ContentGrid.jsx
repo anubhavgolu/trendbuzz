@@ -10,7 +10,7 @@ export default function ContentGrid({ title, items }) {
 
       <div className="grid md:grid-cols-3 gap-6 mt-6">
         {items.map((item) => (
-          <ContentCard key={item._id} {...item} />
+          <ContentCard key={item.slug} {...item} />
         ))}
       </div>
     </section>

@@ -6,10 +6,28 @@ export default function AdminLogin() {
   const { login } = useAdminAuth();
   const [key, setKey] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (key.trim()) {
+
+    if (!key.trim()) return;
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/admin/verify`,
+        {
+          headers: {
+            "x-admin-key": key.trim(),
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Invalid admin key");
+      }
+
       login(key.trim());
+    } catch (err) {
+      alert("❌ Invalid Admin Key");
     }
   }
 

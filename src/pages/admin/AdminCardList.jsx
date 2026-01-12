@@ -116,7 +116,7 @@ export default function AdminCardList({ section, refreshKey, onEdit }) {
 
         {items.map((item) => (
           <div
-            key={item._id}
+            key={item.slug || `${item.section}-${item.order}`}
             draggable
             onDragStart={() => onDragStart(item._id)}
             onDragOver={onDragOver}
