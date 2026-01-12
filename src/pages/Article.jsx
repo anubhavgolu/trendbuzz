@@ -1,12 +1,9 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useMemo, useEffect, useState } from "react";
-import SEO from "../components/SEO"; // path apne hisaab se
+import SEO from "../components/SEO"; 
 
-/* =======================
-   DUMMY ARTICLE DATA
-   (API-ready structure)
-======================= */
+
 const article = {
   category: "health",
   publishedAt: "Jan 9, 2026",
@@ -405,9 +402,7 @@ problems, the risk can be higher.
   },
 };
 
-/* =======================
-   HELPER: Extract Headings
-======================= */
+
 function extractHeadings(html) {
   if (!html) return [];
   const parser = new DOMParser();
@@ -424,23 +419,23 @@ export default function Article() {
   const { slug } = useParams();
   const location = useLocation();
 
-  // ✅ Language STATE (URL se nahi)
+ 
   const [lang, setLang] = useState("en");
   const isHindi = lang === "hi";
 
-  // ✅ Article select
+ 
   const currentArticle = article[lang];
 
   if (!currentArticle) {
     return <div className="p-6">Article not found</div>;
   }
 
-  // ✅ Scroll to top on language change
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [lang]);
 
-  // ✅ Extract headings
+ 
   const headings = useMemo(
     () => extractHeadings(currentArticle.content),
     [currentArticle.content]
@@ -468,7 +463,7 @@ export default function Article() {
             ← Back to Home
           </Link>
 
-          {/* ✅ LANGUAGE SWITCH — REAL FIX */}
+       
           <button
             onClick={() => setLang(isHindi ? "en" : "hi")}
             className="relative inline-flex items-center bg-gray-100 rounded-full w-28 h-8 overflow-hidden"
@@ -487,9 +482,9 @@ export default function Article() {
           </button>
         </div>
 
-        {/* GRID */}
+    
         <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12 h-full">
-          {/* OUTLINE */}
+      
           <aside className="hidden lg:block sticky top-20">
             <div className="pl-4 border-l">
               <p className="mb-3 text-xs font-semibold uppercase text-gray-500">
@@ -511,7 +506,7 @@ export default function Article() {
             </div>
           </aside>
 
-          {/* ARTICLE */}
+        
           <article className="max-w-3xl h-full overflow-y-auto pr-3 custom-scroll">
             <header className="mb-6">
               <h1 className="text-3xl font-bold leading-tight relative top-[4px]">

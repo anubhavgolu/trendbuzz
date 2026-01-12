@@ -5,12 +5,12 @@ export function formatImageUrl(url, width = 600) {
     const imageUrl = new URL(url);
     const host = imageUrl.hostname;
 
-    // 🚫 iStock → NEVER touch
+    
     if (host.includes("istockphoto.com")) {
       return url;
     }
 
-    // ✅ Unsplash / CDN only
+  
     if (
       host.includes("unsplash.com") ||
       host.includes("cloudinary.com") ||
@@ -22,7 +22,7 @@ export function formatImageUrl(url, width = 600) {
       return imageUrl.toString();
     }
 
-    // ✅ Pixabay / normal
+   
     return url;
   } catch {
     return url;

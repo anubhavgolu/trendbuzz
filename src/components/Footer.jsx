@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-white border-t mt-16">
       <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8 text-sm text-gray-600">
-        {/* Brand */}
+      
         <div className="flex flex-col gap-3">
           <div className="h-20 overflow-hidden flex items-center">
             <img
@@ -32,7 +32,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Pages */}
+        
         <div>
           <h4 className="font-semibold text-gray-900 mb-3">Pages</h4>
           <ul className="space-y-2">
@@ -49,7 +49,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Legal */}
+      
         <div>
           <h4 className="font-semibold text-gray-900 mb-3">Legal</h4>
           <ul className="space-y-2">

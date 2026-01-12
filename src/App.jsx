@@ -25,9 +25,8 @@ import PointsTable from "./pages/sports/t20-world-cup-2026/PointsTable";
 import Groups from "./pages/sports/t20-world-cup-2026/Groups";
 import Teams from "./pages/sports/t20-world-cup-2026/Teams";
 
-// 🟣 ADMIN (LAZY)
 
-/* ================= PUBLIC LAYOUT ================= */
+
 function PublicLayout() {
   return (
     <>
@@ -39,11 +38,11 @@ function PublicLayout() {
             <Route path="/" element={<Categories />} />
             <Route path="/trend/:slug" element={<ContentDetail />} />
 
-            {/* UI ONLY – should be noindex */}
+          
             <Route path="/trending" element={<Trending />} />
             <Route path="/article" element={<Article />} />
 
-            {/* NEW */}
+          
             <Route path="/trend/:slug" element={<Article />} />
             <Route path="/hi/trend/:slug" element={<Article />} />
 
@@ -90,10 +89,7 @@ export default function App() {
       <ScrollToTop />
 
       <Routes>
-        {/* 🌐 PUBLIC */}
         <Route path="/*" element={<PublicLayout />} />
-
-        {/* 🔐 ADMIN (NO HEADER / FOOTER) */}
 
         <Route
           path="/admin/content"

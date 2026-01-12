@@ -24,7 +24,6 @@ const PointsTable = () => {
         pageType="PointsTable"
       />
 
-      {/* ===== HEADER ===== */}
       <div className="wc-heading">
         <h1>
           ICC Men’s T20 World Cup 2026 Points Table
@@ -57,9 +56,6 @@ const PointsTable = () => {
 
       <WorldCupTabs />
 
-      {/* ===== INFO (COLLAPSIBLE) ===== */}
-
-      {/* ===== TABLE ===== */}
       <div className="wc-page">
         {groups.map((group) => (
           <div key={group._id} className="wc-date-group">
@@ -105,8 +101,6 @@ const PointsTable = () => {
           </div>
         ))}
       </div>
-
-      {/* ===== FAQ SCHEMA (LAST) ===== */}
       <WorldCupFAQSchema />
     </>
   );

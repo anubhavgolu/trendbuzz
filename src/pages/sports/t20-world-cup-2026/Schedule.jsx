@@ -61,7 +61,6 @@ const Schedule = () => {
         pageType="Schedule"
       />
 
-      {/* ===== HERO ===== */}
       <div className="wc-heading">
         <h1>ICC Men’s T20 World Cup 2026 Schedule</h1>
         <p>
@@ -70,7 +69,7 @@ const Schedule = () => {
 
         <WorldCupTabs />
 
-        {/* SEARCH FIRST (UX WIN) */}
+   
         <input
           type="text"
           placeholder="Search team (e.g. India, Pakistan, England)"
@@ -79,7 +78,7 @@ const Schedule = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {/* SEO TOGGLE */}
+     
         <button
           onClick={() => setShowSeo(!showSeo)}
           className="wc-about-toggle"
@@ -112,7 +111,7 @@ const Schedule = () => {
         </section>
       </div>
 
-      {/* ===== SCHEDULE ===== */}
+     
       <div className="wc-page">
         {Object.keys(grouped).length === 0 && (
           <p style={{ textAlign: "center", color: "#6b7280" }}>
@@ -130,7 +129,7 @@ const Schedule = () => {
         ))}
       </div>
 
-      {/* ===== INTERNAL LINK ===== */}
+     
       <div style={{ textAlign: "center", margin: "20px 0" }}>
         <a
           href="/sports/t20-world-cup-2026/points-table"

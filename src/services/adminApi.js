@@ -1,6 +1,5 @@
 import { API_BASE } from "./http";
 
-/* ---------------- ADMIN STATS ---------------- */
 
 export async function fetchAdminStats(adminKey) {
   if (!adminKey) throw new Error("Admin key missing");
@@ -11,11 +10,14 @@ export async function fetchAdminStats(adminKey) {
     },
   });
 
-  if (!res.ok) throw new Error("Failed to fetch admin stats");
-  return res.json();
-}
+  const data = await res.json();
 
-/* ---------------- DAILY ANALYTICS ---------------- */
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to fetch admin stats");
+  }
+
+  return data;
+}
 
 export async function fetchDailyAnalytics(adminKey) {
   if (!adminKey) throw new Error("Admin key missing");
@@ -26,23 +28,25 @@ export async function fetchDailyAnalytics(adminKey) {
     },
   });
 
-  if (!res.ok) throw new Error("Failed to fetch daily analytics");
-  return res.json();
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to fetch daily analytics");
+  }
+
+  return data;
 }
 
-/* ---------------- MANUAL NEWS ---------------- */
 
-export async function getActiveManualNews(adminKey) {
-  if (!adminKey) throw new Error("Admin key missing");
+export async function getActiveManualNews() {
+  const res = await fetch(`${API_BASE}/api/manual-news/active`);
+  const data = await res.json();
 
-  const res = await fetch(`${API_BASE}/api/manual-news/active`, {
-    headers: {
-      "x-admin-key": adminKey,
-    },
-  });
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to fetch manual news");
+  }
 
-  if (!res.ok) throw new Error("Failed to fetch manual news");
-  return res.json();
+  return data;
 }
 
 export async function updateManualNews(payload, adminKey) {
@@ -57,8 +61,13 @@ export async function updateManualNews(payload, adminKey) {
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) throw new Error("Failed to update manual news");
-  return res.json();
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to update manual news");
+  }
+
+  return data;
 }
 
 export async function toggleManualNews(adminKey) {
@@ -71,6 +80,55 @@ export async function toggleManualNews(adminKey) {
     },
   });
 
-  if (!res.ok) throw new Error("Failed to toggle manual news");
-  return res.json();
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to toggle manual news");
+  }
+
+  return data;
+}
+
+
+export async function getAdminSections(adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
+
+  const res = await fetch(`${API_BASE}/api/content/admin/sections`, {
+    headers: {
+      "x-admin-key": adminKey,
+    },
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to fetch admin sections");
+  }
+
+  if (!Array.isArray(data)) {
+    throw new Error("Invalid admin sections response");
+  }
+
+  return data;
+}
+
+export async function upsertContent(payload, adminKey) {
+  if (!adminKey) throw new Error("Admin key missing");
+
+  const res = await fetch(`${API_BASE}/api/content/admin/upsert`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-key": adminKey,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.error || "Failed to upsert content");
+  }
+
+  return data;
 }

@@ -9,7 +9,7 @@ export default function Header() {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  // 🔒 Auto-close on scroll
+  
   useEffect(() => {
     function onScroll() {
       if (open) setOpen(false);
@@ -18,7 +18,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [open]);
 
-  // 🔑 Close on ESC key
+  
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") setOpen(false);
@@ -38,10 +38,10 @@ export default function Header() {
 
   return (
     <>
-      {/* HEADER */}
+      
       <header className="bg-white border-b sticky top-0 z-50 h-14">
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-          {/* LOGO */}
+         
           <Link to="/" className="flex items-center h-12 overflow-hidden pt-1">
             <img
               src={logo}
@@ -50,7 +50,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* DESKTOP NAV */}
+          
           <nav
             className="hidden md:flex gap-6 text-sm font-medium"
             aria-label="Primary navigation"
@@ -76,7 +76,7 @@ export default function Header() {
             </NavLink>
           </nav>
 
-          {/* BURGER BUTTON */}
+       
           <button
             onClick={() => {
               hapticTap();
@@ -87,7 +87,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
           >
-            {/* Animated lines */}
+          
             <span
               className={`absolute left-1/2 top-1/2 w-6 h-[2px] bg-gray-800 transition-all ${motion}
               ${
@@ -112,7 +112,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* BACKDROP */}
+      
       {open && (
         <div
           className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
@@ -121,7 +121,7 @@ export default function Header() {
         />
       )}
 
-      {/* MOBILE MENU */}
+      
       <div
         id="mobile-menu"
         role="menu"

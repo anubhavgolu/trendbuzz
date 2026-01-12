@@ -3,7 +3,7 @@ export function formatRelativeTime(timestamp) {
 
   const diff = Date.now() - timestamp;
 
-  // 🔒 SAFETY: future dates (NASA timezone edge case)
+
   if (diff < 0) {
     return formatDate(timestamp);
   }

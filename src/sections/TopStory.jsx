@@ -10,7 +10,7 @@ export default function TopStory({ items = [] }) {
         <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-gray-900">
           {first.image && (
             <img
-              src={first.image} // fallback
+              src={first.image} 
               srcSet={`
                 ${first.image}?w=640 640w,
                 ${first.image}?w=1024 1024w,

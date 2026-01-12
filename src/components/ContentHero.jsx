@@ -17,25 +17,25 @@ export default function ContentHero({
 
   return (
     <header className="max-w-4xl mx-auto px-4 pt-8">
-      {/* SOURCE + DATE */}
+
       <div className="text-sm text-gray-500 mb-3">
         {sourceName && <span>Via {sourceName}</span>}
         {date && <span> · {date}</span>}
       </div>
 
-      {/* TITLE */}
+    
       <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-gray-900">
         {title}
       </h1>
 
-      {/* SUMMARY */}
+    
       {summary && (
         <p className="mt-4 text-lg text-gray-700 leading-relaxed">
           {summary}
         </p>
       )}
 
-      {/* IMAGE */}
+      
       {image && (
         <div className="mt-6 rounded-2xl overflow-hidden bg-gray-100">
           <img

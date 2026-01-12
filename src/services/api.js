@@ -1,6 +1,5 @@
 import { API_BASE } from "./http";
 
-/* ================= TRENDS ================= */
 export async function fetchTrends(filter) {
   const url = filter
     ? `${API_BASE}/api/trends?filter=${filter}`
@@ -17,7 +16,6 @@ export async function fetchTrends(filter) {
   return data.trends;
 }
 
-/* ================= COMMENTS ================= */
 export async function fetchComments(slug) {
   const res = await fetch(
     `${API_BASE}/api/comments/${slug}`
