@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { hapticTap } from "../utils/haptics";
-import { HiHome } from "react-icons/hi2";
+import { HiHome, HiInformationCircle } from "react-icons/hi2";
 import { MdTrendingUp } from "react-icons/md";
-import { HiInformationCircle } from "react-icons/hi2";
+import { GiCricketBat } from "react-icons/gi";
 
 export default function MobileBottomNav() {
   const linkClass = ({ isActive }) =>
@@ -23,6 +23,16 @@ export default function MobileBottomNav() {
         <NavLink to="/trending" className={linkClass} onClick={hapticTap}>
           <MdTrendingUp className="text-xl" />
           Trending
+        </NavLink>
+
+        {/* 🏏 T20 CRICKET */}
+        <NavLink
+          to="/sports/t20-world-cup-2026/schedule"
+          className={linkClass}
+          onClick={hapticTap}
+        >
+          <GiCricketBat className="text-xl" />
+          T20
         </NavLink>
 
         <NavLink to="/about" className={linkClass} onClick={hapticTap}>
