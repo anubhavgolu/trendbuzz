@@ -6,7 +6,6 @@ export default function TopStory({ items = [] }) {
   const first = items?.[0];
   if (!first || !first.slug) return null;
 
-  // 🔥 FIX: absolute image URL
   const imageUrl = first.image
     ? first.image.startsWith("http")
       ? first.image
@@ -20,19 +19,16 @@ export default function TopStory({ items = [] }) {
           {imageUrl && (
             <img
               src={imageUrl}
-              srcSet={`
-                ${imageUrl}?w=640 640w,
-                ${imageUrl}?w=1024 1024w,
-                ${imageUrl}?w=1600 1600w
-              `}
-              sizes="(max-width: 768px) 100vw, 1024px"
+              alt={first.title}
               width="1024"
               height="576"
-              alt={first.title}
-              fetchpriority="high"
               loading="eager"
+              fetchpriority="high"
               decoding="async"
               className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "/fallback.jpg";
+              }}
             />
           )}
 
