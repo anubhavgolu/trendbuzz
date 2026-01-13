@@ -20,12 +20,11 @@ import SectionManager from "./pages/admin/SectionManager";
 import Contact from "./pages/Contact";
 import EditorialPolicy from "./pages/EditorialPolicy";
 import Article from "./pages/Article";
+import ArticleList from "./pages/ArticleList";
 import Schedule from "./pages/sports/t20-world-cup-2026/Schedule";
 import PointsTable from "./pages/sports/t20-world-cup-2026/PointsTable";
 import Groups from "./pages/sports/t20-world-cup-2026/Groups";
 import Teams from "./pages/sports/t20-world-cup-2026/Teams";
-
-
 
 function PublicLayout() {
   return (
@@ -37,14 +36,11 @@ function PublicLayout() {
           <Routes>
             <Route path="/" element={<Categories />} />
             <Route path="/trend/:slug" element={<ContentDetail />} />
+            <Route path="/article" element={<ArticleList />} />
+            <Route path="/article/:slug" element={<Article />} />
+            <Route path="/hi/article/:slug" element={<Article />} />
 
-          
             <Route path="/trending" element={<Trending />} />
-            <Route path="/article" element={<Article />} />
-
-          
-            <Route path="/trend/:slug" element={<Article />} />
-            <Route path="/hi/trend/:slug" element={<Article />} />
 
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/about" element={<About />} />
@@ -84,7 +80,7 @@ function PublicLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-     <PublisherSEO />
+      <PublisherSEO />
       <DefaultSEO />
       <ScrollToTop />
 

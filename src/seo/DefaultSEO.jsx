@@ -10,6 +10,8 @@ export default function DefaultSEO() {
         name="description"
         content="TrendBuzzs brings you the latest trending news from tech, science, space, and global topics."
       />
+      <meta name="robots" content="index, follow, max-image-preview:large" />
+
       <link rel="canonical" href={siteUrl} />
 
       {/* Open Graph */}
@@ -20,8 +22,6 @@ export default function DefaultSEO() {
         content="Latest trending news and stories from around the web."
       />
       <meta property="og:url" content={siteUrl} />
-
-
     </Helmet>
   );
 }

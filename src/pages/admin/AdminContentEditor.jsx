@@ -37,6 +37,17 @@ export default function AdminContentEditor() {
   const [sectionEnabled, setSectionEnabled] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
   const [imageFile, setImageFile] = useState(null);
+  const [title, setTitle] = useState({ en: "", hi: "" });
+  const [excerpt, setExcerpt] = useState({ en: "", hi: "" });
+  const [content, setContent] = useState({ en: "", hi: "" });
+
+  const [seoTitle, setSeoTitle] = useState({ en: "", hi: "" });
+  const [seoDescription, setSeoDescription] = useState({ en: "", hi: "" });
+  const [langTab, setLangTab] = useState("en");
+  const [featured, setFeatured] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const [image, setImage] = useState("");
 
   /* ================= LOAD SECTION STATUS ================= */
   useEffect(() => {
@@ -197,6 +208,55 @@ export default function AdminContentEditor() {
     setRefreshKey((k) => k + 1);
   }
 
+  async function saveArticle() {
+    try {
+      setSaving(true);
+      const finalTitle = {
+        en: title.en || title.hi,
+        hi: title.hi,
+      };
+
+      const finalContent = {
+        en: content.en || content.hi,
+        hi: content.hi,
+      };
+
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/articles/admin/upsert`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+          },
+          body: JSON.stringify({
+            title: finalTitle,
+            content: finalContent,
+            excerpt,
+            image,
+            seoTitle,
+            seoDescription,
+            featured,
+            enabled: true,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Save failed");
+        return;
+      }
+
+      alert("✅ Article saved successfully");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Server error");
+    } finally {
+      setSaving(false);
+    }
+  }
   /* ================= UI ================= */
   return (
     <>
@@ -394,6 +454,133 @@ export default function AdminContentEditor() {
             onEdit={handleEdit}
           />
           <AdminSectionList />
+        </div>
+        {/* ================= ARTICLE ADMIN PANEL ================= */}
+        <div className="border-2 border-dashed rounded-xl p-6 bg-gray-50 mt-10">
+          <h2 className="text-2xl font-extrabold mb-6 text-gray-900">
+            ✍️ ARTICLE ADMIN PANEL
+          </h2>
+
+          {/* LANGUAGE TABS */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setLangTab("en")}
+              className={`px-3 py-1 rounded ${
+                langTab === "en" ? "bg-orange-500 text-white" : "bg-gray-200"
+              }`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => setLangTab("hi")}
+              className={`px-3 py-1 rounded ${
+                langTab === "hi" ? "bg-orange-500 text-white" : "bg-gray-200"
+              }`}
+            >
+              हिंदी
+            </button>
+          </div>
+
+          {/* ARTICLE FIELDS */}
+          <input
+            type="text"
+            placeholder={`Title (${langTab.toUpperCase()})`}
+            value={title[langTab]}
+            onChange={(e) => setTitle({ ...title, [langTab]: e.target.value })}
+            className="w-full border p-3 mb-3 rounded"
+          />
+
+          <textarea
+            placeholder={`Excerpt (${langTab.toUpperCase()})`}
+            value={excerpt[langTab]}
+            onChange={(e) =>
+              setExcerpt({ ...excerpt, [langTab]: e.target.value })
+            }
+            className="w-full border p-3 mb-3 rounded"
+          />
+
+          <textarea
+            placeholder={`Content (${langTab.toUpperCase()})`}
+            value={content[langTab]}
+            onChange={(e) =>
+              setContent({ ...content, [langTab]: e.target.value })
+            }
+            className="w-full border p-3 h-48 rounded"
+          />
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">
+              SEO Title ({langTab.toUpperCase()})
+            </label>
+
+            <input
+              type="text"
+              placeholder={`SEO Title (${langTab.toUpperCase()})`}
+              value={seoTitle[langTab]}
+              onChange={(e) =>
+                setSeoTitle({ ...seoTitle, [langTab]: e.target.value })
+              }
+              className="w-full border rounded p-2"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">
+              SEO Description ({langTab.toUpperCase()})
+            </label>
+
+            <textarea
+              placeholder={`SEO Description (${langTab.toUpperCase()})`}
+              value={seoDescription[langTab]}
+              onChange={(e) =>
+                setSeoDescription({
+                  ...seoDescription,
+                  [langTab]: e.target.value,
+                })
+              }
+              className="w-full border rounded p-2 h-20"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">
+              Featured Image (URL)
+            </label>
+
+            <input
+              type="text"
+              placeholder="https://example.com/image.jpg"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              className="w-full border rounded p-2"
+            />
+
+            {image && (
+              <img
+                src={image}
+                alt="Preview"
+                className="mt-3 w-full max-w-md rounded-lg border"
+              />
+            )}
+          </div>
+
+          <label className="flex items-center gap-2 mt-4">
+            <input
+              type="checkbox"
+              checked={featured}
+              onChange={(e) => setFeatured(e.target.checked)}
+            />
+            <span className="text-sm">Mark as Featured</span>
+          </label>
+
+          {/* SAVE ARTICLE BUTTON */}
+          <button
+            onClick={saveArticle}
+            disabled={saving}
+            className={`mt-6 px-6 py-3 rounded text-white font-semibold ${
+              saving ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+            }`}
+          >
+            {saving ? "Saving..." : "Save Article"}
+          </button>
         </div>
       </div>
     </>
