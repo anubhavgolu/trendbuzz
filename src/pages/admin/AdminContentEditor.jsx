@@ -18,6 +18,7 @@ export default function AdminContentEditor() {
   const [form, setForm] = useState({
     title: "",
     summary: "",
+    content: "",
     image: "",
     section: "top",
     order: 1,
@@ -28,12 +29,14 @@ export default function AdminContentEditor() {
     sourceName: "",
     sourceUrl: "",
     imageSource: "",
+    publishedAt: "",
   });
 
   const [editingId, setEditingId] = useState(null); // 🔥 EDIT MODE
   const [loading, setLoading] = useState(false);
   const [sectionEnabled, setSectionEnabled] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [imageFile, setImageFile] = useState(null);
 
   /* ================= LOAD SECTION STATUS ================= */
   useEffect(() => {
@@ -65,65 +68,116 @@ export default function AdminContentEditor() {
 
   /* ================= EDIT HANDLER ================= */
   function handleEdit(item) {
-    setEditingId(item._id);
+    setEditingId(item.id);
 
     setForm({
       title: item.title || "",
       summary: item.summary || "",
+      content: item.content || "",
       image: item.image || "",
-      section: item.section,
-      order: item.order,
+      section: item.section || "top",
+      order: item.order || 1,
       type: item.type || "news",
       seoTitle: item.seoTitle || "",
       seoDescription: item.seoDescription || "",
       keywords: Array.isArray(item.keywords?.manual)
         ? item.keywords.manual.join(", ")
         : "",
+      sourceName: item.sourceName || "",
+      sourceUrl: item.sourceUrl || "",
+      imageSource: item.imageSource || "",
       publishedAt: item.publishedAt ? item.publishedAt.slice(0, 10) : "",
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  async function uploadImage() {
+    if (!imageFile) {
+      return form.image || "";
+    }
+
+    const fd = new FormData();
+    fd.append("image", imageFile);
+
+    const res = await fetch(`${API_BASE}/api/content/admin/upload-image`, {
+      method: "POST",
+      headers: {
+        "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+      },
+      body: fd,
+    });
+
+    const data = await res.json();
+
+    console.log("📦 uploadImage response:", data);
+
+    if (!data || data.success !== true || !data.image) {
+      throw new Error("Invalid image upload response");
+    }
+
+    return data.image;
+  }
+
   /* ================= SUBMIT ================= */
   async function handleSubmit() {
     setLoading(true);
 
-    const res = await fetch(`${API_BASE}/api/content/admin/upsert`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
-      },
-      body: JSON.stringify({
+    try {
+      const imageUrl = await uploadImage();
+
+      const payload = {
         ...form,
-        _id: editingId || undefined,
-        keywords: form.keywords, // ✅ STRING ONLY
-      }),
-    });
 
-    setLoading(false);
+        // 🔥 REQUIRED FIELDS – force safe values
+        title: form.title || "",
+        summary: form.summary || "",
+        content: form.content || "",
+        section: form.section || "news",
+        order: Number(form.order) || 1, // 🔥 VERY IMPORTANT
 
-    if (res.ok) {
-      alert(editingId ? "✏️ Content updated" : "✅ Content added");
+        // 🔥 image always string
+        image: typeof imageUrl === "string" ? imageUrl : form.image || "",
 
-      setForm({
-        title: "",
-        summary: "",
-        image: "",
-        section: form.section,
-        order: 1,
-        type: "news",
-        seoTitle: "",
-        seoDescription: "",
-        keywords: "",
-        publishedAt: "",
+        // 🔥 backend-compatible keywords
+        keywords:
+          typeof form.keywords === "string"
+            ? form.keywords
+            : Array.isArray(form.keywords)
+            ? form.keywords.join(", ")
+            : "",
+
+        // 🔥 only when editing
+        ...(editingId ? { id: editingId } : {}),
+      };
+
+      if (!payload.content || payload.content.length < 10) {
+        alert("Main article content required");
+        setLoading(false);
+        return;
+      }
+
+      const res = await fetch(`${API_BASE}/api/content/admin/upsert`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
+        },
+        body: JSON.stringify(payload),
       });
 
+      if (!res.ok) throw new Error("Save failed");
+
+      alert(editingId ? "✏️ Content updated" : "✅ Content added");
+
+      setImageFile(null);
       setEditingId(null);
       setRefreshKey((k) => k + 1);
-    } else {
+    } catch (err) {
+      console.error(err);
       alert("❌ Error saving content");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -173,13 +227,19 @@ export default function AdminContentEditor() {
             rows={4}
             className="w-full border p-3 rounded"
           />
+          <textarea
+            name="content"
+            value={form.content}
+            onChange={handleChange}
+            placeholder="Main Article Content (HTML allowed: <h2>, <h3>, <p>, <ul>, FAQ)"
+            rows={12}
+            className="w-full border p-3 rounded"
+          />
 
           <input
-            name="image"
-            value={form.image}
-            type="url"
-            onChange={handleChange}
-            placeholder="Image URL"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files[0])}
             className="w-full border p-3 rounded"
           />
 

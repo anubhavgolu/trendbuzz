@@ -58,8 +58,8 @@ export default function AdminCardList({ section, refreshKey, onEdit }) {
     if (!draggingId || draggingId === targetId) return;
 
     const newItems = [...items];
-    const fromIndex = newItems.findIndex((i) => i._id === draggingId);
-    const toIndex = newItems.findIndex((i) => i._id === targetId);
+    const fromIndex = newItems.findIndex((i) => i.id === draggingId);
+    const toIndex = newItems.findIndex((i) => i.id === targetId);
 
     if (fromIndex === -1 || toIndex === -1) return;
 
@@ -83,7 +83,7 @@ export default function AdminCardList({ section, refreshKey, onEdit }) {
       },
       body: JSON.stringify({
         items: reordered.map((i) => ({
-          id: i._id,
+          id: i.id,
           order: i.order,
         })),
       }),
@@ -116,11 +116,11 @@ export default function AdminCardList({ section, refreshKey, onEdit }) {
 
         {items.map((item) => (
           <div
-            key={item.slug || `${item.section}-${item.order}`}
+            key={item.id}
             draggable
-            onDragStart={() => onDragStart(item._id)}
+            onDragStart={() => onDragStart(item.id)}
             onDragOver={onDragOver}
-            onDrop={() => onDrop(item._id)}
+            onDrop={() => onDrop(item.id)}
             className="cursor-move border rounded-lg p-4 bg-white flex justify-between items-center"
           >
             <div>
@@ -150,13 +150,13 @@ export default function AdminCardList({ section, refreshKey, onEdit }) {
                       "x-admin-key": import.meta.env.VITE_ADMIN_KEY,
                     },
                     body: JSON.stringify({
-                      id: item._id,
+                      id: item.id,
                     }),
                   });
 
                   setItems((prev) =>
                     prev.map((p) =>
-                      p._id === item._id ? { ...p, enabled: !p.enabled } : p
+                      p.id === item.id ? { ...p, enabled: !p.enabled } : p
                     )
                   );
                 }}

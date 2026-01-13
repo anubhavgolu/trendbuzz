@@ -6,6 +6,7 @@ import NewsSchema from "../components/NewsSchema";
 import ContentHero from "../components/ContentHero";
 import HeroSkeleton from "../components/skeletons/HeroSkeleton";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
+import { API_BASE } from "../services/http";
 import AdSlot from "../components/AdSlot";
 
 export default function ContentDetail() {
@@ -18,10 +19,11 @@ export default function ContentDetail() {
 
     async function load() {
       setLoading(true);
-      const data = await fetchBySlug(slug);
-      if (mounted) {
-        setItem(data);
-        setLoading(false);
+      try {
+        const data = await fetchBySlug(slug);
+        if (mounted) setItem(data);
+      } finally {
+        if (mounted) setLoading(false);
       }
     }
 
@@ -31,7 +33,7 @@ export default function ContentDetail() {
     };
   }, [slug]);
 
-
+  /* ================= LOADING ================= */
   if (loading) {
     return (
       <main className="max-w-4xl mx-auto px-4 py-10">
@@ -40,6 +42,7 @@ export default function ContentDetail() {
     );
   }
 
+  /* ================= NOT FOUND ================= */
   if (!item) {
     return (
       <div className="p-10 text-center">
@@ -57,32 +60,40 @@ export default function ContentDetail() {
     );
   }
 
+  /* ================= DATA ================= */
   const {
     title,
     summary,
     content,
     image,
-    video,
     sourceName,
     sourceUrl,
+    imageSource,
     keywords,
     seoTitle,
     seoDescription,
     publishedAt,
     section,
-    type,
+    author,
+    disclaimer,
   } = item;
-
+  const imageUrl = image?.startsWith("http")
+    ? image
+    : image
+    ? `${API_BASE}${image}`
+    : null;
 
   return (
     <>
+      {/* ================= SEO ================= */}
       <SEO
         title={seoTitle || title}
         description={seoDescription || summary}
-        keywords={keywords?.combined?.join(", ")}
+        keywords={keywords?.join?.(", ")}
         canonical={`https://www.trendbuzzs.com/trend/${slug}`}
       />
 
+      {/* ================= BREADCRUMB ================= */}
       <BreadcrumbSchema
         items={[
           {
@@ -90,8 +101,8 @@ export default function ContentDetail() {
             url: "https://www.trendbuzzs.com/",
           },
           {
-            name: item.section || "News",
-            url: `https://www.trendbuzzs.com/category/${item.section}`,
+            name: section || "News",
+            url: `https://www.trendbuzzs.com/category/${section}`,
           },
           {
             name: title,
@@ -100,36 +111,33 @@ export default function ContentDetail() {
         ]}
       />
 
+      {/* ================= NEWS SCHEMA ================= */}
       <NewsSchema
         title={title}
         description={summary}
-        image={image || video?.thumbnail}
+        image={imageUrl}
         slug={`trend/${slug}`}
         publishedAt={publishedAt}
-        category={item.section}
+        category={section}
       />
 
       <ContentHero
         title={title}
         summary={summary}
-        image={image}
+        image={imageUrl}
         sourceName={sourceName}
         publishedAt={publishedAt}
       />
 
+
+      {/* ================= CONTENT ================= */}
       <main className="max-w-4xl mx-auto px-4 py-10">
-        <div className="mb-6">
-          {item.section && (
-            <span className="inline-block mb-3 text-xs font-semibold bg-orange-100 text-orange-700 px-3 py-1 rounded-full">
-              {item.section.toUpperCase()}
-            </span>
-          )}
-        </div>
-        <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm text-gray-500 items-center">
-          {item.createdAt && (
+        {/* META INFO */}
+        <div className="mb-4 flex flex-wrap gap-3 text-sm text-gray-500">
+          {publishedAt && (
             <span>
               🗓️{" "}
-              {new Date(item.createdAt).toLocaleDateString("en-IN", {
+              {new Date(publishedAt).toLocaleDateString("en-IN", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -139,22 +147,13 @@ export default function ContentDetail() {
 
           {sourceName && <span>• 📰 {sourceName}</span>}
 
-          {(item.imageSource || image) && (
-            <span className="text-xs text-gray-400">
-              • 📸{" "}
-              {item.imageSource
-                ? item.imageSource
-                : image?.includes("unsplash")
-                ? "Unsplash"
-                : image?.includes("pixabay")
-                ? "Pixabay"
-                : "Image Source"}
-            </span>
+          {imageSource && (
+            <span className="text-xs text-gray-400">• 📸 {imageSource}</span>
           )}
 
-          {item.sourceUrl && (
+          {sourceUrl && (
             <a
-              href={item.sourceUrl}
+              href={sourceUrl}
               target="_blank"
               rel="noreferrer"
               className="text-orange-600 hover:underline text-xs"
@@ -164,42 +163,40 @@ export default function ContentDetail() {
           )}
         </div>
 
-        {type === "video" && video?.embedUrl && (
-          <div className="mb-8 aspect-video">
-            <iframe
-              src={video.embedUrl}
-              className="w-full h-full rounded-xl"
-              loading="lazy"
-              allowFullScreen
-              title={title}
+        {/* 🔥 FULL ARTICLE HTML */}
+        {content && (
+          <>
+            <article
+              className="prose prose-lg max-w-none mt-8"
+              dangerouslySetInnerHTML={{ __html: content }}
             />
+
+            {/* MID CONTENT AD */}
+            {/* <div className="my-10">
+              <AdSlot slot="3456789012" />
+            </div> */}
+          </>
+        )}
+
+        {/* EEAT DISCLAIMER */}
+        {disclaimer && (
+          <div className="mt-10 p-4 border-l-4 border-orange-500 bg-orange-50 text-sm text-gray-700">
+            ⚠️ {disclaimer}
           </div>
         )}
 
-        {/* FULL CONTENT */}
-        {/* {content && (
-          <>
-            <div className="prose prose-lg max-w-none mt-8">{content}</div>
-
-            <AdSlot slot="3456789012" />
-          </>
-        )} */}
-
-        {/* SOURCE */}
-        {sourceUrl && (
-          <a
-            href={sourceUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block mt-8 text-sm font-semibold text-orange-600 hover:underline"
-          >
-            View original source →
-          </a>
+        {/* AUTHOR */}
+        {author && (
+          <p className="mt-6 text-xs text-gray-500">
+            Written by <strong>{author.name}</strong>
+            {author.reviewedBy && <> · Reviewed by {author.reviewedBy}</>}
+          </p>
         )}
 
-        {keywords?.combined?.length > 0 && (
+        {/* TAGS */}
+        {keywords?.length > 0 && (
           <div className="mt-8 flex flex-wrap gap-2">
-            {keywords.combined.map((tag) => (
+            {keywords.map((tag) => (
               <span key={tag} className="text-xs bg-gray-100 px-2 py-1 rounded">
                 #{tag}
               </span>
@@ -207,6 +204,7 @@ export default function ContentDetail() {
           </div>
         )}
 
+        {/* BACK */}
         <div className="mt-12">
           <Link
             to="/"

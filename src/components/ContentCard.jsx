@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { API_BASE } from "../services/http";
 
 export default function ContentCard({
   title,
@@ -7,15 +8,21 @@ export default function ContentCard({
   slug,
   sourceName,
 }) {
+  const imageUrl = image?.startsWith("http")
+    ? image
+    : image
+    ? `${API_BASE}${image}`
+    : null;
+
   return (
     <Link
       to={`/trend/${slug}`}
       className="group bg-white rounded-xl border hover:shadow-lg transition overflow-hidden flex flex-col"
     >
-      {image && (
+      {imageUrl && (
         <div className="aspect-[16/9] bg-gray-100 overflow-hidden rounded-t-xl">
           <img
-            src={image}
+            src={imageUrl}
             alt={title}
             loading="lazy"
             decoding="async"
@@ -29,7 +36,6 @@ export default function ContentCard({
       )}
 
       <div className="p-4 flex flex-col flex-1">
-  
         <h3 className="font-bold text-base leading-snug line-clamp-2">
           {title}
         </h3>
