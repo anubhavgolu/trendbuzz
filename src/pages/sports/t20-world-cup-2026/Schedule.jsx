@@ -7,18 +7,29 @@ import WorldCupSEO from "../../../seo/WorldCupSEO";
 import WorldCupFAQSchema from "../../../seo/WorldCupFAQSchema";
 import WorldCupTabs from "../../../components/worldcup/WorldCupTabs";
 import BreadcrumbSchema from "../../../components/BreadcrumbSchema";
+import ScheduleSkeleton from "../../../components/skeletons/worldcup/ScheduleSkeleton";
 
 const Schedule = () => {
   const [grouped, setGrouped] = useState({});
   const [matches, setMatches] = useState([]);
   const [search, setSearch] = useState("");
   const [showSeo, setShowSeo] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [hasFetched, setHasFetched] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+    setHasFetched(false);
+
     fetchSchedule().then((res) => {
       if (res.success) {
         setMatches(res.data);
+      } else {
+        setMatches([]);
       }
+
+      setLoading(false);
+      setHasFetched(true);
     });
   }, []);
 
@@ -69,7 +80,6 @@ const Schedule = () => {
 
         <WorldCupTabs />
 
-   
         <input
           type="text"
           placeholder="Search team (e.g. India, Pakistan, England)"
@@ -78,7 +88,6 @@ const Schedule = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-     
         <button
           onClick={() => setShowSeo(!showSeo)}
           className="wc-about-toggle"
@@ -111,25 +120,25 @@ const Schedule = () => {
         </section>
       </div>
 
-     
       <div className="wc-page">
-        {Object.keys(grouped).length === 0 && (
+        {loading ? (
+          <ScheduleSkeleton />
+        ) : Object.keys(grouped).length === 0 && hasFetched ? (
           <p style={{ textAlign: "center", color: "#6b7280" }}>
             No matches found
           </p>
+        ) : (
+          Object.entries(grouped).map(([date, matches]) => (
+            <div key={date} className="wc-date-group">
+              <DateHeader label={date} />
+              {matches.map((match) => (
+                <MatchCard key={match._id} match={match} />
+              ))}
+            </div>
+          ))
         )}
-
-        {Object.entries(grouped).map(([date, matches]) => (
-          <div key={date} className="wc-date-group">
-            <DateHeader label={date} />
-            {matches.map((match) => (
-              <MatchCard key={match._id} match={match} />
-            ))}
-          </div>
-        ))}
       </div>
 
-     
       <div style={{ textAlign: "center", margin: "20px 0" }}>
         <a
           href="/sports/t20-world-cup-2026/points-table"

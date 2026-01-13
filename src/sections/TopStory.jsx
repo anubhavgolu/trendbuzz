@@ -1,20 +1,29 @@
 import { Link } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 export default function TopStory({ items = [] }) {
   const first = items?.[0];
   if (!first || !first.slug) return null;
+
+  // 🔥 FIX: absolute image URL
+  const imageUrl = first.image
+    ? first.image.startsWith("http")
+      ? first.image
+      : `${API_BASE}${first.image}`
+    : null;
 
   return (
     <section className="space-y-6">
       <Link to={`/trend/${first.slug}`} className="group block">
         <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-gray-900">
-          {first.image && (
+          {imageUrl && (
             <img
-              src={first.image} 
+              src={imageUrl}
               srcSet={`
-                ${first.image}?w=640 640w,
-                ${first.image}?w=1024 1024w,
-                ${first.image}?w=1600 1600w
+                ${imageUrl}?w=640 640w,
+                ${imageUrl}?w=1024 1024w,
+                ${imageUrl}?w=1600 1600w
               `}
               sizes="(max-width: 768px) 100vw, 1024px"
               width="1024"

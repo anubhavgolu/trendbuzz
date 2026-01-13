@@ -6,13 +6,72 @@ import SEO from "../components/SEO";
 /* ================= TOC (ONLY H2) ================= */
 function extractHeadings(html) {
   if (!html) return [];
+
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
+  const usedIds = new Set();
 
-  return [...doc.querySelectorAll("h2")].map((h) => ({
-    id: h.id,
-    text: h.textContent,
-  }));
+  return [...doc.querySelectorAll("h2")].map((h, index) => {
+    let id =
+      h.id ||
+      h.textContent
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+
+    if (usedIds.has(id)) id = `${id}-${index}`;
+    usedIds.add(id);
+
+    h.id = id;
+
+    return {
+      id,
+      text: h.textContent,
+    };
+  });
+}
+
+function ArticleSkeleton() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 pt-4 animate-pulse">
+      {/* Back link */}
+      <div className="h-4 w-32 bg-gray-200 rounded mb-6" />
+
+      <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
+        {/* TOC Skeleton */}
+        <aside className="hidden lg:block">
+          <div className="pl-4 border-l space-y-3">
+            <div className="h-3 w-24 bg-gray-200 rounded" />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="h-3 w-40 bg-gray-200 rounded" />
+            ))}
+          </div>
+        </aside>
+
+        {/* Article Skeleton */}
+        <article className="max-w-3xl">
+          {/* Title */}
+          <div className="h-9 w-3/4 bg-gray-300 rounded mb-4" />
+
+          {/* Meta */}
+          <div className="h-4 w-48 bg-gray-200 rounded mb-6" />
+
+          {/* Image */}
+          <div className="w-full aspect-[1200/630] bg-gray-200 rounded-xl mb-8" />
+
+          {/* Content lines */}
+          <div className="space-y-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-4 bg-gray-200 rounded w-full" />
+            ))}
+
+            <div className="h-4 bg-gray-200 rounded w-3/4" />
+            <div className="h-4 bg-gray-200 rounded w-2/3" />
+          </div>
+        </article>
+      </div>
+    </div>
+  );
 }
 
 export default function Article() {
@@ -30,34 +89,36 @@ export default function Article() {
         ? `${import.meta.env.VITE_API_BASE_URL}/api/articles/${slug}`
         : `${import.meta.env.VITE_API_BASE_URL}/api/articles`;
 
-      const res = await fetch(url);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Not found");
 
-      if (!res.ok) {
+        const data = await res.json();
+        setArticle(data);
+      } catch {
         setArticle(null);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const data = await res.json();
-      setArticle(data);
-      setLoading(false);
     }
 
     loadArticle();
   }, [slug]);
 
-  /* ================= STATES ================= */
+  /* ================= TOC ================= */
   const headings = useMemo(
     () => extractHeadings(article?.content),
     [article?.content]
   );
 
-  // ✅ RETURNS AFTER ALL HOOKS
-  if (loading) return <div className="p-6">Loading…</div>;
-  if (!article) return <div className="p-6">Article not found</div>;
-  if (slug === "-") {
-    return <div className="p-6">Invalid article</div>;
-  }
+  /* ================= EARLY RETURNS ================= */
+  if (loading) return <ArticleSkeleton />;
+
+  if (!article)
+    return <div className="p-6 text-red-600">Article not found</div>;
+
+  if (slug === "-")
+    return <div className="p-6 text-red-600">Invalid article</div>;
 
   /* ================= UI ================= */
   return (
@@ -99,9 +160,9 @@ export default function Article() {
         </script>
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 pt-4 h-[calc(100vh-56px)]">
+      <div className="max-w-7xl mx-auto px-4 pt-4">
         {/* TOP BAR */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6">
           <Link
             to="/article"
             className="text-sm text-gray-600 hover:text-orange-600"
@@ -110,31 +171,33 @@ export default function Article() {
           </Link>
         </div>
 
-        <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12 h-full">
+        <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
           {/* SIDE TOC */}
-          <aside className="hidden lg:block sticky top-20">
-            <div className="pl-4 border-l">
-              <p className="mb-3 text-xs font-semibold uppercase text-gray-500">
-                On this page
-              </p>
+          {headings.length > 0 && (
+            <aside className="hidden lg:block sticky top-20 self-start">
+              <div className="pl-4 border-l">
+                <p className="mb-3 text-xs font-semibold uppercase text-gray-500">
+                  On this page
+                </p>
 
-              <ul className="space-y-2 text-sm">
-                {headings.map((h) => (
-                  <li key={h.id}>
-                    <a
-                      href={`#${h.id}`}
-                      className="text-gray-600 hover:text-orange-600"
-                    >
-                      {h.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </aside>
+                <ul className="space-y-2 text-sm">
+                  {headings.map((h) => (
+                    <li key={h.id}>
+                      <a
+                        href={`#${h.id}`}
+                        className="text-gray-600 hover:text-orange-600"
+                      >
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+          )}
 
           {/* ARTICLE */}
-          <article className="max-w-3xl h-full overflow-y-auto pr-3 custom-scroll">
+          <article className="max-w-3xl">
             <header className="mb-6">
               <h1 className="text-3xl font-bold leading-tight">
                 {article.title}
@@ -147,7 +210,9 @@ export default function Article() {
               <div className="mt-3 text-sm text-gray-500 flex gap-2">
                 <span>TrendBuzzs</span>
                 <span>•</span>
-                <time>{new Date(article.publishedAt).toDateString()}</time>
+                <time dateTime={article.publishedAt}>
+                  {new Date(article.publishedAt).toDateString()}
+                </time>
               </div>
             </header>
 
@@ -165,6 +230,7 @@ export default function Article() {
             <section
               className="
                 prose prose-lg max-w-none text-gray-800
+                prose-h2:scroll-mt-24
                 prose-p:leading-relaxed
                 prose-p:my-4
                 prose-ul:my-6
@@ -172,11 +238,8 @@ export default function Article() {
                 prose-li:my-3
                 prose-li:leading-relaxed
                 prose-li::marker:text-orange-500
-                prose-li::marker:text-lg
               "
-              dangerouslySetInnerHTML={{
-                __html: article.content,
-              }}
+              dangerouslySetInnerHTML={{ __html: article.content }}
             />
           </article>
         </div>

@@ -3,6 +3,29 @@ import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 
 const categories = ["all", "health", "tech", "news"];
+function FeaturedSkeleton() {
+  return (
+    <div className="mb-10 animate-pulse">
+      <div className="w-full h-64 bg-gray-200 rounded-xl mb-4" />
+      <div className="h-6 w-3/4 bg-gray-200 rounded mb-2" />
+      <div className="h-4 w-full bg-gray-200 rounded mb-1" />
+      <div className="h-4 w-5/6 bg-gray-200 rounded" />
+    </div>
+  );
+}
+
+function ArticleRowSkeleton() {
+  return (
+    <div className="flex gap-4 border rounded-xl p-4 animate-pulse">
+      <div className="w-32 h-20 bg-gray-200 rounded-lg" />
+      <div className="flex-1 space-y-2">
+        <div className="h-4 w-3/4 bg-gray-200 rounded" />
+        <div className="h-3 w-full bg-gray-200 rounded" />
+        <div className="h-3 w-5/6 bg-gray-200 rounded" />
+      </div>
+    </div>
+  );
+}
 
 export default function ArticleList() {
   const [articles, setArticles] = useState([]);
@@ -11,13 +34,19 @@ export default function ArticleList() {
   const [lang, setLang] = useState("en");
   const [category, setCategory] = useState("all");
   const [loading, setLoading] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const hasAnyArticle =
+    (featured && featured.slug && featured.slug !== "-") || articles.length > 0;
 
   useEffect(() => {
     loadArticles(true);
   }, [lang, category]);
 
   async function loadArticles(reset = false) {
-    if (loading && !reset) return; 
+    if (loading) return;
+
     setLoading(true);
 
     const url = new URL(
@@ -45,22 +74,8 @@ export default function ArticleList() {
     }
 
     setLoading(false);
+    setHasFetched(true);
   }
-
-  useEffect(() => {
-    function onScroll() {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 300
-      ) {
-        loadArticles();
-      }
-    }
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [articles]); 
 
   return (
     <>
@@ -104,7 +119,9 @@ export default function ArticleList() {
         </div>
 
         {/* FEATURED */}
-        {featured?.slug && featured.slug !== "-" && (
+        {isInitialLoad && loading && <FeaturedSkeleton />}
+
+        {!loading && featured?.slug && featured.slug !== "-" && (
           <Link to={`/article/${featured.slug}`} className="block mb-10">
             {featured.image && (
               <img
@@ -127,8 +144,17 @@ export default function ArticleList() {
           </Link>
         )}
 
-        {/* LIST */}
         <div className="space-y-6">
+          {/* initial load */}
+          {isInitialLoad && loading && (
+            <>
+              <ArticleRowSkeleton />
+              <ArticleRowSkeleton />
+              <ArticleRowSkeleton />
+            </>
+          )}
+
+          {/* existing articles (always visible) */}
           {articles
             .filter((a) => a.slug && a.slug !== "-")
             .map((a) => (
@@ -155,6 +181,18 @@ export default function ArticleList() {
                 </div>
               </Link>
             ))}
+
+          {/* bottom loader (scroll time) */}
+          {!isInitialLoad && loading && (
+            <div className="flex justify-center py-6">
+              <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+            </div>
+          )}
+
+          {/* real empty */}
+          {!loading && hasFetched && !hasAnyArticle && (
+            <p className="text-center text-gray-500">No articles found</p>
+          )}
         </div>
 
         {/* LOAD MORE */}
@@ -162,7 +200,7 @@ export default function ArticleList() {
           <button
             onClick={() => loadArticles()}
             disabled={loading}
-            className="px-6 py-2 bg-orange-500 text-white rounded-full"
+            className="px-6 py-2 bg-orange-500 text-white rounded-full disabled:opacity-60"
           >
             {loading ? "Loading…" : "Load More"}
           </button>
