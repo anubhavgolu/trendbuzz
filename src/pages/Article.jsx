@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import { useMemo, useEffect, useState } from "react";
 import SEO from "../components/SEO";
 
-/* ================= TOC (ONLY H2) ================= */
 function extractHeadings(html) {
   if (!html) return [];
 
@@ -34,11 +33,9 @@ function extractHeadings(html) {
 function ArticleSkeleton() {
   return (
     <div className="max-w-7xl mx-auto px-4 pt-4 animate-pulse">
-      {/* Back link */}
       <div className="h-4 w-32 bg-gray-200 rounded mb-6" />
 
       <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
-        {/* TOC Skeleton */}
         <aside className="hidden lg:block">
           <div className="pl-4 border-l space-y-3">
             <div className="h-3 w-24 bg-gray-200 rounded" />
@@ -48,18 +45,16 @@ function ArticleSkeleton() {
           </div>
         </aside>
 
-        {/* Article Skeleton */}
         <article className="max-w-3xl">
-          {/* Title */}
           <div className="h-9 w-3/4 bg-gray-300 rounded mb-4" />
 
-          {/* Meta */}
+          
           <div className="h-4 w-48 bg-gray-200 rounded mb-6" />
 
-          {/* Image */}
+        
           <div className="w-full aspect-[1200/630] bg-gray-200 rounded-xl mb-8" />
 
-          {/* Content lines */}
+       
           <div className="space-y-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="h-4 bg-gray-200 rounded w-full" />
@@ -80,7 +75,7 @@ export default function Article() {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* ================= LOAD ARTICLE ================= */
+
   useEffect(() => {
     async function loadArticle() {
       setLoading(true);
@@ -105,13 +100,13 @@ export default function Article() {
     loadArticle();
   }, [slug]);
 
-  /* ================= TOC ================= */
+  
   const headings = useMemo(
     () => extractHeadings(article?.content),
     [article?.content]
   );
 
-  /* ================= EARLY RETURNS ================= */
+
   if (loading) return <ArticleSkeleton />;
 
   if (!article)
@@ -120,10 +115,10 @@ export default function Article() {
   if (slug === "-")
     return <div className="p-6 text-red-600">Invalid article</div>;
 
-  /* ================= UI ================= */
+ 
   return (
     <>
-      {/* 🔥 SEO */}
+   
       <SEO
         title={`${article.seoTitle || article.title} | TrendBuzzs`}
         description={article.seoDescription || article.excerpt}
@@ -138,7 +133,7 @@ export default function Article() {
             headline: article.title,
             image: [article.image],
             datePublished: article.publishedAt,
-            dateModified: article.publishedAt,
+            dateModified: article.updatedAt || article.publishedAt,
             author: {
               "@type": "Organization",
               name: "TrendBuzzs",
@@ -156,12 +151,39 @@ export default function Article() {
               "@type": "WebPage",
               "@id": `https://www.trendbuzzs.com/article/${article.slug}`,
             },
+            articleSection: article.section || "News",
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.trendbuzzs.com",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Articles",
+                item: "https://www.trendbuzzs.com/article",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: article.title,
+                item: `https://www.trendbuzzs.com/article/${article.slug}`,
+              },
+            ],
           })}
         </script>
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 pt-4">
-        {/* TOP BAR */}
+    
         <div className="mb-6">
           <Link
             to="/article"
@@ -172,7 +194,7 @@ export default function Article() {
         </div>
 
         <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
-          {/* SIDE TOC */}
+         
           {headings.length > 0 && (
             <aside className="hidden lg:block sticky top-20 self-start">
               <div className="pl-4 border-l">
@@ -196,7 +218,7 @@ export default function Article() {
             </aside>
           )}
 
-          {/* ARTICLE */}
+         
           <article className="max-w-3xl">
             <header className="mb-6">
               <h1 className="text-3xl font-bold leading-tight">

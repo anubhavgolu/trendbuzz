@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { Helmet } from "react-helmet-async";
 
 const categories = ["all", "health", "tech", "news"];
 function FeaturedSkeleton() {
@@ -83,6 +84,28 @@ export default function ArticleList() {
         title="Articles | TrendBuzzs"
         description="In-depth trending articles from TrendBuzzs"
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.trendbuzzs.com",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Articles",
+                item: "https://www.trendbuzzs.com/article",
+              },
+            ],
+          })}
+        </script>
+      </Helmet>
 
       <div className="max-w-5xl mx-auto px-4 py-6">
         {/* TOP BAR */}

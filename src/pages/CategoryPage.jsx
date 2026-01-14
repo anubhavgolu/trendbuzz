@@ -27,14 +27,13 @@ export default function CategoryPage() {
 
   return (
     <>
- 
       <SEO
         title={seoTitle}
         description={seoDesc}
         canonical={`https://www.trendbuzzs.com/category/${category}`}
       />
 
-      <Helmet> 
+      <Helmet>
         <meta name="googlebot-news" content="index,follow" />
         <meta name="googlebot" content="max-image-preview:large" />
         <script type="application/ld+json">
@@ -51,10 +50,35 @@ export default function CategoryPage() {
             },
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.trendbuzzs.com",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Category",
+                item: "https://www.trendbuzzs.com/category",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: title,
+                item: `https://www.trendbuzzs.com/category/${category}`,
+              },
+            ],
+          })}
+        </script>
       </Helmet>
 
       <main className="max-w-7xl mx-auto px-4 py-10">
-
         <header className="max-w-3xl mb-8 space-y-2">
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">
             {title} News & Trends

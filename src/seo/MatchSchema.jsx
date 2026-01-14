@@ -13,6 +13,7 @@ const MatchSchema = ({ match }) => {
     "eventStatus": "https://schema.org/EventScheduled",
     "sport": "Cricket",
     "image": "https://www.trendbuzzs.com/assets/worldcup-2026-cover.jpeg",
+
     "location": {
       "@type": "Place",
       "name": match.venue,
@@ -21,10 +22,25 @@ const MatchSchema = ({ match }) => {
         "addressCountry": "IN"
       }
     },
+
     "competitor": [
       { "@type": "SportsTeam", "name": match.team1.name },
       { "@type": "SportsTeam", "name": match.team2.name }
     ],
+
+    "performer": [
+      { "@type": "SportsTeam", "name": match.team1.name },
+      { "@type": "SportsTeam", "name": match.team2.name }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.trendbuzzs.com/worldcup",
+      "price": "0",
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/InStock",
+      "validFrom": match.date
+    },
+
     "organizer": {
       "@type": "Organization",
       "name": "International Cricket Council",

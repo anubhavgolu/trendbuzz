@@ -1,16 +1,53 @@
 import { API_BASE } from "./http";
 
-export async function fetchSection(section) {
+
+const sectionCache = {};
+const slugCache = {};
+
+
+export async function fetchSection(section, { force = false } = {}) {
+
+  if (!force && sectionCache[section]) {
+    return sectionCache[section];
+  }
+
   const res = await fetch(`${API_BASE}/api/content/section/${section}`);
-  return res.json();
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch section: " + section);
+  }
+
+  const data = await res.json();
+
+  sectionCache[section] = data;
+
+  return data;
 }
 
-export async function fetchBySlug(slug) {
+
+export async function fetchBySlug(slug, { force = false } = {}) {
+  if (!slug) return null;
+
+  if (!force && slugCache[slug]) {
+    return slugCache[slug];
+  }
+
   const res = await fetch(`${API_BASE}/api/content/${slug}`);
 
   if (!res.ok) {
     return null;
   }
 
-  return res.json();
+  const data = await res.json();
+
+
+  slugCache[slug] = data;
+
+  return data;
+}
+
+
+export function clearContentCache() {
+  Object.keys(sectionCache).forEach((k) => delete sectionCache[k]);
+  Object.keys(slugCache).forEach((k) => delete slugCache[k]);
 }

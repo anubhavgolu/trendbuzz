@@ -25,6 +25,7 @@ export default function TopStory({ items = [] }) {
               loading="eager"
               fetchpriority="high"
               decoding="async"
+              sizes="(max-width: 768px) 100vw, 1024px"
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.currentTarget.src = "/fallback.jpg";
@@ -40,9 +41,7 @@ export default function TopStory({ items = [] }) {
         </h2>
 
         {first.summary && (
-          <p className="text-gray-600 mt-2 line-clamp-2">
-            {first.summary}
-          </p>
+          <p className="text-gray-600 mt-2 line-clamp-2">{first.summary}</p>
         )}
       </Link>
     </section>
