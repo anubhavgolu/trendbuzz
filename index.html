@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrendBuzzs – Trending News & Viral Stories</title>
 
-    <!-- BASIC CRAWL CONTROL -->
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow,max-image-preview:large" />
     <meta name="googlebot-news" content="index,follow" />
 
-    <!-- SEO -->
+
     <meta
       name="description"
       content="TrendBuzz brings you the latest trending news, viral stories, technology updates, entertainment buzz, and in-depth explainers from around the world."
     />
-
-    <!-- THEME -->
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- PRECONNECT (CRITICAL) -->
     <link
       rel="preconnect"
       href="https://trendbuzzbackend-production.up.railway.app"
@@ -29,8 +25,6 @@
       rel="dns-prefetch"
       href="https://trendbuzzbackend-production.up.railway.app"
     />
-
-    <!-- GA4 -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-JTRWSYBCR0"
@@ -45,14 +39,16 @@
         page_path: window.location.pathname,
       });
     </script>
-
-    <!-- FAVICON -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1788108525667414"
+      crossorigin="anonymous"
+    ></script>
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -71,15 +67,6 @@
 
   <body>
     <div id="root"></div>
-
-    <!-- VITE ENTRY -->
     <script type="module" src="/src/main.jsx"></script>
-
-    <!-- ADSENSE -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1788108525667414"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
