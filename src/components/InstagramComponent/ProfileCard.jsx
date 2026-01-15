@@ -2,6 +2,7 @@ import html2canvas from "html2canvas";
 import { useEffect, useState } from "react";
 import Toast from "./Toast";
 import RollingNumber from "./RollingNumber";
+import { API_BASE } from "../../services/http";
 
 export default function ProfileCard({ data, id, winner }) {
   const [toast, setToast] = useState("");
@@ -86,7 +87,7 @@ export default function ProfileCard({ data, id, winner }) {
     `}
           >
             <img
-              src={`http://localhost:8080/api/proxy/image?url=${encodeURIComponent(
+              src={`${API_BASE}/api/proxy/image?url=${encodeURIComponent(
                 data.profilePic
               )}`}
               alt={data.username}
