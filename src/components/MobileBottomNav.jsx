@@ -3,6 +3,7 @@ import { hapticTap } from "../utils/haptics";
 import { HiHome, HiInformationCircle } from "react-icons/hi2";
 import { MdTrendingUp } from "react-icons/md";
 import { GiCricketBat } from "react-icons/gi";
+import { FaInstagram } from "react-icons/fa";
 
 export default function MobileBottomNav() {
   const linkClass = ({ isActive }) =>
@@ -35,9 +36,13 @@ export default function MobileBottomNav() {
           T20
         </NavLink>
 
-        <NavLink to="/about" className={linkClass} onClick={hapticTap}>
-          <HiInformationCircle className="text-xl" />
-          About
+        <NavLink
+          to="/instagram-analyzer"
+          className={linkClass}
+          onClick={hapticTap}
+        >
+          <FaInstagram className="text-xl text-gray-500" />
+          Insta Tool
         </NavLink>
       </div>
     </nav>

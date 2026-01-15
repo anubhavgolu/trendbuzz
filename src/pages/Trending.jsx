@@ -73,16 +73,6 @@ export default function Trending() {
       });
   }, [active]);
 
-  useEffect(() => {
-    if (!active) return;
-
-    setLoading(true);
-    fetchSection(active)
-      .then((data) => {
-        setItems(Array.isArray(data) ? data : []);
-      })
-      .finally(() => setLoading(false));
-  }, [active]);
 
   return (
     <>

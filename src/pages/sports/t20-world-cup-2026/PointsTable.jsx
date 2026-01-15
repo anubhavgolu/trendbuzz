@@ -21,7 +21,7 @@ const PointsTable = () => {
         title="T20 World Cup 2026 Points Table | ICC Men’s T20 WC Standings"
         description="Latest T20 World Cup 2026 points table with group-wise standings, matches played, wins, losses, net run rate and qualification details."
         url="https://www.trendbuzzs.com/sports/t20-world-cup-2026/points-table"
-        pageType="PointsTable"
+        pageType="WebPage"
       />
 
       <div className="wc-heading">

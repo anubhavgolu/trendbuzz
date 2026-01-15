@@ -71,6 +71,9 @@ export default function Header() {
             <NavLink to="/article" className={navClass}>
               Article
             </NavLink>
+            <NavLink to="/instagram-analyzer" className={navClass}>
+              Insta Tool
+            </NavLink>
             <NavLink to="/about" className={navClass}>
               About
             </NavLink>
@@ -138,6 +141,7 @@ export default function Header() {
             },
 
             { label: "Article", path: "/article" },
+            { label: "Insta Tool", path: "/instagram-analyzer" },
             { label: "About", path: "/about" },
           ].map((item, i) => (
             <NavLink

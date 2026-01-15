@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Suspense } from "react";
 
 import Header from "./components/Header";
@@ -25,6 +25,8 @@ import Schedule from "./pages/sports/t20-world-cup-2026/Schedule";
 import PointsTable from "./pages/sports/t20-world-cup-2026/PointsTable";
 import Groups from "./pages/sports/t20-world-cup-2026/Groups";
 import Teams from "./pages/sports/t20-world-cup-2026/Teams";
+import InstagramAnalyzer from "./pages/IntagramAnalyzer/InstagramAnalyzer";
+import InstagramCompare from "./pages/IntagramAnalyzer/InstagramCompare";
 
 function PublicLayout() {
   return (
@@ -35,6 +37,13 @@ function PublicLayout() {
         <Suspense fallback={<div className="p-10">Loading…</div>}>
           <Routes>
             <Route path="/" element={<Categories />} />
+            <Route path="/instagram-analyzer" element={<InstagramAnalyzer />} />
+            <Route
+              path="/instagram-compare"
+              element={
+                <Navigate to="/instagram-analyzer?tab=compare" replace />
+              }
+            />
             <Route path="/trend/:slug" element={<ContentDetail />} />
             <Route path="/article" element={<ArticleList />} />
             <Route path="/article/:slug" element={<Article />} />

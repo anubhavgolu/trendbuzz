@@ -65,3 +65,20 @@ body {
   animation: shimmer 1.4s ease infinite;
 }
 
+
+@keyframes softPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(249, 115, 22, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+  }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 2s infinite;
+}
+
