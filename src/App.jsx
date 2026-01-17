@@ -53,7 +53,7 @@ function PublicLayout() {
             <Route path="/about" element={<About />} />
             <Route path="/editorial-policy" element={<EditorialPolicy />} />
 
-            <Route path="/Contact" element={<Contact />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route
