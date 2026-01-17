@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/robots.txt",
+      "destination": "https://api.trendbuzzs.com/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://api.trendbuzzs.com/sitemap.xml"
+    },
+    {
+      "source": "/sitemap-news.xml",
+      "destination": "https://api.trendbuzzs.com/sitemap-news.xml"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
