@@ -16,7 +16,6 @@ import DefaultSEO from "./seo/DefaultSEO";
 import PublisherSEO from "./seo/PublisherSEO ";
 import RequireAdmin from "./pages/admin/RequireAdmin";
 import AdminContentEditor from "./pages/admin/AdminContentEditor";
-import SectionManager from "./pages/admin/SectionManager";
 import Contact from "./pages/Contact";
 import EditorialPolicy from "./pages/EditorialPolicy";
 import Article from "./pages/Article";
@@ -26,7 +25,6 @@ import PointsTable from "./pages/sports/t20-world-cup-2026/PointsTable";
 import Groups from "./pages/sports/t20-world-cup-2026/Groups";
 import Teams from "./pages/sports/t20-world-cup-2026/Teams";
 import InstagramAnalyzer from "./pages/IntagramAnalyzer/InstagramAnalyzer";
-import InstagramCompare from "./pages/IntagramAnalyzer/InstagramCompare";
 
 function PublicLayout() {
   return (
@@ -101,15 +99,6 @@ export default function App() {
           element={
             <RequireAdmin>
               <AdminContentEditor />
-            </RequireAdmin>
-          }
-        />
-
-        <Route
-          path="/admin/sections"
-          element={
-            <RequireAdmin>
-              <SectionManager />
             </RequireAdmin>
           }
         />
