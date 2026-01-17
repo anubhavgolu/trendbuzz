@@ -9,12 +9,10 @@ export default function About() {
       />
 
       <main className="max-w-4xl mx-auto px-4 py-10 space-y-6">
-    
         <h1 className="text-3xl font-extrabold text-gray-900">
           About TrendBuzzs
         </h1>
 
-        
         <h2 className="text-xl font-semibold text-gray-800">
           What Is TrendBuzzs?
         </h2>
@@ -24,7 +22,6 @@ export default function About() {
           language.
         </p>
 
-       
         <h2 className="text-xl font-semibold text-gray-800">
           Our Editorial Approach
         </h2>
@@ -34,10 +31,7 @@ export default function About() {
           misinformation, or unnecessary noise.
         </p>
 
-        
-        <h2 className="text-xl font-semibold text-gray-800">
-          Topics We Cover
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-800">Topics We Cover</h2>
         <p className="text-gray-700 leading-relaxed">
           We cover a wide range of trending topics including current affairs,
           technology, entertainment, sports, and internet culture. All content
@@ -45,7 +39,6 @@ export default function About() {
           people are searching for right now.
         </p>
 
-       
         <h2 className="text-xl font-semibold text-gray-800">
           Why You Can Trust TrendBuzzs
         </h2>
@@ -56,13 +49,16 @@ export default function About() {
           update or correct information whenever new facts become available.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-800">
-          Looking Ahead
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-800">Looking Ahead</h2>
         <p className="text-gray-700 leading-relaxed">
           In the future, TrendBuzzs may introduce helpful tools and features to
           make it easier for users to explore trends, discover insights, and
           stay updated with what’s happening online.
+        </p>
+        <p className="text-gray-700 leading-relaxed">
+          TrendBuzzs is managed by an independent editorial team focused on
+          explaining trending news responsibly and transparently for a global
+          audience.
         </p>
       </main>
     </>

@@ -35,13 +35,11 @@ export default function PrivacyPolicy() {
         </h2>
         <p className="mt-2 text-gray-700 leading-relaxed">
           TrendBuzzs uses cookies to store information about visitors’
-          preferences and to optimize the user experience by customizing our
-          web page content based on visitors’ browser type or other information.
+          preferences and to optimize the user experience by customizing our web
+          page content based on visitors’ browser type or other information.
         </p>
 
-        <h2 className="mt-6 text-xl font-bold text-gray-900">
-          Google AdSense
-        </h2>
+        <h2 className="mt-6 text-xl font-bold text-gray-900">Google AdSense</h2>
         <p className="mt-2 text-gray-700 leading-relaxed">
           Google is a third-party vendor on TrendBuzzs. It uses cookies, such as
           the DoubleClick cookie, to serve ads to users based on their visit to
@@ -52,6 +50,10 @@ export default function PrivacyPolicy() {
           Users may opt out of the use of the DoubleClick cookie for
           interest-based advertising by visiting Google Ad Settings.
         </p>
+        <p className="mt-4 text-gray-700">
+          TrendBuzzs complies with Google AdSense program policies and uses
+          advertising cookies only where permitted.
+        </p>
 
         <h2 className="mt-6 text-xl font-bold text-gray-900">
           Third-Party Privacy Policies
@@ -59,14 +61,11 @@ export default function PrivacyPolicy() {
         <p className="mt-2 text-gray-700 leading-relaxed">
           TrendBuzzs’s Privacy Policy does not apply to other advertisers or
           websites. We advise you to consult the respective Privacy Policies of
-          third-party ad servers or websites for more detailed information
-          about their practices and instructions on how to opt out of certain
-          options.
+          third-party ad servers or websites for more detailed information about
+          their practices and instructions on how to opt out of certain options.
         </p>
 
-        <h2 className="mt-6 text-xl font-bold text-gray-900">
-          Consent
-        </h2>
+        <h2 className="mt-6 text-xl font-bold text-gray-900">Consent</h2>
         <p className="mt-2 text-gray-700 leading-relaxed">
           By using our website, you hereby consent to our Privacy Policy and
           agree to its terms.

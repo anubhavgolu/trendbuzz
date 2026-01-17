@@ -31,6 +31,9 @@ export default function Contact() {
             contact@trendbuzzs.com
           </a>
         </p>
+        <p className="mt-4 text-gray-700">
+          For urgent matters, please mention the subject clearly in your email.
+        </p>
 
         <p className="mt-6 text-gray-700 leading-relaxed">
           We aim to respond to all genuine queries as quickly as possible.
