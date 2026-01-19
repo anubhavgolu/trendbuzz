@@ -99,7 +99,9 @@ export default function CategoryPage() {
           </div>
         )}
 
-        {items.length > 0 && <ContentGrid title={title} items={items} />}
+        {items.length > 0 && (
+          <ContentGrid title={title} items={items} showViewAll={false} />
+        )}
       </main>
     </>
   );

@@ -2,13 +2,12 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { fetchSection } from "../services/contentApi";
 import ContentGrid from "./ContentGrid";
-import TopStory from "./TopStory";
 import VideoSection from "./VideoSection";
 
 export default function SectionRenderer({ section }) {
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(section === "top"); // ✅ top immediate
+  const [shouldLoad, setShouldLoad] = useState(section === "top"); // top immediate
 
   const ref = useRef(null);
 
@@ -19,7 +18,7 @@ export default function SectionRenderer({ section }) {
       .join(" ");
   }, [section]);
 
-  // ✅ Trigger load when section comes into view
+  // Trigger load when section comes into view
   useEffect(() => {
     if (shouldLoad) return;
 
@@ -33,14 +32,14 @@ export default function SectionRenderer({ section }) {
           obs.disconnect();
         }
       },
-      { rootMargin: "200px" } // preload a bit before visible
+      { rootMargin: "200px" }
     );
 
     obs.observe(el);
     return () => obs.disconnect();
   }, [shouldLoad]);
 
-  // ✅ Fetch only when shouldLoad true
+  // Fetch only when shouldLoad true
   useEffect(() => {
     if (!shouldLoad) return;
 
@@ -83,10 +82,9 @@ export default function SectionRenderer({ section }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
         >
-          {section === "top" && <TopStory items={items} />}
-          {section === "video" && <VideoSection items={items} />}
-
-          {section !== "top" && section !== "video" && (
+          {section === "video" ? (
+            <VideoSection items={items} />
+          ) : (
             <ContentGrid title={prettyTitle} items={items} />
           )}
         </motion.div>
