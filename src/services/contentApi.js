@@ -1,29 +1,28 @@
 import { API_BASE } from "./http";
 
-
 const sectionCache = {};
 const slugCache = {};
 
-
 export async function fetchSection(section, { force = false } = {}) {
+  if (!force && sectionCache[section]) return sectionCache[section];
 
-  if (!force && sectionCache[section]) {
-    return sectionCache[section];
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+
+  try {
+    const res = await fetch(`${API_BASE}/api/content/section/${section}`, {
+      signal: controller.signal,
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch section: " + section);
+
+    const data = await res.json();
+    sectionCache[section] = data;
+    return data;
+  } finally {
+    clearTimeout(timer);
   }
-
-  const res = await fetch(`${API_BASE}/api/content/section/${section}`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch section: " + section);
-  }
-
-  const data = await res.json();
-
-  sectionCache[section] = data;
-
-  return data;
 }
-
 
 export async function fetchBySlug(slug, { force = false } = {}) {
   if (!slug) return null;
@@ -40,12 +39,10 @@ export async function fetchBySlug(slug, { force = false } = {}) {
 
   const data = await res.json();
 
-
   slugCache[slug] = data;
 
   return data;
 }
-
 
 export function clearContentCache() {
   Object.keys(sectionCache).forEach((k) => delete sectionCache[k]);

@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useMemo, useEffect, useState } from "react";
 import SEO from "../components/SEO";
+import DOMPurify from "dompurify";
 
 function extractHeadings(html) {
   if (!html) return [];
@@ -29,6 +30,29 @@ function extractHeadings(html) {
     };
   });
 }
+function addHeadingIds(html) {
+  if (!html) return "";
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  const usedIds = new Set();
+
+  [...doc.querySelectorAll("h2")].forEach((h, index) => {
+    let id =
+      h.id ||
+      h.textContent
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+
+    if (usedIds.has(id)) id = `${id}-${index}`;
+    usedIds.add(id);
+
+    h.id = id;
+  });
+
+  return doc.body.innerHTML;
+}
 
 function ArticleSkeleton() {
   return (
@@ -48,13 +72,10 @@ function ArticleSkeleton() {
         <article className="max-w-3xl">
           <div className="h-9 w-3/4 bg-gray-300 rounded mb-4" />
 
-          
           <div className="h-4 w-48 bg-gray-200 rounded mb-6" />
 
-        
           <div className="w-full aspect-[1200/630] bg-gray-200 rounded-xl mb-8" />
 
-       
           <div className="space-y-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="h-4 bg-gray-200 rounded w-full" />
@@ -74,7 +95,6 @@ export default function Article() {
 
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     async function loadArticle() {
@@ -100,12 +120,12 @@ export default function Article() {
     loadArticle();
   }, [slug]);
 
-  
-  const headings = useMemo(
-    () => extractHeadings(article?.content),
-    [article?.content]
-  );
+  const safeHtml = useMemo(() => {
+    const cleaned = DOMPurify.sanitize(article?.content || "");
+    return addHeadingIds(cleaned);
+  }, [article?.content]);
 
+  const headings = useMemo(() => extractHeadings(safeHtml), [safeHtml]);
 
   if (loading) return <ArticleSkeleton />;
 
@@ -115,14 +135,13 @@ export default function Article() {
   if (slug === "-")
     return <div className="p-6 text-red-600">Invalid article</div>;
 
- 
   return (
     <>
-   
       <SEO
         title={`${article.seoTitle || article.title} | TrendBuzzs`}
         description={article.seoDescription || article.excerpt}
         image={article.image}
+        canonical={`https://www.trendbuzzs.com/article/${article.slug}`}
       />
 
       <Helmet>
@@ -131,7 +150,7 @@ export default function Article() {
             "@context": "https://schema.org",
             "@type": "NewsArticle",
             headline: article.title,
-            image: [article.image],
+            image: article.image ? [article.image] : undefined,
             datePublished: article.publishedAt,
             dateModified: article.updatedAt || article.publishedAt,
             author: {
@@ -139,12 +158,13 @@ export default function Article() {
               name: "TrendBuzzs",
               url: "https://www.trendbuzzs.com",
             },
+
             publisher: {
               "@type": "Organization",
               name: "TrendBuzzs",
               logo: {
                 "@type": "ImageObject",
-                url: "https://www.trendbuzzs.com/logo.png",
+                url: "https://www.trendbuzzs.com/assets/trendbuzz_logo.png",
               },
             },
             mainEntityOfPage: {
@@ -163,7 +183,7 @@ export default function Article() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://www.trendbuzzs.com",
+                item: "https://www.trendbuzzs.com/",
               },
               {
                 "@type": "ListItem",
@@ -183,7 +203,6 @@ export default function Article() {
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 pt-4">
-    
         <div className="mb-6">
           <Link
             to="/article"
@@ -194,7 +213,6 @@ export default function Article() {
         </div>
 
         <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
-         
           {headings.length > 0 && (
             <aside className="hidden lg:block sticky top-20 self-start">
               <div className="pl-4 border-l">
@@ -218,7 +236,6 @@ export default function Article() {
             </aside>
           )}
 
-         
           <article className="max-w-3xl">
             <header className="mb-6">
               <h1 className="text-3xl font-bold leading-tight">
@@ -251,17 +268,17 @@ export default function Article() {
 
             <section
               className="
-                prose prose-lg max-w-none text-gray-800
-                prose-h2:scroll-mt-24
-                prose-p:leading-relaxed
-                prose-p:my-4
-                prose-ul:my-6
-                prose-ul:pl-6
-                prose-li:my-3
-                prose-li:leading-relaxed
-                prose-li::marker:text-orange-500
-              "
-              dangerouslySetInnerHTML={{ __html: article.content }}
+    prose prose-lg max-w-none text-gray-800
+    prose-h2:scroll-mt-24
+    prose-p:leading-relaxed
+    prose-p:my-4
+    prose-ul:my-6
+    prose-ul:pl-6
+    prose-li:my-3
+    prose-li:leading-relaxed
+    prose-li::marker:text-orange-500
+  "
+              dangerouslySetInnerHTML={{ __html: safeHtml }}
             />
           </article>
         </div>

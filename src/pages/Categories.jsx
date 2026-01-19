@@ -31,8 +31,9 @@ export default function Categories() {
   return (
     <>
       <SEO
-        title="Latest Trending News, Viral Stories & Internet Buzz | TrendBuzz"
-        description="TrendBuzz brings you real-time trending news from technology, entertainment, sports, and viral internet stories — explained clearly and updated continuously."
+        title="Latest Trending News, Viral Stories & Internet Buzz | TrendBuzzs"
+        description="TrendBuzzs brings you real-time trending news from technology, entertainment, sports, and viral internet stories — explained clearly and updated continuously."
+        canonical="https://www.trendbuzzs.com/"
       />
 
       <Helmet>
@@ -40,14 +41,14 @@ export default function Categories() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            name: "TrendBuzz",
+            name: "TrendBuzzs",
             url: "https://www.trendbuzzs.com",
             publisher: {
               "@type": "Organization",
-              name: "TrendBuzz",
+              name: "TrendBuzzs",
               logo: {
                 "@type": "ImageObject",
-                url: "https://www.trendbuzzs.com/trendbuzz_logo.png",
+                url: "https://www.trendbuzzs.com/assets/trendbuzz_logo.png",
               },
             },
           })}
@@ -62,7 +63,7 @@ export default function Categories() {
           <p className="text-gray-600">
             Stay updated with real-time trending stories from news, technology,
             entertainment, sports, and the internet — curated and explained by
-            TrendBuzz.
+            TrendBuzzs.
           </p>
         </header>
 

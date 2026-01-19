@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SEO from "../components/SEO";
 import ContentGrid from "../sections/ContentGrid";
@@ -20,36 +20,36 @@ export default function CategoryPage() {
       .finally(() => setLoading(false));
   }, [category]);
 
-  const title = category.charAt(0).toUpperCase() + category.slice(1);
+  const title = category
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
 
-  const seoTitle = `Latest ${title} News, Trends & Viral Stories | TrendBuzz`;
-  const seoDesc = `Read the latest ${title.toLowerCase()} news, trending stories, and viral updates curated and explained by TrendBuzz editors.`;
+  const seoTitle = `Latest ${title} News, Trends & Viral Stories | TrendBuzzs`;
+  const seoDesc = `Read the latest ${title.toLowerCase()} news, trending stories, and viral updates curated and explained by TrendBuzzs editors.`;
+
+  const pageUrl = `https://www.trendbuzzs.com/category/${category}`;
 
   return (
     <>
-      <SEO
-        title={seoTitle}
-        description={seoDesc}
-        canonical={`https://www.trendbuzzs.com/category/${category}`}
-      />
+      <SEO title={seoTitle} description={seoDesc} canonical={pageUrl} />
 
       <Helmet>
-        <meta name="googlebot-news" content="index,follow" />
-        <meta name="googlebot" content="max-image-preview:large" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: `${title} News & Trends`,
             description: seoDesc,
-            url: `https://www.trendbuzzs.com/category/${category}`,
+            url: pageUrl,
             isPartOf: {
               "@type": "WebSite",
-              name: "TrendBuzz",
+              name: "TrendBuzzs",
               url: "https://www.trendbuzzs.com",
             },
           })}
         </script>
+
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -59,19 +59,13 @@ export default function CategoryPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://www.trendbuzzs.com",
+                item: "https://www.trendbuzzs.com/",
               },
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "Category",
-                item: "https://www.trendbuzzs.com/category",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
                 name: title,
-                item: `https://www.trendbuzzs.com/category/${category}`,
+                item: pageUrl,
               },
             ],
           })}
@@ -94,9 +88,15 @@ export default function CategoryPage() {
         )}
 
         {!loading && items.length === 0 && (
-          <p className="text-gray-500 text-sm">
-            No {title.toLowerCase()} content available right now.
-          </p>
+          <div className="text-gray-500 text-sm space-y-3">
+            <p>No {title.toLowerCase()} content available right now.</p>
+            <Link
+              to="/trending"
+              className="text-orange-600 font-semibold hover:underline"
+            >
+              View Trending Stories →
+            </Link>
+          </div>
         )}
 
         {items.length > 0 && <ContentGrid title={title} items={items} />}

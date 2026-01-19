@@ -10,28 +10,26 @@ export default function TopStory({ items = [] }) {
     ? first.image.startsWith("http")
       ? first.image
       : `${API_BASE}${first.image}`
-    : null;
+    : "/fallback.jpg";
 
   return (
     <section className="space-y-6">
       <Link to={`/trend/${first.slug}`} className="group block">
         <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-gray-900">
-          {imageUrl && (
-            <img
-              src={imageUrl}
-              alt={first.title}
-              width="1024"
-              height="576"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              sizes="(max-width: 768px) 100vw, 1024px"
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.currentTarget.src = "/fallback.jpg";
-              }}
-            />
-          )}
+          <img
+            src={imageUrl}
+            alt={first.title || "Top story"}
+            width="1024"
+            height="576"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 1024px"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = "/fallback.jpg";
+            }}
+          />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
         </div>

@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+
   server: {
     proxy: {
       "/api": {
@@ -10,5 +11,20 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom", "react-router-dom"],
+          helmet: ["react-helmet-async"],
+          motion: ["framer-motion"],
+        },
+      },
+    },
+
+    // optional: warning limit thoda increase
+    chunkSizeWarningLimit: 800,
   },
 });

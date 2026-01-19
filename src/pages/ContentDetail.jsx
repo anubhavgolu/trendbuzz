@@ -7,7 +7,7 @@ import ContentHero from "../components/ContentHero";
 import HeroSkeleton from "../components/skeletons/HeroSkeleton";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 import { API_BASE } from "../services/http";
-import AdSlot from "../components/AdSlot";
+import DOMPurify from "dompurify";
 
 export default function ContentDetail() {
   const { slug } = useParams();
@@ -33,7 +33,6 @@ export default function ContentDetail() {
     };
   }, [slug]);
 
-  /* ================= LOADING ================= */
   if (loading) {
     return (
       <main className="max-w-4xl mx-auto px-4 py-10">
@@ -42,7 +41,6 @@ export default function ContentDetail() {
     );
   }
 
-  /* ================= NOT FOUND ================= */
   if (!item) {
     return (
       <div className="p-10 text-center">
@@ -60,7 +58,6 @@ export default function ContentDetail() {
     );
   }
 
-  /* ================= DATA ================= */
   const {
     title,
     summary,
@@ -77,41 +74,41 @@ export default function ContentDetail() {
     author,
     disclaimer,
   } = item;
+
   const imageUrl = image?.startsWith("http")
     ? image
     : image
     ? `${API_BASE}${image}`
     : null;
 
+  const categorySlug = section
+    ? section.toLowerCase().replace(/\s+/g, "-")
+    : "news";
+
+  const pageUrl = `https://www.trendbuzzs.com/trend/${slug}`;
+
   return (
     <>
-      {/* ================= SEO ================= */}
+      {/* SEO */}
       <SEO
         title={seoTitle || title}
         description={seoDescription || summary}
         keywords={keywords?.join?.(", ")}
-        canonical={`https://www.trendbuzzs.com/trend/${slug}`}
+        canonical={pageUrl}
+        image={imageUrl}
       />
 
-      {/* ================= BREADCRUMB ================= */}
       <BreadcrumbSchema
         items={[
-          {
-            name: "Home",
-            url: "https://www.trendbuzzs.com/",
-          },
+          { name: "Home", url: "https://www.trendbuzzs.com/" },
           {
             name: section || "News",
-            url: `https://www.trendbuzzs.com/category/${section}`,
+            url: `https://www.trendbuzzs.com/category/${categorySlug}`,
           },
-          {
-            name: title,
-            url: `https://www.trendbuzzs.com/trend/${slug}`,
-          },
+          { name: title, url: pageUrl },
         ]}
       />
 
-      {/* ================= NEWS SCHEMA ================= */}
       <NewsSchema
         title={title}
         description={summary}
@@ -129,10 +126,7 @@ export default function ContentDetail() {
         publishedAt={publishedAt}
       />
 
-
-      {/* ================= CONTENT ================= */}
       <main className="max-w-4xl mx-auto px-4 py-10">
-        {/* META INFO */}
         <div className="mb-4 flex flex-wrap gap-3 text-sm text-gray-500">
           {publishedAt && (
             <span>
@@ -155,7 +149,7 @@ export default function ContentDetail() {
             <a
               href={sourceUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="nofollow noopener noreferrer"
               className="text-orange-600 hover:underline text-xs"
             >
               View Source
@@ -163,29 +157,27 @@ export default function ContentDetail() {
           )}
         </div>
 
-        {/* 🔥 FULL ARTICLE HTML */}
-        {content && (
-          <>
-            <article
-              className="prose prose-lg max-w-none mt-8"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
-
-            {/* MID CONTENT AD */}
-            {/* <div className="my-10">
-              <AdSlot slot="3456789012" />
-            </div> */}
-          </>
+        {/* Article */}
+        {content ? (
+          <article
+            className="prose prose-lg max-w-none mt-8"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+          />
+        ) : (
+          <div className="mt-8 text-gray-600">
+            <p>{summary}</p>
+            <p className="mt-4">
+              We are updating this story with more details. Please check back
+              soon.
+            </p>
+          </div>
         )}
 
-        {/* EEAT DISCLAIMER */}
         {disclaimer && (
           <div className="mt-10 p-4 border-l-4 border-orange-500 bg-orange-50 text-sm text-gray-700">
             ⚠️ {disclaimer}
           </div>
         )}
-
-        {/* AUTHOR */}
         {author && (
           <p className="mt-6 text-xs text-gray-500">
             Written by <strong>{author.name}</strong>
@@ -193,7 +185,6 @@ export default function ContentDetail() {
           </p>
         )}
 
-        {/* TAGS */}
         {keywords?.length > 0 && (
           <div className="mt-8 flex flex-wrap gap-2">
             {keywords.map((tag) => (
@@ -204,7 +195,6 @@ export default function ContentDetail() {
           </div>
         )}
 
-        {/* BACK */}
         <div className="mt-12">
           <Link
             to="/"
