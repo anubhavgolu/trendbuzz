@@ -10,30 +10,42 @@ export default function Categories() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let mounted = true;
+    const controller = new AbortController();
 
     async function load() {
       try {
-        const res = await fetch(`${API_BASE}/api/content/sections`);
+        const res = await fetch(`${API_BASE}/api/content/sections`, {
+          signal: controller.signal,
+        });
+
         const data = await res.json();
-        if (mounted && Array.isArray(data)) setSections(data);
+
+        if (Array.isArray(data)) {
+          const names = data
+            .map((s) => (typeof s === "string" ? s : s?.name))
+            .filter(Boolean);
+
+          setSections(names);
+        }
       } catch (e) {
-        console.error("Section load error", e);
+        if (e.name !== "AbortError") {
+          console.error("Section load error", e);
+        }
       } finally {
-        if (mounted) setLoading(false);
+        setLoading(false);
       }
     }
 
     load();
-    return () => (mounted = false);
+    return () => controller.abort();
   }, []);
 
   return (
     <>
       <SEO
-        title="Latest Trending News, Viral Stories & Internet Buzz | TrendBuzzs"
-        description="TrendBuzzs brings you real-time trending news from technology, entertainment, sports, and viral internet stories — explained clearly and updated continuously."
-        canonical="https://www.trendbuzzs.com/"
+        title="Categories | TrendBuzzs"
+        description="Browse TrendBuzzs categories including tech tips, how-to guides, online services, and helpful updates."
+        canonical="https://www.trendbuzzs.com/categories"
       />
 
       <Helmet>
@@ -58,20 +70,19 @@ export default function Categories() {
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-16">
         <header className="max-w-3xl space-y-3">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Latest Trending News, Viral Stories & Internet Buzz
+            Categories
           </h1>
           <p className="text-gray-600">
-            Stay updated with real-time trending stories from news, technology,
-            entertainment, sports, and the internet — curated and explained by
-            TrendBuzzs.
+            Explore helpful guides, tech tips, and useful information by
+            category.
           </p>
         </header>
 
         {loading && (
           <>
-            <SectionSkeleton title="Top Stories" />
-            <SectionSkeleton title="Technology" />
-            <SectionSkeleton title="Trending News" />
+            <SectionSkeleton title="Top" />
+            <SectionSkeleton title="Tech" />
+            <SectionSkeleton title="News" />
           </>
         )}
 

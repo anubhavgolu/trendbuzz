@@ -25,8 +25,8 @@ export default function CategoryPage() {
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
 
-  const seoTitle = `Latest ${title} News, Trends & Viral Stories | TrendBuzzs`;
-  const seoDesc = `Read the latest ${title.toLowerCase()} news, trending stories, and viral updates curated and explained by TrendBuzzs editors.`;
+  const seoTitle = `${title} | Guides & Updates - TrendBuzzs`;
+  const seoDesc = `Explore ${title.toLowerCase()} guides, tips, and helpful updates on TrendBuzzs.`;
 
   const pageUrl = `https://www.trendbuzzs.com/category/${category}`;
 
