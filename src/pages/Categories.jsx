@@ -5,6 +5,9 @@ import { API_BASE } from "../services/http";
 import SectionSkeleton from "../components/skeletons/SectionSkeleton";
 import { Helmet } from "react-helmet-async";
 
+import SmartphoneDebtReportCard from "../components/reports/SmartphoneDebtReportCard";
+import ReportCardSkeleton from "../components/skeletons/ReportCardSkeleton";
+
 export default function Categories() {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,6 +42,13 @@ export default function Categories() {
     load();
     return () => controller.abort();
   }, []);
+
+  // Top ko first me pin kar do (agar API order random ho)
+  const orderedSections = [...sections].sort((a, b) => {
+    if (a?.toLowerCase() === "top") return -1;
+    if (b?.toLowerCase() === "top") return 1;
+    return 0;
+  });
 
   return (
     <>
@@ -80,7 +90,19 @@ export default function Categories() {
 
         {loading && (
           <>
-            <SectionSkeleton title="Top" />
+            {/* Top skeleton + pinned report skeleton */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="h-6 w-24 bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 w-16 bg-gray-200 rounded animate-pulse" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <ReportCardSkeleton />
+                <ReportCardSkeleton />
+              </div>
+            </div>
+
             <SectionSkeleton title="Tech" />
             <SectionSkeleton title="News" />
           </>
@@ -88,7 +110,18 @@ export default function Categories() {
 
         {!loading &&
           sections.map((section) => (
-            <SectionRenderer key={section} section={section} />
+            <SectionRenderer
+              key={section}
+              section={section}
+              pinnedStartCard={
+                section?.toLowerCase() === "top" ? (
+                  <SmartphoneDebtReportCard />
+                ) : null
+              }
+              pinnedSkeleton={
+                section?.toLowerCase() === "top" ? <ReportCardSkeleton /> : null
+              }
+            />
           ))}
       </main>
     </>

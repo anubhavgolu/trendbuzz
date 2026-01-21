@@ -4,10 +4,14 @@ import { fetchSection } from "../services/contentApi";
 import ContentGrid from "./ContentGrid";
 import VideoSection from "./VideoSection";
 
-export default function SectionRenderer({ section }) {
+export default function SectionRenderer({
+  section,
+  pinnedStartCard = null, // NEW
+  pinnedSkeleton = null, // NEW
+}) {
   const [items, setItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(section === "top"); // top immediate
+  const [shouldLoad, setShouldLoad] = useState(section === "top");
 
   const ref = useRef(null);
 
@@ -18,7 +22,6 @@ export default function SectionRenderer({ section }) {
       .join(" ");
   }, [section]);
 
-  // Trigger load when section comes into view
   useEffect(() => {
     if (shouldLoad) return;
 
@@ -39,7 +42,6 @@ export default function SectionRenderer({ section }) {
     return () => obs.disconnect();
   }, [shouldLoad]);
 
-  // Fetch only when shouldLoad true
   useEffect(() => {
     if (!shouldLoad) return;
 
@@ -68,10 +70,14 @@ export default function SectionRenderer({ section }) {
       {!loaded && (
         <div className="animate-pulse space-y-4">
           <div className="h-6 bg-gray-200 rounded w-1/3" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="h-48 bg-gray-200 rounded" />
-            <div className="h-48 bg-gray-200 rounded" />
-            <div className="h-48 bg-gray-200 rounded" />
+
+          <div className="grid md:grid-cols-3 gap-6 mt-6">
+            {/* pinned skeleton first */}
+            {pinnedSkeleton}
+
+            <div className="h-72 bg-gray-200 rounded-2xl" />
+            <div className="h-72 bg-gray-200 rounded-2xl" />
+            <div className="h-72 bg-gray-200 rounded-2xl" />
           </div>
         </div>
       )}
@@ -85,7 +91,11 @@ export default function SectionRenderer({ section }) {
           {section === "video" ? (
             <VideoSection items={items} />
           ) : (
-            <ContentGrid title={prettyTitle} items={items} />
+            <ContentGrid
+              title={prettyTitle}
+              items={items}
+              pinnedStartCard={pinnedStartCard} // NEW
+            />
           )}
         </motion.div>
       )}

@@ -8,7 +8,6 @@ import PublisherSEO from "./seo/PublisherSEO";
 import RequireAdmin from "./pages/admin/RequireAdmin";
 import AdSenseLoader from "./components/AdSenseLoader";
 
-
 const Categories = lazy(() => import("./pages/Categories"));
 const ContentDetail = lazy(() => import("./pages/ContentDetail"));
 const About = lazy(() => import("./pages/About"));
@@ -20,29 +19,24 @@ const Contact = lazy(() => import("./pages/Contact"));
 const EditorialPolicy = lazy(() => import("./pages/EditorialPolicy"));
 const Article = lazy(() => import("./pages/Article"));
 const ArticleList = lazy(() => import("./pages/ArticleList"));
-const AdminContentEditor = lazy(() =>
-  import("./pages/admin/AdminContentEditor")
-);
+const AdminContentEditor = lazy(() => import("./pages/admin/AdminContentEditor"));
+const SmartphoneDebtReportPage = lazy(() => import("./pages/SmartphoneDebtReportPage"));
 
-const Schedule = lazy(() =>
-  import("./pages/sports/t20-world-cup-2026/Schedule")
-);
-const PointsTable = lazy(() =>
-  import("./pages/sports/t20-world-cup-2026/PointsTable")
-);
+const Schedule = lazy(() => import("./pages/sports/t20-world-cup-2026/Schedule"));
+const PointsTable = lazy(() => import("./pages/sports/t20-world-cup-2026/PointsTable"));
 const Groups = lazy(() => import("./pages/sports/t20-world-cup-2026/Groups"));
 const Teams = lazy(() => import("./pages/sports/t20-world-cup-2026/Teams"));
 const Footer = lazy(() => import("./components/Footer"));
 const MobileBottomNav = lazy(() => import("./components/MobileBottomNav"));
 
-const InstagramAnalyzer = lazy(() =>
-  import("./pages/IntagramAnalyzer/InstagramAnalyzer")
+const InstagramAnalyzer = lazy(
+  () => import("./pages/IntagramAnalyzer/InstagramAnalyzer"),
 );
 
 function PublicLayout() {
   return (
     <>
-    <AdSenseLoader client="ca-pub-XXXX" delay={2000} />
+      <AdSenseLoader client="ca-pub-XXXX" delay={2000} />
       <Header />
 
       <main className="min-h-screen pb-[72px]">
@@ -57,6 +51,10 @@ function PublicLayout() {
               element={
                 <Navigate to="/instagram-analyzer?tab=compare" replace />
               }
+            />
+            <Route
+              path="/reports/smartphone-debt"
+              element={<SmartphoneDebtReportPage />}
             />
             <Route path="/trend/:slug" element={<ContentDetail />} />
             <Route path="/article" element={<ArticleList />} />

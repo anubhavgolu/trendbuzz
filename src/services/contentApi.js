@@ -2,15 +2,15 @@ import { API_BASE } from "./http";
 
 const sectionCache = {};
 const slugCache = {};
-const sectionPending = {}; // ✅ new
-const slugPending = {};    // ✅ new
+const sectionPending = {}; 
+const slugPending = {};    
 
 export async function fetchSection(section, { force = false } = {}) {
   if (!section) return [];
 
   if (!force && sectionCache[section]) return sectionCache[section];
 
-  // ✅ if already fetching, return same promise
+ 
   if (!force && sectionPending[section]) return sectionPending[section];
 
   const controller = new AbortController();
@@ -37,10 +37,7 @@ export async function fetchSection(section, { force = false } = {}) {
 
 export async function fetchBySlug(slug, { force = false } = {}) {
   if (!slug) return null;
-
   if (!force && slugCache[slug]) return slugCache[slug];
-
-  // ✅ if already fetching, return same promise
   if (!force && slugPending[slug]) return slugPending[slug];
 
   slugPending[slug] = fetch(`${API_BASE}/api/content/${slug}`)
