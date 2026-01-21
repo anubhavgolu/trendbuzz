@@ -8,6 +8,7 @@ export default function ContentCard({
   slug,
   sourceName,
   publishedAt,
+  isFirst = false,
 }) {
   if (!slug) return null;
 
@@ -26,10 +27,11 @@ export default function ContentCard({
       <div className="aspect-[16/9] bg-gray-100 overflow-hidden rounded-t-xl">
         <img
           src={imageUrl}
-          alt={title || "Article"}
+          alt={title || "Trending story"}
           width="640"
           height="360"
-          loading="lazy"
+          loading={isFirst ? "eager" : "lazy"}
+          fetchpriority={isFirst ? "high" : "auto"}
           decoding="async"
           onError={(e) => {
             e.currentTarget.src = "/fallback.jpg";
@@ -54,7 +56,9 @@ export default function ContentCard({
         <div className="mt-auto pt-4 flex items-center justify-between">
           <span className="text-xs text-gray-400">
             {sourceName ? `By ${sourceName}` : ""}
-            {publishedAt ? ` • ${new Date(publishedAt).toLocaleDateString()}` : ""}
+            {publishedAt
+              ? ` • ${new Date(publishedAt).toLocaleDateString()}`
+              : ""}
           </span>
 
           <span className="text-sm font-semibold text-orange-600 group-hover:underline">

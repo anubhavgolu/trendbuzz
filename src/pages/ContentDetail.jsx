@@ -243,12 +243,14 @@ export default function ContentDetail() {
         <div className="mt-6 grid md:grid-cols-2 gap-6 items-start">
           {imageUrl ? (
             <div className="rounded-2xl overflow-hidden bg-gray-100 border">
-              <div className="aspect-[16/9]">
+              <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gray-100 border">
                 <img
                   src={imageUrl}
                   alt={title}
-                  className="w-full max-h-[360px] object-cover"
                   loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
