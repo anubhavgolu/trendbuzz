@@ -6,6 +6,7 @@ export default function PrivacyPolicy() {
       <SEO
         title="Privacy Policy | TrendBuzzs"
         description="Privacy policy explaining how TrendBuzzs collects, uses, and protects user information."
+        canonical="https://www.trendbuzzs.com/privacy-policy"
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
@@ -50,6 +51,7 @@ export default function PrivacyPolicy() {
           Users may opt out of the use of the DoubleClick cookie for
           interest-based advertising by visiting Google Ad Settings.
         </p>
+
         <p className="mt-4 text-gray-700">
           TrendBuzzs complies with Google AdSense program policies and uses
           advertising cookies only where permitted.

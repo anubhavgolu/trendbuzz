@@ -6,6 +6,7 @@ export default function Contact() {
       <SEO
         title="Contact TrendBuzzs | Get in Touch"
         description="Contact TrendBuzzs for feedback, business inquiries, or copyright-related concerns."
+        canonical="https://www.trendbuzzs.com/contact"
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
@@ -31,6 +32,7 @@ export default function Contact() {
             contact@trendbuzzs.com
           </a>
         </p>
+
         <p className="mt-4 text-gray-700">
           For urgent matters, please mention the subject clearly in your email.
         </p>

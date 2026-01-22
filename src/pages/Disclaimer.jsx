@@ -6,12 +6,11 @@ export default function Disclaimer() {
       <SEO
         title="Disclaimer | TrendBuzzs"
         description="Disclaimer regarding content accuracy, external links, and informational use of content on TrendBuzzs."
+        canonical="https://www.trendbuzzs.com/disclaimer"
       />
 
       <div className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-3xl font-extrabold text-gray-900">
-          Disclaimer
-        </h1>
+        <h1 className="text-3xl font-extrabold text-gray-900">Disclaimer</h1>
 
         <p className="mt-4 text-gray-700 leading-relaxed">
           All information published on TrendBuzzs is provided in good faith and
@@ -22,8 +21,8 @@ export default function Disclaimer() {
 
         <p className="mt-4 text-gray-700 leading-relaxed">
           The content published on TrendBuzzs should not be considered as
-          professional, legal, financial, or medical advice. Any action you
-          take upon the information on this website is strictly at your own
+          professional, legal, financial, or medical advice. Any action you take
+          upon the information on this website is strictly at your own
           discretion and risk.
         </p>
 

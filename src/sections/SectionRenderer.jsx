@@ -72,7 +72,6 @@ export default function SectionRenderer({
           <div className="h-6 bg-gray-200 rounded w-1/3" />
 
           <div className="grid md:grid-cols-3 gap-6 mt-6">
-            {/* pinned skeleton first */}
             {pinnedSkeleton}
 
             <div className="h-72 bg-gray-200 rounded-2xl" />
@@ -94,7 +93,7 @@ export default function SectionRenderer({
             <ContentGrid
               title={prettyTitle}
               items={items}
-              pinnedStartCard={pinnedStartCard} // NEW
+              pinnedStartCard={pinnedStartCard} 
             />
           )}
         </motion.div>

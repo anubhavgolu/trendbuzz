@@ -6,6 +6,7 @@ export default function EditorialPolicy() {
       <SEO
         title="Editorial Policy | TrendBuzzs"
         description="Editorial policy outlining how TrendBuzzs publishes and explains trending topics."
+        canonical="https://www.trendbuzzs.com/editorial-policy"
       />
 
       <main className="max-w-4xl mx-auto px-4 py-10 space-y-6">
@@ -20,9 +21,7 @@ export default function EditorialPolicy() {
           is publicly available at the time of publication.
         </p>
 
-        <h2 className="text-xl font-bold text-gray-900">
-          Content Approach
-        </h2>
+        <h2 className="text-xl font-bold text-gray-900">Content Approach</h2>
         <p className="text-gray-700 leading-relaxed">
           Articles published on TrendBuzzs are based on publicly available
           information from reliable sources, official announcements, and widely
@@ -30,9 +29,7 @@ export default function EditorialPolicy() {
           topics in a clear and neutral manner.
         </p>
 
-        <h2 className="text-xl font-bold text-gray-900">
-          Accuracy & Updates
-        </h2>
+        <h2 className="text-xl font-bold text-gray-900">Accuracy & Updates</h2>
         <p className="text-gray-700 leading-relaxed">
           While we strive to present accurate information, TrendBuzzs does not
           claim to provide exhaustive or original reporting. Information may
@@ -40,9 +37,7 @@ export default function EditorialPolicy() {
           details become available.
         </p>
 
-        <h2 className="text-xl font-bold text-gray-900">
-          Corrections
-        </h2>
+        <h2 className="text-xl font-bold text-gray-900">Corrections</h2>
         <p className="text-gray-700 leading-relaxed">
           If an error is identified, we make reasonable efforts to correct or
           clarify the content. Updates may be reflected within the article
@@ -58,9 +53,7 @@ export default function EditorialPolicy() {
           presented.
         </p>
 
-        <p className="text-sm text-gray-500">
-          Last updated: January 2026
-        </p>
+        <p className="text-sm text-gray-500">Last updated: January 2026</p>
       </main>
     </>
   );

@@ -9,7 +9,10 @@ export default function SEO({
   image,
 }) {
   const siteUrl = "https://www.trendbuzzs.com";
-  const finalUrl = canonical || siteUrl;
+  let finalUrl = canonical || siteUrl;
+if (!canonical && typeof window !== "undefined") {
+  finalUrl = siteUrl + window.location.pathname;
+}
 
   const isArticle =
     finalUrl.includes("/article/") || finalUrl.includes("/trend/");
