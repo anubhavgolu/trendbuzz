@@ -9,6 +9,7 @@ import { API_BASE } from "../services/http";
 import DOMPurify from "dompurify";
 import { fetchSection } from "../services/contentApi";
 import ContentCard from "../components/ContentCard";
+import FaqSchemaFromHtml from "../components/FaqSchemaFromHtml";
 
 export default function ContentDetail() {
   const { slug } = useParams();
@@ -134,8 +135,8 @@ export default function ContentDetail() {
   const imageUrl = image?.startsWith("http")
     ? image
     : image
-    ? `${API_BASE}${image}`
-    : null;
+      ? `${API_BASE}${image}`
+      : null;
 
   const categorySlug = section
     ? section.toLowerCase().replace(/\s+/g, "-")
@@ -210,6 +211,7 @@ export default function ContentDetail() {
         publishedAt={publishedAt}
         category={section}
       />
+      <FaqSchemaFromHtml html={cleanedContent} />
 
       <header className="max-w-5xl mx-auto px-4 pt-8">
         <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 mb-3">
