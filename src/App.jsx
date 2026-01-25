@@ -20,6 +20,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const EditorialPolicy = lazy(() => import("./pages/EditorialPolicy"));
 const Article = lazy(() => import("./pages/Article"));
 const ArticleList = lazy(() => import("./pages/ArticleList"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const Schedule = lazy(
   () => import("./pages/sports/t20-world-cup-2026/Schedule"),
@@ -66,6 +67,7 @@ function PublicLayout() {
 
             <Route path="/trending" element={<Trending />} />
             <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="*" element={<NotFound />} />
 
             <Route path="/about" element={<About />} />
             <Route path="/editorial-policy" element={<EditorialPolicy />} />

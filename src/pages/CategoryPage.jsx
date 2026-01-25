@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SEO from "../components/SEO";
 import ContentGrid from "../sections/ContentGrid";
@@ -10,7 +10,15 @@ export default function CategoryPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const validCategories = ["top", "news", "tech", "entertainment", "social"];
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (category && !validCategories.includes(category)) {
+      navigate(`/trend/${category}`, { replace: true });
+      return;
+    }
+
     setLoading(true);
     fetchSection(category)
       .then((data) => {
@@ -18,9 +26,9 @@ export default function CategoryPage() {
         else setItems([]);
       })
       .finally(() => setLoading(false));
-  }, [category]);
+  }, [category, navigate]);
 
-  const title = category
+  const title = (category || "")
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
