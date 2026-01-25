@@ -1,15 +1,15 @@
 User-agent: *
 Allow: /
+Allow: /article/
+Allow: /trend/
 
-Disallow: /admin
 Disallow: /admin/
-
-Disallow: /search
 Disallow: /search/
-Disallow: /saved
 Disallow: /saved/
+Disallow: /api/
 
 Disallow: /*?
+Disallow: /*.json$
 
 Sitemap: https://www.trendbuzzs.com/sitemap.xml
 Sitemap: https://www.trendbuzzs.com/sitemap-news.xml
