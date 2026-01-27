@@ -18,15 +18,15 @@ const PointsTable = () => {
   return (
     <>
       <WorldCupSEO
-        title="T20 World Cup 2026 Points Table | ICC Men’s T20 WC Standings"
-        description="Latest T20 World Cup 2026 points table with group-wise standings, matches played, wins, losses, net run rate and qualification details."
+        title="ICC T20 World Cup 2026 Points Table (Live Updated Today)"
+        description="Latest ICC T20 World Cup 2026 points table with group-wise standings, matches played, wins, losses, net run rate (NRR) and qualification rules."
         url="https://www.trendbuzzs.com/sports/t20-world-cup-2026/points-table"
-        pageType="WebPage"
+        pageType="Points Table"
       />
 
       <div className="wc-heading">
         <h1>
-          ICC Men’s T20 World Cup 2026 Points Table
+          ICC T20 World Cup 2026 Points Table
           <button
             className="wc-info-btn"
             onClick={() => setShowInfo(!showInfo)}
@@ -36,20 +36,25 @@ const PointsTable = () => {
             i
           </button>
         </h1>
-        <p>Group-wise standings with matches, points and net run rate</p>
+
+        <p className="wc-updated">
+          Live updated group-wise standings with points and net run rate
+        </p>
+
         <section className={`wc-seo-content ${showInfo ? "open" : ""}`}>
           <h2>T20 World Cup 2026 Points Table Explained</h2>
           <p>
-            The ICC Men’s T20 World Cup 2026 points table shows team rankings
-            based on matches played, wins, losses, net run rate (NRR) and total
-            points.
+            The ICC T20 World Cup 2026 points table displays group-wise team
+            standings based on matches played, wins, losses, total points and
+            net run rate (NRR). Teams are ranked according to their performance
+            in the group stage.
           </p>
 
-          <h2>How Qualification Works</h2>
+          <h2>How Qualification Works in T20 World Cup 2026</h2>
           <p>
-            In case teams finish with equal points, net run rate (NRR) is used
-            to decide rankings. The top teams from each group advance to the
-            semi-finals.
+            Teams with the highest points in each group qualify for the knockout
+            stage. If teams are tied on points, net run rate (NRR) is used as
+            the tie-breaker.
           </p>
         </section>
       </div>
@@ -63,6 +68,10 @@ const PointsTable = () => {
 
             <div className="wc-table-wrap">
               <table className="wc-points-table">
+                <caption>
+                  ICC T20 World Cup 2026 {group.group} Points Table
+                </caption>
+
                 <thead>
                   <tr>
                     <th>Team</th>
@@ -81,7 +90,7 @@ const PointsTable = () => {
                       <td className="team-name">
                         <img
                           src={getFlagUrl(team.short)}
-                          alt={team.team}
+                          alt={`${team.team} flag`}
                           className="team-flag"
                           loading="lazy"
                         />
@@ -101,6 +110,7 @@ const PointsTable = () => {
           </div>
         ))}
       </div>
+
       <WorldCupFAQSchema />
     </>
   );

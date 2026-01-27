@@ -1,5 +1,6 @@
 import WorldCupTabs from "../../../components/worldcup/WorldCupTabs";
 import WorldCupSEO from "../../../seo/WorldCupSEO";
+import WorldCupFAQSchema from "../../../seo/WorldCupFAQSchema";
 
 import { WORLD_CUP_TEAMS } from "../../../data/worldcupTeams";
 import { groupTeamsAlphabetically } from "../../../utils/groupTeamsAlphabetically";
@@ -13,16 +14,17 @@ const Teams = () => {
   return (
     <>
       <WorldCupSEO
-        title="ICC Men’s T20 World Cup 2026 Teams | TrendBuzzs"
-        description="Complete list of teams participating in ICC Men’s T20 World Cup 2026."
-        url="https://trendbuzzs.com/sports/t20-world-cup-2026/teams"
+        title="ICC T20 World Cup 2026 Teams (Complete Teams List)"
+        description="Complete list of all teams participating in the ICC T20 World Cup 2026. View qualified teams with country flags listed alphabetically."
+        url="https://www.trendbuzzs.com/sports/t20-world-cup-2026/teams"
         pageType="Teams"
-
       />
 
       <div className="wc-heading">
-        <h1>ICC Men’s T20 World Cup 2026 Teams</h1>
-        <p>All participating teams listed alphabetically</p>
+        <h1>ICC T20 World Cup 2026 Teams</h1>
+        <p className="wc-updated">
+          Official list of all participating teams (alphabetical order)
+        </p>
       </div>
 
       <WorldCupTabs />
@@ -37,7 +39,8 @@ const Teams = () => {
                 <div key={team.short} className="wc-team-card">
                   <img
                     src={getFlagUrl(team.short)}
-                    alt={team.name}
+                    alt={`${team.name} team flag`}
+                    loading="lazy"
                   />
                   <span>{team.name}</span>
                 </div>
@@ -46,6 +49,8 @@ const Teams = () => {
           </div>
         ))}
       </div>
+
+      <WorldCupFAQSchema page="teams" />
     </>
   );
 };

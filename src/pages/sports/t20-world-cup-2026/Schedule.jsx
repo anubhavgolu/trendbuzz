@@ -22,11 +22,8 @@ const Schedule = () => {
     setHasFetched(false);
 
     fetchSchedule().then((res) => {
-      if (res.success) {
-        setMatches(res.data);
-      } else {
-        setMatches([]);
-      }
+      if (res.success) setMatches(res.data);
+      else setMatches([]);
 
       setLoading(false);
       setHasFetched(true);
@@ -66,23 +63,23 @@ const Schedule = () => {
       />
 
       <WorldCupSEO
-        title="T20 World Cup 2026 Schedule, Fixtures, Dates & Venues | ICC Men’s T20 WC"
-        description="Check the complete T20 World Cup 2026 schedule with match fixtures, dates, venues, teams, group stage matches, semi-finals and final details. Updated daily."
+        title="ICC T20 World Cup 2026 Schedule (Fixtures, Dates & Venues)"
+        description="Complete ICC T20 World Cup 2026 schedule with date-wise fixtures, match timings, venues, group stage matches, semi-finals and final. Updated daily."
         url="https://www.trendbuzzs.com/sports/t20-world-cup-2026/schedule"
         pageType="Schedule"
       />
 
       <div className="wc-heading">
-        <h1>ICC Men’s T20 World Cup 2026 Schedule</h1>
+        <h1>ICC T20 World Cup 2026 Schedule</h1>
         <p>
-          Full match schedule with date-wise fixtures, venues and match timings
+          Date-wise match fixtures with venues, timings and team details
         </p>
 
         <WorldCupTabs />
 
         <input
           type="text"
-          placeholder="Search team (e.g. India, Pakistan, England)"
+          placeholder="Search team (India, Pakistan, Australia, England)"
           className="wc-search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -91,31 +88,30 @@ const Schedule = () => {
         <button
           onClick={() => setShowSeo(!showSeo)}
           className="wc-about-toggle"
+          aria-label="About schedule"
         >
           i
         </button>
 
         <section className={`wc-seo-content ${showSeo ? "open" : ""}`}>
-          <h2>T20 World Cup 2026 Match Schedule & Fixtures</h2>
+          <h2>T20 World Cup 2026 Schedule & Fixtures</h2>
           <p>
-            The ICC Men’s T20 World Cup 2026 schedule includes group stage
-            matches, Super 12 fixtures, semi-finals and the final. Teams like
-            India, Pakistan, Australia, England and New Zealand will compete
-            across venues in India and Sri Lanka.
+            The ICC T20 World Cup 2026 schedule includes group stage matches,
+            knockout fixtures, semi-finals and the final. Matches will be played
+            across multiple venues in India and Sri Lanka.
           </p>
 
           <h2>T20 World Cup 2026 Group Stage Schedule</h2>
           <p>
-            The group stage of the T20 World Cup 2026 features multiple matches
-            played daily across different cities. Each team plays several group
-            matches before advancing to the knockout rounds.
+            During the group stage, all participating teams compete in
+            round-robin matches. Each team plays multiple matches to qualify for
+            the knockout stage based on points and net run rate.
           </p>
 
-          <h2>T20 World Cup 2026 Semi-Final and Final Dates</h2>
+          <h2>Semi-Final and Final Schedule – T20 World Cup 2026</h2>
           <p>
-            The semi-finals and final of the ICC Men’s T20 World Cup 2026 are
-            expected to be played in major stadiums, with millions of fans
-            watching worldwide.
+            The semi-finals and final of the ICC T20 World Cup 2026 will be held
+            in major international stadiums with global broadcast coverage.
           </p>
         </section>
       </div>
@@ -144,10 +140,11 @@ const Schedule = () => {
           href="/sports/t20-world-cup-2026/points-table"
           style={{ color: "#9a3412", fontWeight: 600 }}
         >
-          View ICC Men’s T20 World Cup 2026 Points Table →
+          View ICC T20 World Cup 2026 Points Table →
         </a>
       </div>
-      <WorldCupFAQSchema />
+
+      <WorldCupFAQSchema page="schedule" />
     </>
   );
 };

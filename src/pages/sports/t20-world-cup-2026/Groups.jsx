@@ -11,15 +11,15 @@ const Groups = () => {
   return (
     <>
       <WorldCupSEO
-        title="T20 World Cup 2026 Groups | ICC Men’s T20 WC Group-wise Teams"
-        description="Complete group-wise list of teams participating in the ICC Men’s T20 World Cup 2026. View Group A, Group B, Group C and Group D details."
+        title="ICC T20 World Cup 2026 Groups (Group-wise Teams List)"
+        description="ICC T20 World Cup 2026 groups with complete group-wise teams list. Check Group A, Group B, Group C and Group D teams and qualification format."
         url="https://www.trendbuzzs.com/sports/t20-world-cup-2026/groups"
         pageType="Groups"
       />
 
       <div className="wc-heading">
         <h1>
-          ICC Men’s T20 World Cup 2026 Groups
+          ICC T20 World Cup 2026 Groups
           <button
             className="wc-info-btn"
             onClick={() => setShowInfo(!showInfo)}
@@ -29,20 +29,24 @@ const Groups = () => {
             i
           </button>
         </h1>
-        <p>Group-wise teams participating in the tournament</p>
+
+        <p className="wc-updated">
+          Official group-wise teams participating in the tournament
+        </p>
+
         <section className={`wc-seo-content ${showInfo ? "open" : ""}`}>
           <h2>T20 World Cup 2026 Groups Explained</h2>
           <p>
-            The ICC Men’s T20 World Cup 2026 features multiple groups with top
-            international teams competing for qualification into the knockout
-            stages. Each team plays group-stage matches to earn points.
+            The ICC T20 World Cup 2026 is divided into multiple groups featuring
+            top international teams. Each team competes in the group stage to
+            earn points and qualify for the knockout rounds.
           </p>
 
-          <h2>How Teams Qualify from Groups</h2>
+          <h2>How Teams Qualify from Groups in T20 World Cup 2026</h2>
           <p>
-            The top teams from each group advance to the semi-finals based on
-            points earned. In case of equal points, net run rate (NRR) is used
-            to decide the final standings.
+            Teams are ranked within their groups based on points and net run
+            rate (NRR). The top-performing teams from each group qualify for the
+            knockout stage of the tournament.
           </p>
         </section>
       </div>
@@ -57,7 +61,7 @@ const Groups = () => {
         ))}
       </div>
 
-      <WorldCupFAQSchema />
+      <WorldCupFAQSchema page="groups" />
     </>
   );
 };
